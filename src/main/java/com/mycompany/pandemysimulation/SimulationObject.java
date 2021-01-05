@@ -19,6 +19,7 @@ public abstract class SimulationObject {
         this.xPos = xPos;
         this.yPos = yPos;
         this.visibleComponent = visibleComponent;
+        this.visibleComponent.setSimulationObject(this);
     }
 
     public int getId() {

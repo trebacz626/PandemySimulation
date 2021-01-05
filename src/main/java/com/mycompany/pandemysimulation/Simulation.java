@@ -6,6 +6,7 @@
 package com.mycompany.pandemysimulation;
 
 import java.util.LinkedList;
+import java.util.Random;
 
 /**
  *
@@ -17,36 +18,40 @@ public class Simulation {
     private LinkedList<SimulationObject> simulationObjects;
     public final WorldData worldData;
     public final WorldGraph worldGraph;
-    public final PrimaryController uiController;
+    public final UIManager uiManager;
 
-    public Simulation() {
+    public Simulation(UIManager uiManager) {
         this.worldData = new WorldData();
         this.worldGraph = new WorldGraph();
-        this.uiController = new PrimaryController();
+        this.uiManager = uiManager;
         this.threadsAgents = new LinkedList<ThreadAgent>();
         this.mainLoopAgents = new LinkedList<MainLoopAgent>();
         this.simulationObjects = new LinkedList<SimulationObject>();
     }
     
-    
-    
+      
     
     public void start(){
-        //...
-        while(true){
-            update();
+        System.out.println("Simulation Started");
+        for(int i =0; i<10; i++){
+            addThreadAgent(ClientFactory.createRandomClient(uiManager));
+        }
+        
+        for(ThreadAgent agent : this.threadsAgents){
+            Thread agentThread = new Thread(agent);
+            agentThread.setDaemon(true);
+            agentThread.start();
         }
         
     }
     
-    private void update(){
+    public void update(){
+//        System.out.println("Update-main: " + new Random().nextInt(100));
         for(MainLoopAgent agent : this.mainLoopAgents){
             agent.update();
         }
         
-        for(SimulationObject so : this.simulationObjects){
-            this.drawSimulationObject(so);
-        }
+        uiManager.getMapPanelController().draw();
     }
     
     private void drawSimulationObject(SimulationObject so){
@@ -63,6 +68,17 @@ public class Simulation {
     
     public void endLockdown(){
     
+    }
+    
+    private void addThreadAgent(ThreadAgent threadAgent){
+        threadsAgents.add(threadAgent);
+        simulationObjects.add(threadAgent);
+        uiManager.getMapPanelController().addVisibleComponent(threadAgent.visibleComponent);
+    }
+    
+    private void addMainLoopAgent(MainLoopAgent mainLoopAgent){
+        mainLoopAgents.add(mainLoopAgent);
+        simulationObjects.add(mainLoopAgent);
     }
     
     
