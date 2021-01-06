@@ -36,10 +36,25 @@ public class ClientViewController extends PersonViewController implements Initia
     }   
     
     public void setSimulationObject(Client so){
-    
+        curClient = so;
+        update();
     }
     
     public void update(){
+        if(curClient != null){
+            posX.setText(String.valueOf((int)curClient.getxPos()));
+            posY.setText(String.valueOf((int)curClient.getyPos()));
+            profilrImage.setImage(curClient.visibleComponent.getImage());
+            isSick.setText(String.valueOf(curClient.isSick()));
+            isVaccinated.setText(String.valueOf(curClient.isVaccinated()));
+            pesel.setText(curClient.getPesel());
+            name.setText(curClient.getFirstName());
+            surname.setText(curClient.getLastName());
+            removeButton.setOnMouseClicked(event -> {
+                App.simulation.removeThreadAgent(curClient);
+                curClient = null;
+            });
+        }
     }
     
 }

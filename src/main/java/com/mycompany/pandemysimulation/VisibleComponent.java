@@ -55,7 +55,7 @@ public class VisibleComponent implements EventHandler<MouseEvent>{
     public void handle(MouseEvent event) {
         System.out.println("mouse click detected! "+event.getSource());
         System.out.println(this.simulationObject.toString());
-        uiManager.getInformationPanelController().displayInfo(simulationObject);
+        uiManager.getInformationPanel().showInformation(simulationObject);
     }
     
 }

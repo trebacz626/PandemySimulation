@@ -20,6 +20,7 @@ public class InformationPanelController implements Initializable {
     
     @FXML
     private Text textField;
+    private SimulationObject so;
     
     /**
      * Initializes the controller class.
@@ -30,7 +31,14 @@ public class InformationPanelController implements Initializable {
     }
     
     public void displayInfo(SimulationObject displayedObject){
+        this.so=displayedObject;
         textField.setText(displayedObject.toString());
+    }
+    
+    public void update(){
+        if(so != null){
+            displayInfo(so);
+        }
     }
     
 }

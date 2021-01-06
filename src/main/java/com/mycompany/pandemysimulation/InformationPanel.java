@@ -16,7 +16,7 @@ import javafx.stage.Stage;
  * @author kacper
  */
 public class InformationPanel {
-    private SimulationObject currentSO;
+    private SimulationObject currentSo;
     private ClientViewController clientController;
     private InformationPanelController informationController;
     
@@ -34,11 +34,27 @@ public class InformationPanel {
     }
     
     
-    public void showInformation(SimulationObject so) throws IOException{
-        if (so instanceof Client){
+    public void showInformation(SimulationObject so){
+        try{
+        currentSo = so;
+        if (currentSo instanceof Client){
             showClientInformation((Client)so);
         }else{
             showOtherInformation(so);
+        }
+        }catch(Exception e ){
+            Platform.exit();
+        }
+    }
+    
+    public void update(){
+        if(currentSo == null){
+            return;
+        }
+        if (currentSo instanceof Client){
+            clientController.update();
+        }else{
+            informationController.update();
         }
     }
     
@@ -46,6 +62,7 @@ public class InformationPanel {
         FXMLLoader loader = UIManager.getFXMLLoader("clientView");
         Scene scene = new Scene(loader.load());
         clientController = (ClientViewController) loader.getController();
+        clientController.setSimulationObject(client);
         stage.setScene(scene);
         stage.setOnCloseRequest(event ->Platform.exit());
         stage.show();

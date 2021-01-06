@@ -53,7 +53,7 @@ public class Simulation {
             agent.update();
         }
         
-        uiManager.getMapPanelController().draw();
+        uiManager.update();
     }
     
     private void drawSimulationObject(SimulationObject so){
@@ -115,6 +115,14 @@ public class Simulation {
         mainLoopAgents.add(mainLoopAgent);
         simulationObjects.add(mainLoopAgent);
         uiManager.getMapPanelController().addVisibleComponent(mainLoopAgent.visibleComponent);
+    }
+    
+    
+    public synchronized void removeThreadAgent(ThreadAgent threadAgent){
+        threadsAgents.remove(threadAgent);
+        simulationObjects.remove(threadAgent);
+        uiManager.getMapPanelController().removeVisibleComponent(threadAgent.getVisibleComponent());
+        threadAgent.kill();
     }
     
     

@@ -26,9 +26,7 @@ public class UIManager {
     private Scene controlPanelScene;
     private Stage controlPanelStage;
     
-    private InformationPanelController informationPanelController;
-    private Scene informationPanelScene;
-    private Stage informationPanelStage;
+    private InformationPanel informationPanel;
     
     public UIManager(Stage primaryStage) throws IOException{
         FXMLLoader loader = getFXMLLoader("mapPanel");
@@ -51,14 +49,15 @@ public class UIManager {
 //        informationPanelStage.setOnCloseRequest(event ->Platform.exit());
 //        controlPanelStage.show();
 //        
-        FXMLLoader informationLoader = getFXMLLoader("informationPanel");
-        informationPanelScene = new Scene(informationLoader.load());
-        informationPanelController = (InformationPanelController) informationLoader.getController();
-        informationPanelStage = new Stage();
-        informationPanelStage.setScene(informationPanelScene);
-        informationPanelStage.setResizable(false);
-        informationPanelStage.setOnCloseRequest(event ->Platform.exit());
-        informationPanelStage.show();
+//        FXMLLoader informationLoader = getFXMLLoader("informationPanel");
+//        informationPanelScene = new Scene(informationLoader.load());
+//        informationPanelController = (InformationPanelController) informationLoader.getController();
+//        informationPanelStage = new Stage();
+//        informationPanelStage.setScene(informationPanelScene);
+//        informationPanelStage.setResizable(false);
+//        informationPanelStage.setOnCloseRequest(event ->Platform.exit());
+//        informationPanelStage.show();
+          informationPanel = new InformationPanel();
 
     }
     
@@ -74,8 +73,13 @@ public class UIManager {
         return controlPanelController;
     }
 
-    public InformationPanelController getInformationPanelController() {
-        return informationPanelController;
+    public InformationPanel getInformationPanel() {
+        return informationPanel;
+    }
+    
+    public void update(){
+        this.mapPanelController.draw();
+        this.informationPanel.update();
     }
     
     
