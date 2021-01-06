@@ -21,7 +21,7 @@ public final class ClientFactory {
     }
     
     public static Client createRandomClient(UIManager uiManager){
-        VisibleComponent vc = new VisibleComponent(Utils.getRandomFromArray(imageNames), uiManager);
+        VisibleComponent vc = new VisibleComponent(Utils.getRandomFromArray(imageNames), uiManager, 30, 30);
         String name = Utils.getRandomFromArray(names);
         String surname = Utils.getRandomFromArray(names);
         

@@ -5,6 +5,7 @@
  */
 package com.mycompany.pandemysimulation;
 
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -18,5 +19,9 @@ public final class Utils {
     
     public static <T> T getRandomFromArray(T[] array){
         return array[random.nextInt(array.length)];
+    }
+    
+    public static <T> T getRandomFromList(List<T> list){
+        return list.get(random.nextInt(list.size()));
     }
 }

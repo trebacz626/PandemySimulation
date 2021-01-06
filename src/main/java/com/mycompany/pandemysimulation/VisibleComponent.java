@@ -20,11 +20,11 @@ public class VisibleComponent implements EventHandler<MouseEvent>{
     private ImageView imageView;
     private UIManager uiManager;
     
-    public VisibleComponent(String imageName, UIManager uiManager){
-        image = new Image(getClass().getResource("image/"+imageName).toString(), 100, 100, false, false);
+    public VisibleComponent(String imageName, UIManager uiManager, int sizeX, int sizeY){
+        image = new Image(getClass().getResource("image/"+imageName).toString(), sizeX, sizeY, false, false);
         imageView = new ImageView(image);
-        imageView.setFitHeight(50);
-        imageView.setFitWidth(50);
+        imageView.setFitHeight(sizeX);
+        imageView.setFitWidth(sizeY);
         this.uiManager = uiManager;
     }
     

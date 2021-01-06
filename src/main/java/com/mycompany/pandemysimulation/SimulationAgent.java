@@ -5,12 +5,14 @@
  */
 package com.mycompany.pandemysimulation;
 
+import java.util.Random;
+
 /**
  *
  * @author kacper
  */
 public abstract class SimulationAgent extends SimulationObject{
-
+    
     public SimulationAgent(double xPos, double yPos, VisibleComponent visibleComponent) {
         super(xPos, yPos, visibleComponent);
     }

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="250.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+       <fx:include source="simulationObjectView.fxml" />
+      <Text layoutX="18.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sick:" wrappingWidth="154.7294921875">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text fx:id="isSick" layoutX="201.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="False" wrappingWidth="88.7294921875">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text fx:id="isVaccinated" layoutX="199.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="False" wrappingWidth="88.7294921875">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text layoutX="18.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vaccinated:" wrappingWidth="154.7294921875">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Button fx:id="removeButton" layoutX="10.0" layoutY="206.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="280.0" text="Remove" />
+   </children>
+</AnchorPane>

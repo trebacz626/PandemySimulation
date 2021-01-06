@@ -21,6 +21,7 @@ public abstract class ThreadAgent extends SimulationAgent implements Runnable{
         this.start();
         while(true){
             this.update();
+            try{Thread.sleep(40);}catch(Exception e){};
         }
     }
     

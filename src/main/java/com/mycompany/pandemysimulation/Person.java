@@ -6,6 +6,8 @@
 package com.mycompany.pandemysimulation;
 
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
 
 /**
  *
@@ -18,6 +20,11 @@ public abstract class Person extends ThreadAgent{
     private Location nextStop;
     private Location currentLocation;
     private boolean waiting;
+    
+    
+    protected double targetX;
+    protected double targetY;
+    protected long lastTime;
 
     public Person(boolean sick, int shopsVisitedWhileSick, boolean vaccinated, Location nextStop, Location currentLocation, boolean waiting, double xPos, double yPos, VisibleComponent visibleComponent) {
         super(xPos, yPos, visibleComponent);
@@ -33,6 +40,30 @@ public abstract class Person extends ThreadAgent{
     protected abstract Location getNextLocation();
     
     protected abstract LinkedList<Location> searchForPath();
+    
+    
+    protected void start() {
+        targetX = (new Random()).nextDouble()*300;
+        targetY = (new Random()).nextDouble()*300;
+        lastTime = System.currentTimeMillis();
+    }
+
+    protected void update() {
+        long curTime = System.currentTimeMillis();
+        double deltaTimeInSec = ((double)curTime - lastTime)/1000;
+        double speed = 50;
+        double deltaX = speed*deltaTimeInSec;
+        this.xPos += this.xPos < targetX ? deltaX : -deltaX;
+        double deltaY = speed*deltaTimeInSec;
+        this.yPos += this.yPos < targetY ? deltaY : -deltaY;
+        if( Math.abs(xPos - targetX) < 5 && Math.abs(yPos - targetY) <5){
+            List<Shop> shops = App.simulation.getShops();
+            Shop destination = Utils.getRandomFromList(shops);
+            targetX = destination.getxPos();
+            targetY = destination.getyPos();
+        }
+        lastTime = curTime;
+    }
 
     public boolean isSick() {
         return sick;

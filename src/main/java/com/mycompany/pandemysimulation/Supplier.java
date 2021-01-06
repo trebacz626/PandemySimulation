@@ -15,11 +15,11 @@ public class Supplier extends Person{
     private CarBrand carBrand;
     private double gas;
     private double gasCapacity;
-    private String companyName;
+    private Company companyName;
     private LinkedList<Location> listOfStops;
     private ProductStorage trunk;
 
-    public Supplier(CarBrand carBrand, int trunkCapacity, double gasCapacity, String companyName, LinkedList<Location> listOfStops, boolean sick, int shopsVisitedWhileSick, boolean vaccinated, Location nextStop, Location currentLocation, boolean waiting, double xPos, double yPos, VisibleComponent visibleComponent) {
+    public Supplier(CarBrand carBrand, int trunkCapacity, double gasCapacity, Company companyName, LinkedList<Location> listOfStops, boolean sick, int shopsVisitedWhileSick, boolean vaccinated, Location nextStop, Location currentLocation, boolean waiting, double xPos, double yPos, VisibleComponent visibleComponent) {
         super(sick, shopsVisitedWhileSick, vaccinated, nextStop, currentLocation, waiting, xPos, yPos, visibleComponent);
         this.carBrand = carBrand;
         this.gasCapacity = gasCapacity;
@@ -55,14 +55,19 @@ public class Supplier extends Person{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    protected void start() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+//    @Override
+//    protected void start() {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
+//
+//    @Override
+//    protected void update() {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
 
     @Override
-    protected void update() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String toString() {
+        return "Supplier{" + "carBrand=" + carBrand + ", gas=" + gas + ", gasCapacity=" + gasCapacity + ", companyName=" + companyName + ", listOfStops=" + listOfStops + ", trunk=" + trunk + '}';
     }
     
     

@@ -54,4 +54,9 @@ public abstract class Shop extends MainLoopAgent{
     public void unlock(){
     
     }
+    
+    @Override
+    public String toString() {
+        return getName()+ " " + getxPos() + " "+ getyPos();
+    }
 }

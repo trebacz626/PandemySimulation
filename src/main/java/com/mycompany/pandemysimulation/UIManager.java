@@ -6,6 +6,7 @@
 package com.mycompany.pandemysimulation;
 
 import java.io.IOException;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -37,6 +38,8 @@ public class UIManager {
         mapPanelScene = new Scene(root);
         primaryStage.setScene(mapPanelScene);
         primaryStage.show();
+        primaryStage.setResizable(false);
+        primaryStage.setOnCloseRequest(event ->Platform.exit());
         this.primaryStage = primaryStage;
         
 //        FXMLLoader controlLoader = getFXMLLoader("controlPanel");
@@ -44,6 +47,8 @@ public class UIManager {
 //        controlPanelController = (ControlPanelController) controlLoader.getController();
 //        controlPanelStage = new Stage();
 //        controlPanelStage.setScene(controlPanelScene);
+//        controlPanelStage.setResizable(false);
+//        informationPanelStage.setOnCloseRequest(event ->Platform.exit());
 //        controlPanelStage.show();
 //        
         FXMLLoader informationLoader = getFXMLLoader("informationPanel");
@@ -51,10 +56,13 @@ public class UIManager {
         informationPanelController = (InformationPanelController) informationLoader.getController();
         informationPanelStage = new Stage();
         informationPanelStage.setScene(informationPanelScene);
+        informationPanelStage.setResizable(false);
+        informationPanelStage.setOnCloseRequest(event ->Platform.exit());
         informationPanelStage.show();
+
     }
     
-    private static FXMLLoader getFXMLLoader(String fxml){
+    protected static FXMLLoader getFXMLLoader(String fxml){
         return new FXMLLoader(App.class.getResource("fxml/"+fxml + ".fxml"));
     }
 

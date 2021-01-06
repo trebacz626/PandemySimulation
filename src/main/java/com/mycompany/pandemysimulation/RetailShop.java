@@ -56,5 +56,12 @@ public class RetailShop extends Shop{
    private void removeExpiredProducts(){
    
    }
+
+    @Override
+    public String toString() {
+        return "RetailShop{" + "clientCapacity=" + clientCapacity + ", expiredSalePeriod=" + expiredSalePeriod + ", lastExpiredDate=" + lastExpiredDate + '}';
+    }
+   
+   
    
 }

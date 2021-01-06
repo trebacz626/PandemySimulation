@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="150.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Text fx:id="title" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Symulation Object" textAlignment="CENTER" wrappingWidth="320.306640625">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Text layoutX="21.0" layoutY="-22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Position X:" x="100.0" y="100.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text layoutX="22.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Position Y:" x="100.0" y="100.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <ImageView fx:id="profilrImage" fitHeight="100.0" fitWidth="100.0" layoutX="14.0" layoutY="42.0" pickOnBounds="true" smooth="false">
+         <image>
+            <Image url="@../image/trump-circle.png" />
+         </image>
+      </ImageView>
+      <Text fx:id="posX" layoutX="234.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="64.1796875">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text fx:id="posY" layoutX="234.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="64.1796875">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

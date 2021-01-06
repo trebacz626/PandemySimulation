@@ -16,6 +16,11 @@ public class WorldGraph {
     private LinkedList<Location> locations;
     private LinkedList<Pair<Integer,Integer>> edges;
     
+    public WorldGraph(LinkedList<Location> locations,LinkedList<Pair<Integer,Integer>> edges){
+        this.locations = locations;
+        this.edges = edges;
+    }
+    
     public LinkedList<Location> getAdjacentVertices(Location location){
         return null;
     }
@@ -23,4 +28,5 @@ public class WorldGraph {
     public boolean isConnection(int leftId, int rightId){
         return edges.contains(new Pair(leftId, rightId));
     }
+    
 }

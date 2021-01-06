@@ -14,9 +14,8 @@ import javafx.application.Platform;
  */
 public class App extends Application {
 
-    private Scene scene;
-    private UIManager uiManager;
-    private static Simulation simulation;
+    public static UIManager uiManager;
+    public static Simulation simulation;
 
     @Override
     public void start(Stage stage) throws IOException {

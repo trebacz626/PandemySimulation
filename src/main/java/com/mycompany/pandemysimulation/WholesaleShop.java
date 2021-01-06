@@ -30,4 +30,6 @@ public class WholesaleShop extends Shop{
     public void addSupplierToQue(Supplier supplier){
     
     }
+    
+    
 }
