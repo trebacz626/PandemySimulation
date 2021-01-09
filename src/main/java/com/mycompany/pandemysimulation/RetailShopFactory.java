@@ -22,8 +22,8 @@ public class RetailShopFactory {
     }
     
     
-    public static RetailShop createRetailShop(UIManager uiManager, String name, String address, int xPos, int yPos, String imageName){
-        VisibleComponent vc = new VisibleComponent(imageName, uiManager, 100, 100);
+    public static RetailShop createRetailShop(String name, String address, int xPos, int yPos, String imageName){
+        VisibleComponent vc = new VisibleComponent(imageName, 100, 100);
         int expiredSalePeriod = 7;
         return new RetailShop(expiredSalePeriod,10, new Date(),name, address, getMaxClients(), getMaxProducts(), xPos, yPos, vc);
     }

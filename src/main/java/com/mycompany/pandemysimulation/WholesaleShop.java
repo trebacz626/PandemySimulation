@@ -5,6 +5,7 @@
  */
 package com.mycompany.pandemysimulation;
 
+import java.util.Date;
 import java.util.LinkedList;
 
 /**
@@ -23,13 +24,25 @@ public class WholesaleShop extends Shop{
     
     }
     
+    @Override
     public void update(){
-    
+        createProduct();
     }
     
     public void addSupplierToQue(Supplier supplier){
     
     }
+    
+    private void createProduct(){
+        Product product = new Product("name", new Date(), Brand.AVON);
+        if(!this.getWarehouse().isFull()){
+            this.getWarehouse().addProduct(product);
+        }
+    }
+    
+    
+    
+    
     
     
 }

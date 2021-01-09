@@ -15,14 +15,14 @@ public abstract class Shop extends MainLoopAgent{
     private String name;
     private String address;
     private int maxClients;
-    private ProductStorage warehouse;
+    private StoreStorage warehouse;
 
     public Shop(String name, String address, int maxClients, int maxProducts, double xPos, double yPos, VisibleComponent visibleComponent) {
         super(xPos, yPos, visibleComponent);
         this.name = name;
         this.address = address;
         this.maxClients = maxClients;
-        this.warehouse = new ProductStorage(maxProducts);
+        this.warehouse = new StoreStorage(maxProducts);
     }
 
     @Override
@@ -55,8 +55,16 @@ public abstract class Shop extends MainLoopAgent{
     
     }
     
+    protected StoreStorage getWarehouse(){
+        return this.warehouse;
+    }
+    
     @Override
     public String toString() {
-        return getName()+ " " + getxPos() + " "+ getyPos();
+        String text =  getName()+ " " + getxPos() + " "+ getyPos()+"\n Products: "; 
+        for( Product product : warehouse.getListOfProducts()){
+            text+=product.getName()+"\n";
+        }
+        return text;
     }
 }

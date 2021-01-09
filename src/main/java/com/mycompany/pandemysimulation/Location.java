@@ -10,7 +10,10 @@ package com.mycompany.pandemysimulation;
  * @author kacper
  */
 public interface Location {
-    public double getPosX();
-    public double getPosY();
-    public int getUniqueId();
+    public int getIdX();
+    public int getIdY();
+    public double getXPos();
+    public double getYPos();
+    public void enter();
+    public void leave();
 }

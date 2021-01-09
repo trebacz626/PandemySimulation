@@ -74,16 +74,16 @@ public class Simulation {
     
     private void createScene(){
         //Wholesales
-        addMainLoopAgent(WholesaleFactory.createWholesaleShop(uiManager, "Biedronka", "Krasnalowa 5", 0, 0, "wholesale1.png"));
-        addMainLoopAgent(WholesaleFactory.createWholesaleShop(uiManager, "Lidl", "Ostatnia 5", 600, 600, "wholesale1.png"));
-        addMainLoopAgent(WholesaleFactory.createWholesaleShop(uiManager, "Biedronka", "Krasnalowa 5", 700, 300, "wholesale1.png"));
-        addMainLoopAgent(WholesaleFactory.createWholesaleShop(uiManager, "Biedronka", "Krasnalowa 5", 1000, 100, "wholesale1.png"));
+        addMainLoopAgent(WholesaleFactory.createWholesaleShop("Biedronka", "Krasnalowa 5", 10, 10, "wholesale1.png"));
+//        addMainLoopAgent(WholesaleFactory.createWholesaleShop(uiManager, "Lidl", "Ostatnia 5", 600, 600, "wholesale1.png"));
+//        addMainLoopAgent(WholesaleFactory.createWholesaleShop(uiManager, "Biedronka", "Krasnalowa 5", 700, 300, "wholesale1.png"));
+//        addMainLoopAgent(WholesaleFactory.createWholesaleShop(uiManager, "Biedronka", "Krasnalowa 5", 1000, 100, "wholesale1.png"));
         
         //Retail Shops
-        addMainLoopAgent(RetailShopFactory.createRetailShop(uiManager, "Biedronka", "Nie ma ogonka 2", 200, 200, "retail.png"));
-        addMainLoopAgent(RetailShopFactory.createRetailShop(uiManager, "Lidl", "Gdy sobota to 2", 400, 200, "retail.png"));
-        addMainLoopAgent(RetailShopFactory.createRetailShop(uiManager, "Dino", "Wiejska 17", 400, 400, "retail.png"));
-        addMainLoopAgent(RetailShopFactory.createRetailShop(uiManager, "Biedronka", "Nie ma ogonka 2", 200, 400, "retail.png"));
+        addMainLoopAgent(RetailShopFactory.createRetailShop("Biedronka", "Nie ma ogonka 2", 200, 200, "retail.png"));
+//        addMainLoopAgent(RetailShopFactory.createRetailShop(uiManager, "Lidl", "Gdy sobota to 2", 400, 200, "retail.png"));
+//        addMainLoopAgent(RetailShopFactory.createRetailShop(uiManager, "Dino", "Wiejska 17", 400, 400, "retail.png"));
+//        addMainLoopAgent(RetailShopFactory.createRetailShop(uiManager, "Biedronka", "Nie ma ogonka 2", 200, 400, "retail.png"));
         
 //        createWorldGraph();
     }
@@ -97,11 +97,11 @@ public class Simulation {
     
     public void addAgents(){
         for(int i =0; i<10; i++){
-            addThreadAgent(ClientFactory.createRandomClient(uiManager));
+            addThreadAgent(ClientFactory.createRandomClient());
         }
         
         for(int i =0; i<10; i++){
-            addThreadAgent(SupplierFactory.createRandomSupplier(uiManager));
+            addThreadAgent(SupplierFactory.createRandomSupplier());
         }
     }
     

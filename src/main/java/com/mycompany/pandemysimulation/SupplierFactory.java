@@ -23,8 +23,8 @@ public final class SupplierFactory {
         return "00000000000";
     }
     
-    public static Supplier createRandomSupplier(UIManager uiManager){
-        VisibleComponent vc = new VisibleComponent(Utils.getRandomFromArray(imageNames), uiManager, 30, 30);
+    public static Supplier createRandomSupplier(){
+        VisibleComponent vc = new VisibleComponent(Utils.getRandomFromArray(imageNames), 30, 30);
         Company comp = Utils.getRandomFromArray(Company.values());
         CarBrand brand = Utils.getRandomFromArray(CarBrand.values());
         LinkedList<Location> listOfStops = new LinkedList<Location>();

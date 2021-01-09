@@ -17,6 +17,7 @@ com/mycompany/pandemysimulation/WorldGraph.class
 com/mycompany/pandemysimulation/Product.class
 com/mycompany/pandemysimulation/Intersection.class
 com/mycompany/pandemysimulation/Coordinates.class
+com/mycompany/pandemysimulation/Map.class
 com/mycompany/pandemysimulation/Brand.class
 com/mycompany/pandemysimulation/App$1$1.class
 com/mycompany/pandemysimulation/App$1.class
@@ -32,6 +33,7 @@ com/mycompany/pandemysimulation/RetailShopFactory.class
 com/mycompany/pandemysimulation/SimulationAgent.class
 com/mycompany/pandemysimulation/PersonViewController.class
 com/mycompany/pandemysimulation/App$1$2.class
+com/mycompany/pandemysimulation/StoreStorage.class
 com/mycompany/pandemysimulation/Location.class
 com/mycompany/pandemysimulation/Company.class
 com/mycompany/pandemysimulation/Person.class

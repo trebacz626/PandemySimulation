@@ -10,6 +10,7 @@ package com.mycompany.pandemysimulation;
  * @author kacper
  */
 public final class Coordinates {
+    
     private Coordinates(){
     }
     
@@ -28,4 +29,8 @@ public final class Coordinates {
     public static double toWorldY(double y){
         return y;
     }
+    
+//    public static double mapToWorld(int idX){
+//        return tileSize/2 + tileSize*idX;
+//    }
 }

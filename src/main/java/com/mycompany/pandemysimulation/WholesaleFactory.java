@@ -21,8 +21,8 @@ public final class WholesaleFactory {
     }
     
     
-    public static WholesaleShop createWholesaleShop(UIManager uiManager, String name, String address, int xPos, int yPos, String imageName){
-        VisibleComponent vc = new VisibleComponent(imageName, uiManager, 200, 200);
+    public static WholesaleShop createWholesaleShop(String name, String address, int xPos, int yPos, String imageName){
+        VisibleComponent vc = new VisibleComponent(imageName, 200, 200);
         return new WholesaleShop(name, address, getMaxClients(), getMaxProducts(), xPos, yPos, vc);
     }
 }

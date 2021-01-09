@@ -18,14 +18,15 @@ public class VisibleComponent implements EventHandler<MouseEvent>{
     private SimulationObject simulationObject;
     private Image image;
     private ImageView imageView;
-    private UIManager uiManager;
     
-    public VisibleComponent(String imageName, UIManager uiManager, int sizeX, int sizeY){
+    private int sizeX;
+    private int sizeY;
+    
+    public VisibleComponent(String imageName, int sizeX, int sizeY){
         image = new Image(getClass().getResource("image/"+imageName).toString(), sizeX, sizeY, false, false);
         imageView = new ImageView(image);
         imageView.setFitHeight(sizeX);
         imageView.setFitWidth(sizeY);
-        this.uiManager = uiManager;
     }
     
     public Image getImage(){
@@ -35,10 +36,6 @@ public class VisibleComponent implements EventHandler<MouseEvent>{
     public ImageView getImageView(){
         return imageView;
     }
-    
-//    public void setImageView(ImageView imageView){
-//        this.imageView = imageView;
-//    }
     
     public void setSimulationObject(SimulationObject so){
         this.simulationObject = so;
@@ -55,7 +52,15 @@ public class VisibleComponent implements EventHandler<MouseEvent>{
     public void handle(MouseEvent event) {
         System.out.println("mouse click detected! "+event.getSource());
         System.out.println(this.simulationObject.toString());
-        uiManager.getInformationPanel().showInformation(simulationObject);
+        App.uiManager.getInformationPanel().showInformation(simulationObject);
+    }
+    
+    public int getSizeX(){
+        return sizeX;
+    }
+    
+    public int getSizeY(){
+        return sizeY;
     }
     
 }

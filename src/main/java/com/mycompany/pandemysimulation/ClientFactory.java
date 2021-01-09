@@ -20,8 +20,8 @@ public final class ClientFactory {
         return "00000000000";
     }
     
-    public static Client createRandomClient(UIManager uiManager){
-        VisibleComponent vc = new VisibleComponent(Utils.getRandomFromArray(imageNames), uiManager, 30, 30);
+    public static Client createRandomClient(){
+        VisibleComponent vc = new VisibleComponent(Utils.getRandomFromArray(imageNames), 30, 30);
         String name = Utils.getRandomFromArray(names);
         String surname = Utils.getRandomFromArray(names);
         

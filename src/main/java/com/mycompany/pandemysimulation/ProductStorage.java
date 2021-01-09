@@ -6,6 +6,7 @@
 package com.mycompany.pandemysimulation;
 
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -30,5 +31,9 @@ public class ProductStorage {
     
     public void removeNProducts(int n){
         listOfProducts = (LinkedList<Product>) listOfProducts.subList(0, listOfProducts.size()-n);
+    }
+    
+    public List<Product> getListOfProducts(){
+        return listOfProducts;
     }
 }

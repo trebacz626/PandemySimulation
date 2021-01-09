@@ -16,9 +16,15 @@ public class Product {
     private String name;
     private Date beforeDate;
     private Brand brand; 
+    
+    private static int curId=0;
+    
+    private static synchronized int getNextId(){
+        return curId++;
+    }
 
-    public Product(int id, String name, Date beforeDate, Brand brand) {
-        this.id = id;
+    public Product(String name, Date beforeDate, Brand brand) {
+        this.id = getNextId();
         this.name = name;
         this.beforeDate = beforeDate;
         this.brand = brand;
