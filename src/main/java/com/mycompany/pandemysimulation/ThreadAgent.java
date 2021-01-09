@@ -19,10 +19,10 @@ public abstract class ThreadAgent extends SimulationAgent implements Runnable{
     @Override
     public void run() {
         this.start();
-        while(isAlive){
+//        while(isAlive){
             this.update();
-            try{Thread.sleep(40);}catch(Exception e){};
-        }
+//            try{Thread.sleep(40);}catch(Exception e){};
+//        }
     }
     
     public void kill(){

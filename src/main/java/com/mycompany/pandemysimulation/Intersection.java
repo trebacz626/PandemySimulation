@@ -6,26 +6,47 @@
 package com.mycompany.pandemysimulation;
 
 import java.util.LinkedList;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  *
  * @author kacper
  */
-public class Intersection<T> extends SimulationObject{
-    //TODO consider
-    private Location shopA;
-    private Location shopB;
-    private Location shopC;
-    private Location shopD;
-    //********************
-    private LinkedList<T> waitingQueue;
+public class Intersection extends SimulationObject implements Location{
     
-    public void enter(T enteringObject){
-        
-    }   
+    private ReentrantLock lock; 
     
     public Intersection(double posX, double posY, VisibleComponent visibleComponent){
         super(posX,posY,visibleComponent);
+        lock = new ReentrantLock();
+    }
+    
+    
+    public void enter(ThreadAgent threadAgent){
+        lock.lock();
+    }
+    
+    public void leave(ThreadAgent threadAgent){
+        lock.unlock();
+    }
+    
+
+    public double getXPos() {
+        return xPos;
+    }
+
+    public double getYPos() {
+        return yPos;
+    }
+
+    @Override
+    public int getIdX() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getIdY() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

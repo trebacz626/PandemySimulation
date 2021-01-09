@@ -25,6 +25,8 @@ public abstract class Person extends ThreadAgent{
     protected double targetX;
     protected double targetY;
     protected long lastTime;
+    
+    protected List<Location> path;
 
     public Person(boolean sick, int shopsVisitedWhileSick, boolean vaccinated, Location nextStop, Location currentLocation, boolean waiting, double xPos, double yPos, VisibleComponent visibleComponent) {
         super(xPos, yPos, visibleComponent);
@@ -43,27 +45,86 @@ public abstract class Person extends ThreadAgent{
     
     
     protected void start() {
-        targetX = (new Random()).nextDouble()*300;
-        targetY = (new Random()).nextDouble()*300;
-        lastTime = System.currentTimeMillis();
+//        synchronized(Person.class){
+            currentLocation.enter(this);
+//        }
+    }
+    
+    
+    protected void update(){
+//        while(true){
+            System.out.println("while");
+            for(Location next: path){
+                System.out.println("Iterating");
+                next.enter(this);
+                currentLocation.leave(this);
+                currentLocation = next;
+                transfer();
+            }
+//        }
+    }
+    
+    protected void transfer(){
+        System.err.println("transfer");
+        long lastTime = System.currentTimeMillis();
+        targetX = currentLocation.getXPos();
+        targetY = currentLocation.getYPos();
+        double speed = 200;
+        while(Math.abs(xPos - targetX) > 1 || Math.abs(yPos - targetY) > 1){
+            long curTime = System.currentTimeMillis();
+            double deltaTimeInSec = ((double)curTime - lastTime)/1000;
+//            System.err.println(xPos+" "+yPos);
+            double delta = speed*deltaTimeInSec;
+            if( this.xPos < targetX){
+                xPos+=delta;
+            }else if(this.xPos > targetX){
+                xPos-=delta;
+            }
+            if(yPos < targetY){
+                yPos+=delta;
+            }else if(yPos > targetY){
+                yPos-=delta;
+            }
+            lastTime = curTime;
+            try {
+                Thread.sleep(40);
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+        }
+        this.xPos = targetX;
+        this.yPos = targetY;
+        System.err.println("Transfer finished");
+    }
+    
+//    protected void update() {
+//        while(true){
+//            Shop shop = getNextShop();
+//            takeJourneyTo(shop);
+//            serve(shop);
+//        }
+//    }
+    
+    protected void setPath(List<Location> path){
+        this.path = path;
     }
 
-    protected void update() {
-        long curTime = System.currentTimeMillis();
-        double deltaTimeInSec = ((double)curTime - lastTime)/1000;
-        double speed = 50;
-        double deltaX = speed*deltaTimeInSec;
-        this.xPos += this.xPos < targetX ? deltaX : -deltaX;
-        double deltaY = speed*deltaTimeInSec;
-        this.yPos += this.yPos < targetY ? deltaY : -deltaY;
-        if( Math.abs(xPos - targetX) < 5 && Math.abs(yPos - targetY) <5){
-            List<Shop> shops = App.simulation.getShops();
-            Shop destination = Utils.getRandomFromList(shops);
-            targetX = destination.getxPos();
-            targetY = destination.getyPos();
-        }
-        lastTime = curTime;
-    }
+//    protected void update() {
+//        long curTime = System.currentTimeMillis();
+//        double deltaTimeInSec = ((double)curTime - lastTime)/1000;
+//        double speed = 50;
+//        double deltaX = speed*deltaTimeInSec;
+//        this.xPos += this.xPos < targetX ? deltaX : -deltaX;
+//        double deltaY = speed*deltaTimeInSec;
+//        this.yPos += this.yPos < targetY ? deltaY : -deltaY;
+//        if( Math.abs(xPos - targetX) < 5 && Math.abs(yPos - targetY) <5){
+//            List<Shop> shops = App.simulation.getShops();
+//            Shop destination = Utils.getRandomFromList(shops);
+//            targetX = destination.getxPos();
+//            targetY = destination.getyPos();
+//        }
+//        lastTime = curTime;
+//    }
 
     public boolean isSick() {
         return sick;

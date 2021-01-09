@@ -4,6 +4,7 @@ com/mycompany/pandemysimulation/ControlPanel.class
 com/mycompany/pandemysimulation/Utils.class
 com/mycompany/pandemysimulation/UIManager.class
 com/mycompany/pandemysimulation/MainLoopAgent.class
+com/mycompany/pandemysimulation/IntersectionTile.class
 com/mycompany/pandemysimulation/SimulationObject.class
 com/mycompany/pandemysimulation/ClientFactory.class
 com/mycompany/pandemysimulation/ControlPanelController.class
@@ -23,6 +24,7 @@ com/mycompany/pandemysimulation/App$1$1.class
 com/mycompany/pandemysimulation/App$1.class
 com/mycompany/pandemysimulation/ProductStorage.class
 com/mycompany/pandemysimulation/WorldData.class
+com/mycompany/pandemysimulation/Tile.class
 module-info.class
 com/mycompany/pandemysimulation/Supplier.class
 com/mycompany/pandemysimulation/InformationPanel.class
@@ -32,6 +34,7 @@ com/mycompany/pandemysimulation/InformationPanelController.class
 com/mycompany/pandemysimulation/RetailShopFactory.class
 com/mycompany/pandemysimulation/SimulationAgent.class
 com/mycompany/pandemysimulation/PersonViewController.class
+com/mycompany/pandemysimulation/TileType.class
 com/mycompany/pandemysimulation/App$1$2.class
 com/mycompany/pandemysimulation/StoreStorage.class
 com/mycompany/pandemysimulation/Location.class

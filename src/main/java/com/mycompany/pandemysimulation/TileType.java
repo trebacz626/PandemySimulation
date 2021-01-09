@@ -9,11 +9,10 @@ package com.mycompany.pandemysimulation;
  *
  * @author kacper
  */
-public interface Location {
-    public int getIdX();
-    public int getIdY();
-    public double getXPos();
-    public double getYPos();
-    public void enter(ThreadAgent threadAgent);
-    public void leave(ThreadAgent threadAgent);
+public enum TileType{
+    R,
+    RI,
+    P,
+    PI,
+    G
 }

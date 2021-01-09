@@ -30,7 +30,7 @@ public final class Coordinates {
         return y;
     }
     
-//    public static double mapToWorld(int idX){
-//        return tileSize/2 + tileSize*idX;
-//    }
+    public static double mapToWorld(int idX){
+        return Tile.tileSize/2 + Tile.tileSize*idX;
+    }
 }
