@@ -23,7 +23,7 @@ public final class SupplierFactory {
         return "00000000000";
     }
     
-    public static Supplier createRandomSupplier(){
+    public static Supplier createRandomSupplier(PathFinder pathFinder){
         VisibleComponent vc = new VisibleComponent(Utils.getRandomFromArray(imageNames), 30, 30);
         Company comp = Utils.getRandomFromArray(Company.values());
         CarBrand brand = Utils.getRandomFromArray(CarBrand.values());
@@ -32,6 +32,6 @@ public final class SupplierFactory {
         double gasCapacity = new Random().nextDouble()*500;
         
         
-        return new Supplier(brand, trunkCapacity, gasCapacity, comp, listOfStops, false, 0, false,null,null, false, 0, 0, vc);
+        return new Supplier(brand, trunkCapacity, gasCapacity, comp, listOfStops, false, 0, false,null,null, false, 0, 0, vc, pathFinder);
     }
 }

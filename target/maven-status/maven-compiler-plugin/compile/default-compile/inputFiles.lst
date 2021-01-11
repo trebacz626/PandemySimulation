@@ -4,10 +4,12 @@
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/WorldGraph.java
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/InformationPanel.java
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/ControlPanelController.java
+/home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/PathFinder.java
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/Location.java
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/RetailShopFactory.java
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/Person.java
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/RetailShop.java
+/home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/Direction.java
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/ClientFactory.java
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/MapPanelController.java
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/SimulationObject.java
@@ -34,6 +36,7 @@
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/Shop.java
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/SupplierFactory.java
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/Intersection.java
+/home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/MapBuilder.java
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/Supplier.java
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/StoreStorage.java
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/IntersectionTile.java

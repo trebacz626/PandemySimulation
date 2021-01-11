@@ -12,7 +12,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * @author kacper
  */
 class Tile extends SimulationObject implements Location{  
-    public static final int tileSize = 30;
+    public static final int tileSize = 40;
     private static VisibleComponent getVisibleComponent(TileType tileType){
         String imageName;
         if(tileType == TileType.P || tileType == TileType.PI){

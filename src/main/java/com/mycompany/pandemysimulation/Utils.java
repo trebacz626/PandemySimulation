@@ -24,4 +24,14 @@ public final class Utils {
     public static <T> T getRandomFromList(List<T> list){
         return list.get(random.nextInt(list.size()));
     }
+    
+    public static boolean isAnyTrue(boolean[] array){
+        for(boolean b : array) if(!b) return false;
+        return true;
+    }
+    
+    public static boolean areAllFalse(boolean[] array){
+        for(boolean b : array) if(b) return false;
+        return true;
+    }
 }

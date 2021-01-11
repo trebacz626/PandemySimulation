@@ -21,6 +21,8 @@ public class Simulation {
     public final WorldData worldData;
     public WorldGraph worldGraph;//final
     public final UIManager uiManager;
+    
+    private Location[][] tiles;
 
     public Simulation(UIManager uiManager) {
         this.worldData = new WorldData();
@@ -71,92 +73,109 @@ public class Simulation {
     public void endLockdown(){
     
     }
-    
-    private TileType getTileType(char c){
-        switch(c){
-            case 'P':
-                return TileType.P;
-            case 'Q':
-                return TileType.PI;
-            default:
-                return TileType.G;
-        }
+
+    public Location getRandomPavement(){
+        Tile tile;
+        do{
+            tile = (Tile) tiles[new Random().nextInt(tiles.length)][new Random().nextInt(tiles[0].length)];
+            
+        }while(tile.tileType != TileType.P);
+        return tile;
     }
     
     private void createScene(){
-        char[][] map = {
-            {'Q','Q','P','P','P','P','P','Q','Q','P','P','P','P','P','Q','Q'},
-            {'Q','Q','P','P','P','P','P','Q','Q','P','P','P','P','P','Q','Q'},
-            {'P','P','G','P','G','P','G','P','P','G','P','G','P','G','P','P'},
-            {'P','P','G','G','G','G','G','P','P','G','G','G','G','G','P','P'},
-            {'P','P','G','G','G','G','G','P','P','G','G','G','G','G','P','P'},
-            {'P','P','G','G','G','G','G','P','P','G','G','G','G','G','P','P'},
-            {'P','P','G','G','G','G','G','P','P','G','P','G','P','G','P','P'},
-            {'Q','Q','P','P','P','P','P','Q','Q','P','P','P','P','P','Q','Q'},
-            {'Q','Q','P','P','P','P','P','Q','Q','P','P','P','P','P','Q','Q'},
-            {'P','P','G','P','G','P','G','P','P','G','G','G','G','G','P','P'},
-            {'P','P','G','G','G','G','G','P','P','G','G','G','G','G','P','P'},
-            {'P','P','G','G','G','G','G','P','P','G','G','G','G','G','P','P'},
-            {'P','P','G','G','G','G','G','P','P','G','G','G','G','G','P','P'},
-            {'P','P','G','P','G','P','G','P','P','G','P','G','P','G','P','P'},
-            {'Q','Q','P','P','P','P','P','Q','Q','P','P','P','P','P','Q','Q'},
-            {'Q','Q','P','P','P','P','P','Q','Q','P','P','P','P','P','Q','Q'},
-               
-        };
-        Tile[][] tiles = new Tile[16][16];
-        Intersection intersection = new Intersection(0, 0, new VisibleComponent("stoplight.jpg", 50, 50));
-        for(int x=0;x<16; x++){
-             for(int y=0;y<16;y++){
-                 TileType type = getTileType(map[x][y]);
-                 if(type == TileType.PI){
-                     tiles[x][y] = new IntersectionTile(x, y, type, intersection);
-                 }else{
-                    tiles[x][y] = new Tile(x,y, type);
-                 }
-                 
-                 addSimulationObject(tiles[x][y]);
-             }
-         }
-        for(int i =3; i >= 0; i--){
-            Client client = ClientFactory.createRandomClient(tiles[0][5]);
-            List<Location> path = new LinkedList<>();
-            for(int x=0;x<10;x++){
-                path.add(tiles[x][5]);
-            }
-            client.setPath(path);
-            addThreadAgent(client);
+//        char[][] map = {
+//        Tile[][] tiles = new Tile[16][19];
+//        Intersection intersection = new Intersection(0, 0, new VisibleComponent("stoplight.jpg", 50, 50));
+//        for(int y=0;y<16; y++){
+//             for(int x=0;x<19;x++){
+//                 TileType type = getTileType(map[y][x]);
+//                 if(type == TileType.PI){
+//                     tiles[y][x] = new IntersectionTile(x, y, type, intersection);
+//                 }else{
+//                    tiles[y][x] = new Tile(x,y, type);
+//                 }
+//                 
+//                 addSimulationObject(tiles[y][x]);
+//             }
+//         }
+
+        MapBuilder mapBuilder = new MapBuilder(19, 16)
+                .addTwoWayRoadX(2, 13, 0).addTwoWayRoadX(2,13, 7).addTwoWayRoadX(2,13, 14)
+                .addTwoWayRoadY(2, 13, 0).addTwoWayRoadY(2, 13, 7).addTwoWayRoadY(2,13,14)
+                .add2x2Intersection(0, 0).add2x2Intersection(14, 0).add2x2Intersection(0,14).add2x2Intersection(14, 14).add2x2Intersection(7, 7)
+                .add2x2Intersection(7, 0).add2x2Intersection(0, 7).add2x2Intersection(14, 7).add2x2Intersection(7, 14)
+                .build();
+        tiles = mapBuilder.getTileMap();
+        for(SimulationObject so: mapBuilder.getSimulationObjects()){
+            addSimulationObject(so);
         }
-        
-        for(int i =3; i >= 0; i--){
-            Client client = ClientFactory.createRandomClient(tiles[9][4]);
-            List<Location> path = new LinkedList<>();
-            for(int x=9;x>=0;x--){
-                path.add(tiles[x][4]);
-            }
-            client.setPath(path);
-            addThreadAgent(client);
-        }
+        boolean [][][] directions = mapBuilder.getPedestrianDirections();
         
         
-        for(int i =3; i >= 0; i--){
-            Client client = ClientFactory.createRandomClient(tiles[5][0]);
-            List<Location> path = new LinkedList<>();
-            for(int x=0;x<10;x++){
-                path.add(tiles[5][x]);
-            }
-            client.setPath(path);
-            addThreadAgent(client);
-        }
+        PathFinder pathFinder = new PathFinder(directions, tiles);
+        for(int i=0;i<20;i++)
+            addThreadAgent(ClientFactory.createRandomClient(getRandomPavement(), pathFinder));
+//        List<Location> path = pathFinder.findPath(0, 0, 8, 8);
+//        for(Location location: path){
+//            System.out.println(location);
+//        }
         
-        for(int i =3; i >= 0; i--){
-            Client client = ClientFactory.createRandomClient(tiles[4][9]);
-            List<Location> path = new LinkedList<>();
-            for(int x=9;x>=0;x--){
-                path.add(tiles[4][x]);
-            }
-            client.setPath(path);
-            addThreadAgent(client);
-        }
+//        for(int y=0;y<directions.length;y++){
+//            for(int x=0;x< directions[y].length;x++){
+//                System.out.print(x+" "+y+": ");
+//                if(directions[y][x][0])
+//                    System.out.print("UP ");
+//                if(directions[y][x][1])
+//                    System.out.print("DOWN ");
+//                if(directions[y][x][2])
+//                    System.out.print("LEFT ");
+//                if(directions[y][x][3])
+//                    System.out.print("RIGHT ");
+//                System.out.println();
+//            }
+//        }
+        
+//        for(int i =3; i >= 0; i--){
+//            Client client = ClientFactory.createRandomClient(tiles[0][7]);
+//            List<Location> path = new LinkedList<>();
+//            for(int x=0;x<16;x++){
+//                path.add(tiles[x][7]);
+//            }
+//            client.setPath(path);
+//            addThreadAgent(client);
+//        }
+        
+//        for(int i =3; i >= 0; i--){
+//            Client client = ClientFactory.createRandomClient(tiles[15][8]);
+//            List<Location> path = new LinkedList<>();
+//            for(int x=15;x>=0;x--){
+//                path.add(tiles[x][8]);
+//            }
+//            client.setPath(path);
+//            addThreadAgent(client);
+//        }
+//        
+//        
+//        for(int i =3; i >= 0; i--){
+//            Client client = ClientFactory.createRandomClient(tiles[7][0]);
+//            List<Location> path = new LinkedList<>();
+//            for(int x=0;x<16;x++){
+//                path.add(tiles[7][x]);
+//            }
+//            client.setPath(path);
+//            addThreadAgent(client);
+//        }
+//        
+//        for(int i =3; i >= 0; i--){
+//            Client client = ClientFactory.createRandomClient(tiles[8][15]);
+//            List<Location> path = new LinkedList<>();
+//            for(int x=15;x>=0;x--){
+//                path.add(tiles[8][x]);
+//            }
+//            client.setPath(path);
+//            addThreadAgent(client);
+//        }
         
         //Wholesales
 //        addMainLoopAgent(WholesaleFactory.createWholesaleShop("Biedronka", "Krasnalowa 5", 10, 10, "wholesale1.png"));

@@ -46,8 +46,8 @@ public class VisibleComponent implements EventHandler<MouseEvent>{
     }
     
     public void update(){
-        this.imageView.setLayoutY(Coordinates.toUIX(simulationObject.getxPos()) - this.sizeX/2);
-        this.imageView.setLayoutX(Coordinates.toUIY(simulationObject.getyPos()) - this.sizeY/2);
+        this.imageView.setLayoutX(Coordinates.toUIX(simulationObject.getxPos()) - this.sizeX/2);
+        this.imageView.setLayoutY(Coordinates.toUIY(simulationObject.getyPos()) - this.sizeY/2);
     }
 
     @Override

@@ -18,6 +18,7 @@ com/mycompany/pandemysimulation/WorldGraph.class
 com/mycompany/pandemysimulation/Product.class
 com/mycompany/pandemysimulation/Intersection.class
 com/mycompany/pandemysimulation/Coordinates.class
+com/mycompany/pandemysimulation/MapBuilder.class
 com/mycompany/pandemysimulation/Map.class
 com/mycompany/pandemysimulation/Brand.class
 com/mycompany/pandemysimulation/App$1$1.class
@@ -30,6 +31,7 @@ com/mycompany/pandemysimulation/Supplier.class
 com/mycompany/pandemysimulation/InformationPanel.class
 com/mycompany/pandemysimulation/WholesaleFactory.class
 com/mycompany/pandemysimulation/SimulationObjectViewController.class
+com/mycompany/pandemysimulation/QueElement.class
 com/mycompany/pandemysimulation/InformationPanelController.class
 com/mycompany/pandemysimulation/RetailShopFactory.class
 com/mycompany/pandemysimulation/SimulationAgent.class
@@ -42,6 +44,8 @@ com/mycompany/pandemysimulation/Company.class
 com/mycompany/pandemysimulation/Person.class
 com/mycompany/pandemysimulation/VisibleComponent.class
 com/mycompany/pandemysimulation/Simulation.class
+com/mycompany/pandemysimulation/Direction.class
 com/mycompany/pandemysimulation/ClientViewController.class
 com/mycompany/pandemysimulation/CarBrand.class
+com/mycompany/pandemysimulation/PathFinder.class
 com/mycompany/pandemysimulation/SupplierFactory.class

@@ -18,8 +18,8 @@ public class Client extends Person{
     private String lastName;
     private ProductStorage cart;
 
-    public Client( double xPos, double yPos, VisibleComponent visibleComponent,String pesel, String firstName, String lastName, boolean sick, int shopsVisitedWhileSick, boolean vaccinated, Location nextStop, Location currentLocation, boolean waiting, int maxCartCapacity) {
-        super(sick, shopsVisitedWhileSick, vaccinated, nextStop, currentLocation, waiting, xPos, yPos, visibleComponent);
+    public Client( double xPos, double yPos, VisibleComponent visibleComponent,String pesel, String firstName, String lastName, boolean sick, int shopsVisitedWhileSick, boolean vaccinated, Location nextStop, Location currentLocation, boolean waiting, int maxCartCapacity, PathFinder pathFinder) {
+        super(sick, shopsVisitedWhileSick, vaccinated, nextStop, currentLocation, waiting, xPos, yPos, visibleComponent, pathFinder);
         this.pesel = pesel;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -34,13 +34,9 @@ public class Client extends Person{
     }
     
     @Override
-    protected Location getNextLocation() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    protected LinkedList<Location> searchForPath() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    protected Location generateNextGoal() {
+        return App.simulation.getRandomPavement();
+        
     }
 
 //    @Override

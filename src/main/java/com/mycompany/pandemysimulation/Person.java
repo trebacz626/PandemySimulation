@@ -20,15 +20,15 @@ public abstract class Person extends ThreadAgent{
     private Location nextStop;
     private Location currentLocation;
     private boolean waiting;
+    private PathFinder pathFinder;
     
     
     protected double targetX;
     protected double targetY;
     protected long lastTime;
     
-    protected List<Location> path;
 
-    public Person(boolean sick, int shopsVisitedWhileSick, boolean vaccinated, Location nextStop, Location currentLocation, boolean waiting, double xPos, double yPos, VisibleComponent visibleComponent) {
+    public Person(boolean sick, int shopsVisitedWhileSick, boolean vaccinated, Location nextStop, Location currentLocation, boolean waiting, double xPos, double yPos, VisibleComponent visibleComponent, PathFinder pathFinder) {
         super(xPos, yPos, visibleComponent);
         this.sick = sick;
         this.shopsVisitedWhileSick = shopsVisitedWhileSick;
@@ -36,12 +36,12 @@ public abstract class Person extends ThreadAgent{
         this.nextStop = nextStop;
         this.currentLocation = currentLocation;
         this.waiting = waiting;
+        this.pathFinder = pathFinder;
     }
     
     
-    protected abstract Location getNextLocation();
+    protected abstract Location generateNextGoal();
     
-    protected abstract LinkedList<Location> searchForPath();
     
     
     protected void start() {
@@ -52,25 +52,24 @@ public abstract class Person extends ThreadAgent{
     
     
     protected void update(){
-//        while(true){
-            System.out.println("while");
+        while(true){
+            Location nextGoal = generateNextGoal();
+            List<Location> path = searchForPath(nextGoal);
             for(Location next: path){
-                System.out.println("Iterating");
                 next.enter(this);
                 currentLocation.leave(this);
                 currentLocation = next;
                 transfer();
             }
-//        }
+        }
     }
     
     protected void transfer(){
-        System.err.println("transfer");
         long lastTime = System.currentTimeMillis();
         targetX = currentLocation.getXPos();
         targetY = currentLocation.getYPos();
-        double speed = 200;
-        while(Math.abs(xPos - targetX) > 1 || Math.abs(yPos - targetY) > 1){
+        double speed = 100;
+        while(Math.abs(xPos - targetX) > 2 || Math.abs(yPos - targetY) > 2){
             long curTime = System.currentTimeMillis();
             double deltaTimeInSec = ((double)curTime - lastTime)/1000;
 //            System.err.println(xPos+" "+yPos);
@@ -94,7 +93,10 @@ public abstract class Person extends ThreadAgent{
         }
         this.xPos = targetX;
         this.yPos = targetY;
-        System.err.println("Transfer finished");
+    }
+    
+    private List<Location> searchForPath(Location to){
+        return this.pathFinder.findPath(currentLocation.getIdX(), currentLocation.getIdY(), to.getIdX(), to.getIdY());
     }
     
 //    protected void update() {
@@ -103,27 +105,6 @@ public abstract class Person extends ThreadAgent{
 //            takeJourneyTo(shop);
 //            serve(shop);
 //        }
-//    }
-    
-    protected void setPath(List<Location> path){
-        this.path = path;
-    }
-
-//    protected void update() {
-//        long curTime = System.currentTimeMillis();
-//        double deltaTimeInSec = ((double)curTime - lastTime)/1000;
-//        double speed = 50;
-//        double deltaX = speed*deltaTimeInSec;
-//        this.xPos += this.xPos < targetX ? deltaX : -deltaX;
-//        double deltaY = speed*deltaTimeInSec;
-//        this.yPos += this.yPos < targetY ? deltaY : -deltaY;
-//        if( Math.abs(xPos - targetX) < 5 && Math.abs(yPos - targetY) <5){
-//            List<Shop> shops = App.simulation.getShops();
-//            Shop destination = Utils.getRandomFromList(shops);
-//            targetX = destination.getxPos();
-//            targetY = destination.getyPos();
-//        }
-//        lastTime = curTime;
 //    }
 
     public boolean isSick() {

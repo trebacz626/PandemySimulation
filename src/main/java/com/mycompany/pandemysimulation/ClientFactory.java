@@ -20,11 +20,11 @@ public final class ClientFactory {
         return "00000000000";
     }
     
-    public static Client createRandomClient(Location currentLocation){
-        VisibleComponent vc = new VisibleComponent(Utils.getRandomFromArray(imageNames), 30, 30);
+    public static Client createRandomClient(Location currentLocation, PathFinder pathFinder){
+        VisibleComponent vc = new VisibleComponent(Utils.getRandomFromArray(imageNames), 20, 20);
         String name = Utils.getRandomFromArray(names);
         String surname = Utils.getRandomFromArray(names);
         
-        return new Client(currentLocation.getXPos(),currentLocation.getYPos(), vc, getRandomPesel(), name, surname, false, 0,false, null, currentLocation, false, 5);
+        return new Client(currentLocation.getXPos(),currentLocation.getYPos(), vc, getRandomPesel(), name, surname, false, 0,false, null, currentLocation, false, 5, pathFinder);
     }
 }
