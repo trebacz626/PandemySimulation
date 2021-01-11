@@ -14,9 +14,11 @@ import java.util.LinkedList;
  */
 public class WholesaleShop extends Shop{
     private LinkedList<Supplier> supplierQue;
+    private int idX;
+    private int idY;
 
-    public WholesaleShop(String name, String address, int maxClients, int maxProducts, double xPos, double yPos, VisibleComponent visibleComponent) {
-        super(name, address, maxClients, maxProducts, xPos, yPos, visibleComponent);
+    public WholesaleShop(String name, String address, int maxClients, int maxProducts, int idX, int idY, VisibleComponent visibleComponent) {
+        super(name, address, maxClients, maxProducts, idX, idY, visibleComponent);
     }
     
     
@@ -38,6 +40,16 @@ public class WholesaleShop extends Shop{
         if(!this.getWarehouse().isFull()){
             this.getWarehouse().addProduct(product);
         }
+    }
+
+    @Override
+    public void enter(ThreadAgent threadAgent) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void leave(ThreadAgent threadAgent) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     

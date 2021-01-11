@@ -12,8 +12,6 @@ package com.mycompany.pandemysimulation;
 public interface Location {
     public int getIdX();
     public int getIdY();
-    public double getXPos();
-    public double getYPos();
     public void enter(ThreadAgent threadAgent);
     public void leave(ThreadAgent threadAgent);
 }

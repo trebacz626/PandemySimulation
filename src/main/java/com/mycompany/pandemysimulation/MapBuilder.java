@@ -17,20 +17,22 @@ import java.util.List;
 public class MapBuilder {
     private int sizeX;
     private int sizeY;
-    Tile[][] tileMap;
+    Location[][] locationMap;
     boolean[][][] pedestrianDirection;
     boolean[][][] suppliersDirections;
     List<Intersection> intersections;
     List<SimulationObject> simulationObjects;
+    List<Shop> shops;
     
     public MapBuilder(int sizeX, int sizeY){
         this.sizeX=sizeX;
         this.sizeY=sizeY;
-        tileMap = new Tile[sizeY][sizeX];
+        locationMap = new Location[sizeY][sizeX];
         pedestrianDirection = new boolean[sizeY][sizeX][4];
         suppliersDirections = new boolean[sizeY][sizeX][4];
         intersections = new LinkedList<>();
         simulationObjects = new LinkedList<>();
+        shops = new LinkedList<>();
     }
     
     public MapBuilder addTwoWayRoadX(int startX, int endX, int y){
@@ -80,7 +82,7 @@ public class MapBuilder {
     }
     
     public MapBuilder addOnePavement(int x, int y, List<Direction> directions){
-        tileMap[y][x] = new Tile(x,y,TileType.P);
+        locationMap[y][x] = new Tile(x,y,TileType.P);
         for(Direction direction : directions){
             pedestrianDirection[y][x][direction.getVal()] = true;
         }
@@ -96,7 +98,7 @@ public class MapBuilder {
             for(int x=x1;x<=x2;x++){
                 for(int i=0;i<4;i++){
                     pedestrianDirection[y][x][i]=true;
-                    tileMap[y][x] = new IntersectionTile(x,y,TileType.PI, intersection);
+                    locationMap[y][x] = new IntersectionTile(x,y,TileType.PI, intersection);
                 }
             }
         }
@@ -115,13 +117,25 @@ public class MapBuilder {
         return this;
     }
     
+    public MapBuilder addDirectionPedestrian(int x, int y, Direction direction){
+        pedestrianDirection[y][x][direction.getVal()] = true;
+        return this;
+    }
+    
+    public MapBuilder addRetailShop(int x, int y, String name, String address){
+        RetailShop shop = RetailShopFactory.createRetailShop(name, address, x, y, "retail.png");
+        locationMap[y][x] = RetailShopFactory.createRetailShop(name, address, x, y, "retail.png");//(Location) shop;
+        shops.add(shop);
+        return this;
+    }
+    
     public MapBuilder build(){
         for(int y=0;y<sizeY;y++){
             for(int x =0;x<sizeX;x++){
-                if(tileMap[y][x] == null){
-                    tileMap[y][x] = new Tile(x,y,TileType.G);
+                if(locationMap[y][x] == null){
+                    locationMap[y][x] = new Tile(x,y,TileType.G);
                 }
-                simulationObjects.add(tileMap[y][x]);
+                simulationObjects.add((SimulationObject)locationMap[y][x]);
             }
         }
         simulationObjects.addAll(intersections);
@@ -129,8 +143,8 @@ public class MapBuilder {
         return this;
     }
     
-    public Tile[][] getTileMap(){
-        return this.tileMap;
+    public Location[][] getLocationMap(){
+        return this.locationMap;
     }
     
     public boolean[][][] getPedestrianDirections(){
@@ -143,6 +157,10 @@ public class MapBuilder {
 
     public List<SimulationObject> getSimulationObjects() {
         return simulationObjects;
+    }
+
+    public List<Shop> getShops() {
+        return shops;
     }
     
     

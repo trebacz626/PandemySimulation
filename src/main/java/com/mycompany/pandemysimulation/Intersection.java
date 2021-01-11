@@ -12,7 +12,7 @@ import java.util.concurrent.locks.ReentrantLock;
  *
  * @author kacper
  */
-public class Intersection extends SimulationObject implements Location{
+public class Intersection extends SimulationObject{
     
     private ReentrantLock lock; 
     
@@ -37,16 +37,6 @@ public class Intersection extends SimulationObject implements Location{
 
     public double getYPos() {
         return yPos;
-    }
-
-    @Override
-    public int getIdX() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public int getIdY() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

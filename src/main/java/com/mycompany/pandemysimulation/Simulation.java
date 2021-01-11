@@ -5,6 +5,7 @@
  */
 package com.mycompany.pandemysimulation;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -22,7 +23,7 @@ public class Simulation {
     public WorldGraph worldGraph;//final
     public final UIManager uiManager;
     
-    private Location[][] tiles;
+    private Location[][] locations;
 
     public Simulation(UIManager uiManager) {
         this.worldData = new WorldData();
@@ -50,7 +51,6 @@ public class Simulation {
     }
     
     public void update(){
-//        System.out.println("Update-main: " + new Random().nextInt(100));
         for(MainLoopAgent agent : this.mainLoopAgents){
             agent.update();
         }
@@ -74,122 +74,64 @@ public class Simulation {
     
     }
 
-    public Location getRandomPavement(){
-        Tile tile;
+    public Location getRandomShop(Shop current){
+        Location location;
         do{
-            tile = (Tile) tiles[new Random().nextInt(tiles.length)][new Random().nextInt(tiles[0].length)];
+            location =  locations[new Random().nextInt(locations.length)][new Random().nextInt(locations[0].length)];
             
-        }while(tile.tileType != TileType.P);
-        return tile;
+        }while( !(location instanceof Shop) || (current!=null&&location == current));
+        return location;
     }
     
     private void createScene(){
-//        char[][] map = {
-//        Tile[][] tiles = new Tile[16][19];
-//        Intersection intersection = new Intersection(0, 0, new VisibleComponent("stoplight.jpg", 50, 50));
-//        for(int y=0;y<16; y++){
-//             for(int x=0;x<19;x++){
-//                 TileType type = getTileType(map[y][x]);
-//                 if(type == TileType.PI){
-//                     tiles[y][x] = new IntersectionTile(x, y, type, intersection);
-//                 }else{
-//                    tiles[y][x] = new Tile(x,y, type);
-//                 }
-//                 
-//                 addSimulationObject(tiles[y][x]);
-//             }
-//         }
 
         MapBuilder mapBuilder = new MapBuilder(19, 16)
                 .addTwoWayRoadX(2, 13, 0).addTwoWayRoadX(2,13, 7).addTwoWayRoadX(2,13, 14)
                 .addTwoWayRoadY(2, 13, 0).addTwoWayRoadY(2, 13, 7).addTwoWayRoadY(2,13,14)
                 .add2x2Intersection(0, 0).add2x2Intersection(14, 0).add2x2Intersection(0,14).add2x2Intersection(14, 14).add2x2Intersection(7, 7)
                 .add2x2Intersection(7, 0).add2x2Intersection(0, 7).add2x2Intersection(14, 7).add2x2Intersection(7, 14)
+                .addDirectionPedestrian(5, 14, Direction.Up)
+                .addOnePavement(3, 13, Collections.singletonList(Direction.Down))
+                .addOnePavement(5, 13, Collections.singletonList(Direction.Up))
+                .addPavementX(5, 4, 12)
+                .addOnePavement(3, 12, Collections.singletonList(Direction.Down))
+                .addRetailShop(4, 12, "Biedronka", "Nihilstyczna 1")
+                //
+                .addDirectionPedestrian(12, 14, Direction.Up)
+                .addOnePavement(10, 13, Collections.singletonList(Direction.Down))
+                .addOnePavement(12, 13, Collections.singletonList(Direction.Up))
+                .addPavementX(12, 11, 12)
+                .addOnePavement(10, 12, Collections.singletonList(Direction.Down))
+                .addRetailShop(11, 12, "Lidl", "Nihilstyczna 2")
+                //
+                .addDirectionPedestrian(12, 7, Direction.Up)
+                .addOnePavement(10, 6, Collections.singletonList(Direction.Down))
+                .addOnePavement(12, 6, Collections.singletonList(Direction.Up))
+                .addPavementX(12, 11, 5)
+                .addOnePavement(10, 5, Collections.singletonList(Direction.Down))
+                .addRetailShop(11, 5, "Stokrotka", "Nihilstyczna 2")
+                //
+                .addDirectionPedestrian(5, 7, Direction.Up)
+                .addOnePavement(3, 6, Collections.singletonList(Direction.Down))
+                .addOnePavement(5, 6, Collections.singletonList(Direction.Up))
+                .addPavementX(5, 4, 5)
+                .addOnePavement(3, 5, Collections.singletonList(Direction.Down))
+                .addRetailShop(4, 5, "Żabka", "Nihilstyczna 4")
                 .build();
-        tiles = mapBuilder.getTileMap();
+        locations = mapBuilder.getLocationMap();
         for(SimulationObject so: mapBuilder.getSimulationObjects()){
-            addSimulationObject(so);
+            if(so instanceof MainLoopAgent){
+                addMainLoopAgent((MainLoopAgent)so);
+            }else{
+                addSimulationObject(so);
+            }
         }
         boolean [][][] directions = mapBuilder.getPedestrianDirections();
         
         
-        PathFinder pathFinder = new PathFinder(directions, tiles);
+        PathFinder pathFinder = new PathFinder(directions, locations);
         for(int i=0;i<20;i++)
-            addThreadAgent(ClientFactory.createRandomClient(getRandomPavement(), pathFinder));
-//        List<Location> path = pathFinder.findPath(0, 0, 8, 8);
-//        for(Location location: path){
-//            System.out.println(location);
-//        }
-        
-//        for(int y=0;y<directions.length;y++){
-//            for(int x=0;x< directions[y].length;x++){
-//                System.out.print(x+" "+y+": ");
-//                if(directions[y][x][0])
-//                    System.out.print("UP ");
-//                if(directions[y][x][1])
-//                    System.out.print("DOWN ");
-//                if(directions[y][x][2])
-//                    System.out.print("LEFT ");
-//                if(directions[y][x][3])
-//                    System.out.print("RIGHT ");
-//                System.out.println();
-//            }
-//        }
-        
-//        for(int i =3; i >= 0; i--){
-//            Client client = ClientFactory.createRandomClient(tiles[0][7]);
-//            List<Location> path = new LinkedList<>();
-//            for(int x=0;x<16;x++){
-//                path.add(tiles[x][7]);
-//            }
-//            client.setPath(path);
-//            addThreadAgent(client);
-//        }
-        
-//        for(int i =3; i >= 0; i--){
-//            Client client = ClientFactory.createRandomClient(tiles[15][8]);
-//            List<Location> path = new LinkedList<>();
-//            for(int x=15;x>=0;x--){
-//                path.add(tiles[x][8]);
-//            }
-//            client.setPath(path);
-//            addThreadAgent(client);
-//        }
-//        
-//        
-//        for(int i =3; i >= 0; i--){
-//            Client client = ClientFactory.createRandomClient(tiles[7][0]);
-//            List<Location> path = new LinkedList<>();
-//            for(int x=0;x<16;x++){
-//                path.add(tiles[7][x]);
-//            }
-//            client.setPath(path);
-//            addThreadAgent(client);
-//        }
-//        
-//        for(int i =3; i >= 0; i--){
-//            Client client = ClientFactory.createRandomClient(tiles[8][15]);
-//            List<Location> path = new LinkedList<>();
-//            for(int x=15;x>=0;x--){
-//                path.add(tiles[8][x]);
-//            }
-//            client.setPath(path);
-//            addThreadAgent(client);
-//        }
-        
-        //Wholesales
-//        addMainLoopAgent(WholesaleFactory.createWholesaleShop("Biedronka", "Krasnalowa 5", 10, 10, "wholesale1.png"));
-//        addMainLoopAgent(WholesaleFactory.createWholesaleShop(uiManager, "Lidl", "Ostatnia 5", 600, 600, "wholesale1.png"));
-//        addMainLoopAgent(WholesaleFactory.createWholesaleShop(uiManager, "Biedronka", "Krasnalowa 5", 700, 300, "wholesale1.png"));
-//        addMainLoopAgent(WholesaleFactory.createWholesaleShop(uiManager, "Biedronka", "Krasnalowa 5", 1000, 100, "wholesale1.png"));
-        
-        //Retail Shops
-//        addMainLoopAgent(RetailShopFactory.createRetailShop("Biedronka", "Nie ma ogonka 2", 200, 200, "retail.png"));
-//        addMainLoopAgent(RetailShopFactory.createRetailShop(uiManager, "Lidl", "Gdy sobota to 2", 400, 200, "retail.png"));
-//        addMainLoopAgent(RetailShopFactory.createRetailShop(uiManager, "Dino", "Wiejska 17", 400, 400, "retail.png"));
-//        addMainLoopAgent(RetailShopFactory.createRetailShop(uiManager, "Biedronka", "Nie ma ogonka 2", 200, 400, "retail.png"));
-        
-//        createWorldGraph();
+            addThreadAgent(ClientFactory.createRandomClient(getRandomShop(null), pathFinder));
 
     }
     

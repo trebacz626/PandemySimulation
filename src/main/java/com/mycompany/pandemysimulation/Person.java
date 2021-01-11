@@ -61,13 +61,14 @@ public abstract class Person extends ThreadAgent{
                 currentLocation = next;
                 transfer();
             }
+            try{Thread.sleep(2000);}catch(Exception e){};
         }
     }
     
     protected void transfer(){
         long lastTime = System.currentTimeMillis();
-        targetX = currentLocation.getXPos();
-        targetY = currentLocation.getYPos();
+        targetX = Coordinates.mapToWorld(currentLocation.getIdX());
+        targetY = Coordinates.mapToWorld(currentLocation.getIdY());
         double speed = 100;
         while(Math.abs(xPos - targetX) > 2 || Math.abs(yPos - targetY) > 2){
             long curTime = System.currentTimeMillis();

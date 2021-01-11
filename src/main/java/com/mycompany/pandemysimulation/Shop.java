@@ -11,29 +11,50 @@ import java.util.LinkedList;
  *
  * @author kacper
  */
-public abstract class Shop extends MainLoopAgent{
+public abstract class Shop extends MainLoopAgent implements Location{
     private String name;
     private String address;
     private int maxClients;
     private StoreStorage warehouse;
+    private int idX;
+    private int idY;
 
-    public Shop(String name, String address, int maxClients, int maxProducts, double xPos, double yPos, VisibleComponent visibleComponent) {
-        super(xPos, yPos, visibleComponent);
+    public Shop(String name, String address, int maxClients, int maxProducts, int idX, int idY, VisibleComponent visibleComponent) {
+        super(Coordinates.mapToWorld(idX), Coordinates.mapToWorld(idY), visibleComponent);
         this.name = name;
         this.address = address;
         this.maxClients = maxClients;
         this.warehouse = new StoreStorage(maxProducts);
+        this.idX = idX;
+        this.idY = idY;
     }
+    
 
     @Override
     public void start() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void update() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public int getIdX() {
+        return idX;
+    }
+
+    @Override
+    public int getIdY() {
+        return idY;
+    }
+    
+    public abstract void enter(ThreadAgent threadAgent);
+    
+    public abstract void leave(ThreadAgent threadAgent);
+    
+    
 
     public String getName() {
         return name;

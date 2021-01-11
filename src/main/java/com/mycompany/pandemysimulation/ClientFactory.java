@@ -25,6 +25,6 @@ public final class ClientFactory {
         String name = Utils.getRandomFromArray(names);
         String surname = Utils.getRandomFromArray(names);
         
-        return new Client(currentLocation.getXPos(),currentLocation.getYPos(), vc, getRandomPesel(), name, surname, false, 0,false, null, currentLocation, false, 5, pathFinder);
+        return new Client(Coordinates.mapToWorld(currentLocation.getIdX()),Coordinates.mapToWorld(currentLocation.getIdY()), vc, getRandomPesel(), name, surname, false, 0,false, null, currentLocation, false, 5, pathFinder);
     }
 }
