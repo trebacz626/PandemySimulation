@@ -43,18 +43,19 @@ public class PathFinder {
             if(lastLocation.getIdX() == toX && lastLocation.getIdY() == toY){
                 return element.getPath();
             }
+            //TODO consider
+            if( !(lastLocation.getIdX() == fromX && lastLocation.getIdY() == fromY) && locations[lastLocation.getIdY()][lastLocation.getIdX()] instanceof Shop){
+                continue;
+            }
             List<Direction> actions = getActions(lastLocation);
             for(Direction action: actions){
-                System.out.println(action);
-            }
-            for(Direction action: actions){
-                System.out.println(lastLocation.getIdY()+action.dY()+" "+ lastLocation.getIdX()+action.dX());
                 Location nextLocation = locations[lastLocation.getIdY()+action.dY()][lastLocation.getIdX()+action.dX()];
                 if(!visited[nextLocation.getIdY()][nextLocation.getIdX()]){
                     int heurysticCost = heurystic(nextLocation.getIdX(), nextLocation.getIdY(), toX, toY);
                     List<Location> nextPath = new LinkedList<>(element.getPath());
                     nextPath.add(nextLocation);
-                    QueElement nextElement = new QueElement(heurysticCost, element.getCurrent_distance()+1, nextPath, nextLocation);
+                    int nextCost = element.getCurrent_distance()+1;
+                    QueElement nextElement = new QueElement(nextCost+heurysticCost, nextCost, nextPath, nextLocation);
                     q.add(nextElement);
                 }
             }

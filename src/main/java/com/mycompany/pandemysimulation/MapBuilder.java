@@ -35,14 +35,14 @@ public class MapBuilder {
         shops = new LinkedList<>();
     }
     
-    public MapBuilder addTwoWayRoadX(int startX, int endX, int y){
+    public MapBuilder addTwoWayPavementX(int startX, int endX, int y){
         addPavementX(startX, endX, y+1);
         addPavementX(endX, startX, y);
         return this;
     }
     
     
-    public MapBuilder addTwoWayRoadY(int startY, int endY, int x){
+    public MapBuilder addTwoWayPavementY(int startY, int endY, int x){
         addPavementY(startY, endY, x);
         addPavementY(endY, startY, x+1);
         return this;
@@ -89,7 +89,7 @@ public class MapBuilder {
         return this;
     }
     
-    public MapBuilder add2x2Intersection(int x1, int y1){
+    public MapBuilder add2x2PavementIntersection(int x1, int y1){
         int x2=x1+1;
         int y2=y1+1;
         Intersection intersection = new Intersection(Coordinates.mapToWorld((x1+x2)/2), Coordinates.mapToWorld((y1+y2)/2), new VisibleComponent("stoplight.jpg", 10, 10));
@@ -117,8 +117,94 @@ public class MapBuilder {
         return this;
     }
     
-    public MapBuilder addDirectionPedestrian(int x, int y, Direction direction){
+    public MapBuilder addPavementDirection(int x, int y, Direction direction){
         pedestrianDirection[y][x][direction.getVal()] = true;
+        return this;
+    }
+    
+    //Road
+    public MapBuilder addTwoWayRoadX(int startX, int endX, int y){
+        addRoadX(startX, endX, y+1);
+        addRoadX(endX, startX, y);
+        return this;
+    }
+    
+    public MapBuilder addTwoWayRoadY(int startY, int endY, int x){
+        addRoadY(startY, endY, x);
+        addRoadY(endY, startY, x+1);
+        return this;
+    }
+    
+    public MapBuilder addRoadX(int startX, int endX, int y){
+        List<Direction> directions;
+        if(endX > startX)
+            directions = Arrays.asList(Direction.Righ);
+        else{
+            directions = Arrays.asList(Direction.Left);
+            int temp = startX;
+            startX = endX;
+            endX=temp;
+        }
+        for(int x=startX;x<=endX;x++){
+            addOneRoad(x, y, directions);
+        }
+        return this;
+    }
+    
+    public MapBuilder addRoadY(int startY, int endY, int x){
+        List<Direction> directions;
+        if(endY > startY)
+            directions = Arrays.asList(Direction.Down);
+        else{
+            directions = Arrays.asList(Direction.Up);
+            int temp = startY;
+            startY = endY;
+            endY=temp;
+        }
+        for(int y=startY;y<=endY;y++){
+            addOneRoad(x, y, directions);
+        }
+        return this;
+    }
+    
+    public MapBuilder addOneRoad(int x, int y, List<Direction> directions){
+        locationMap[y][x] = new Tile(x,y,TileType.R);
+        for(Direction direction : directions){
+            suppliersDirections[y][x][direction.getVal()] = true;
+        }
+        return this;
+    }
+    
+    public MapBuilder addRoadDirection(int x, int y, Direction direction){
+        suppliersDirections[y][x][direction.getVal()] = true;
+        return this;
+    }
+    
+    public MapBuilder add2x2RoadIntersection(int x1, int y1){
+        int x2=x1+1;
+        int y2=y1+1;
+        Intersection intersection = new Intersection(Coordinates.mapToWorld((x1+x2)/2), Coordinates.mapToWorld((y1+y2)/2), new VisibleComponent("stoplight.jpg", 10, 10));
+        intersections.add(intersection);
+        for(int y=y1;y<=y2;y++){
+            for(int x=x1;x<=x2;x++){
+                for(int i=0;i<4;i++){
+                    suppliersDirections[y][x][i]=true;
+                    locationMap[y][x] = new IntersectionTile(x,y,TileType.RI, intersection);
+                }
+            }
+        }
+        //upper left
+        pedestrianDirection[y1][x1][Direction.Up.getVal()]= false;
+        pedestrianDirection[y1][x1][Direction.Left.getVal()]= x1>0;
+        //down left
+        pedestrianDirection[y2][x1][Direction.Left.getVal()]= false;
+        pedestrianDirection[y2][x1][Direction.Down.getVal()]= y2<(sizeY-1);
+        //upper right
+        pedestrianDirection[y1][x2][Direction.Righ.getVal()]= false;
+        pedestrianDirection[y1][x2][Direction.Up.getVal()]= y1>0;
+        //lower right
+        pedestrianDirection[y2][x2][Direction.Down.getVal()]= false;
+        pedestrianDirection[y2][x2][Direction.Righ.getVal()]= x2<(sizeX-1);
         return this;
     }
     

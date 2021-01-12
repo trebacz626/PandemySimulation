@@ -16,9 +16,9 @@ import javafx.scene.text.Text;
  *
  * @author kacper
  */
-public class ClientViewController extends PersonViewController implements Initializable {
+public class ClientViewController< T extends Client> extends PersonViewController<T> {
 
-    private Client curClient;
+    private T curClient;
     
     @FXML
     private Text surname;
@@ -35,7 +35,7 @@ public class ClientViewController extends PersonViewController implements Initia
         title.setText("Client");
     }   
     
-    public void setSimulationObject(Client so){
+    public void setSimulationObject(T so){
         curClient = so;
         update();
     }

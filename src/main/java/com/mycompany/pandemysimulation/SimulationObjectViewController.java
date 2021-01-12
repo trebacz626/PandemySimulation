@@ -17,7 +17,7 @@ import javafx.scene.text.Text;
  *
  * @author kacper
  */
-public abstract class SimulationObjectViewController  implements Initializable {
+public abstract class SimulationObjectViewController<T extends SimulationObject>  implements Initializable {
 
     @FXML
     protected Text title;
@@ -27,4 +27,5 @@ public abstract class SimulationObjectViewController  implements Initializable {
     protected Text posX;
     @FXML
     protected Text posY;
+    
 }

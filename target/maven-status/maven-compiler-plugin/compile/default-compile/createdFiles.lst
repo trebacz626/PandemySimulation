@@ -1,5 +1,4 @@
 com/mycompany/pandemysimulation/Shop.class
-com/mycompany/pandemysimulation/MapPanelController.class
 com/mycompany/pandemysimulation/ControlPanel.class
 com/mycompany/pandemysimulation/Utils.class
 com/mycompany/pandemysimulation/UIManager.class
@@ -14,6 +13,7 @@ com/mycompany/pandemysimulation/MapPanel.class
 com/mycompany/pandemysimulation/ThreadAgent.class
 com/mycompany/pandemysimulation/Client.class
 com/mycompany/pandemysimulation/App.class
+com/mycompany/pandemysimulation/SimpleMap.class
 com/mycompany/pandemysimulation/WorldGraph.class
 com/mycompany/pandemysimulation/Product.class
 com/mycompany/pandemysimulation/Intersection.class
@@ -30,6 +30,7 @@ module-info.class
 com/mycompany/pandemysimulation/Supplier.class
 com/mycompany/pandemysimulation/InformationPanel.class
 com/mycompany/pandemysimulation/WholesaleFactory.class
+com/mycompany/pandemysimulation/ui/MapPanelController.class
 com/mycompany/pandemysimulation/SimulationObjectViewController.class
 com/mycompany/pandemysimulation/QueElement.class
 com/mycompany/pandemysimulation/InformationPanelController.class

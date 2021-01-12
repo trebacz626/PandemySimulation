@@ -73,7 +73,6 @@ public abstract class Person extends ThreadAgent{
         while(Math.abs(xPos - targetX) > 2 || Math.abs(yPos - targetY) > 2){
             long curTime = System.currentTimeMillis();
             double deltaTimeInSec = ((double)curTime - lastTime)/1000;
-//            System.err.println(xPos+" "+yPos);
             double delta = speed*deltaTimeInSec;
             if( this.xPos < targetX){
                 xPos+=delta;

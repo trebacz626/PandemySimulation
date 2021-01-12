@@ -61,7 +61,7 @@ public class InformationPanel {
     private void showClientInformation(Client client) throws IOException{
         FXMLLoader loader = UIManager.getFXMLLoader("clientView");
         Scene scene = new Scene(loader.load());
-        clientController = (ClientViewController) loader.getController();
+        clientController = loader.<ClientViewController<Client>>getController();
         clientController.setSimulationObject(client);
         stage.setScene(scene);
         stage.setOnCloseRequest(event ->Platform.exit());

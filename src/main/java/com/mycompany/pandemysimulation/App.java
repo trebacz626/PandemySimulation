@@ -19,7 +19,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-          uiManager = new UIManager((stage));
+          uiManager = new UIManager(stage);
           simulation = new Simulation(uiManager);
           Thread mainThread = new Thread(){
             @Override

@@ -17,7 +17,7 @@ import javafx.scene.text.Text;
  *
  * @author kacper
  */
-public abstract class PersonViewController extends SimulationObjectViewController {
+public abstract class PersonViewController<T extends Person> extends SimulationObjectViewController<T> {
 
     @FXML
     protected Text isSick;

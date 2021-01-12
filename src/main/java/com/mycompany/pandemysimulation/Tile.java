@@ -6,24 +6,28 @@
 package com.mycompany.pandemysimulation;
 
 import java.util.concurrent.locks.ReentrantLock;
+import javafx.scene.image.Image;
 
 /**
  *
  * @author kacper
  */
 class Tile extends SimulationObject implements Location{  
-    public static final int tileSize = 40;
+    public static final int tileSize = 30;
+    private static Image pavementImage = new Image(App.class.getResource("image/"+"pavement.jpg").toString(), tileSize, tileSize, false, false);
+    private static Image asphaltImage = new Image(App.class.getResource("image/"+"asphalt.png").toString(), tileSize, tileSize, false, false);
+    private static Image yellowGrassImage = new Image(App.class.getResource("image/"+"yellow_grass.jpg").toString(), tileSize, tileSize, false, false);
     private static VisibleComponent getVisibleComponent(TileType tileType){
-        String imageName;
+        Image image;
         if(tileType == TileType.P || tileType == TileType.PI){
-           imageName = "pavement.jpg";
+           image = pavementImage;
         }else if(tileType == TileType.R || tileType == TileType.RI){
-            imageName = "asphalt.png";
+            image = asphaltImage;
         }else{
-            imageName = "yellow_grass.jpg";
+            image = yellowGrassImage;
         }
         
-        return new VisibleComponent(imageName, tileSize, tileSize);
+        return new VisibleComponent(image, tileSize, tileSize);
     }
     
     int idX;

@@ -5,6 +5,7 @@
  */
 package com.mycompany.pandemysimulation;
 
+import com.mycompany.pandemysimulation.ui.MapPanelController;
 import java.io.IOException;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;

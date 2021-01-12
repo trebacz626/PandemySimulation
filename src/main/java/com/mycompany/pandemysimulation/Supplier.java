@@ -28,6 +28,14 @@ public class Supplier extends Person{
         this.listOfStops = listOfStops;
         this.trunk = new ProductStorage(trunkCapacity);
     }
+    
+    @Override
+    protected Location generateNextGoal() {
+        return App.simulation.getRandomShop((Shop)this.getCurrentLocation());
+        
+    }
+    
+    
 
     
     public LinkedList<Product> getProducts(){
@@ -60,11 +68,5 @@ public class Supplier extends Person{
     public String toString() {
         return "Supplier{" + "carBrand=" + carBrand + ", gas=" + gas + ", gasCapacity=" + gasCapacity + ", companyName=" + companyName + ", listOfStops=" + listOfStops + ", trunk=" + trunk + '}';
     }
-
-    @Override
-    protected Location generateNextGoal() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
     
 }
