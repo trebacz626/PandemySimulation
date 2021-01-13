@@ -11,7 +11,7 @@ import java.util.Random;
  *
  * @author kacper
  */
-public final class WholesaleFactory {
+public final class WholesaleShopFactory {
     public static int getMaxClients(){
         return new Random().nextInt(16)+5;
     }
@@ -22,7 +22,7 @@ public final class WholesaleFactory {
     
     
     public static WholesaleShop createWholesaleShop(String name, String address, int xPos, int yPos, String imageName){
-        VisibleComponent vc = new VisibleComponent(imageName, 200, 200);
+        VisibleComponent vc = new VisibleComponent(imageName, Tile.tileSize, Tile.tileSize);
         return new WholesaleShop(name, address, getMaxClients(), getMaxProducts(), xPos, yPos, vc);
     }
 }

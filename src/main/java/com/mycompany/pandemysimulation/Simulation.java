@@ -74,6 +74,12 @@ public class Simulation {
     public void endLockdown(){
     
     }
+    
+    public Location getRandomRetailShop(Shop current){
+        Location location;
+        while(!((location = getRandomShop(current)) instanceof RetailShop));
+        return location;
+    }
 
     public Location getRandomShop(Shop current){
         Location location;
@@ -108,13 +114,13 @@ public class Simulation {
                 .addRetailShop(4, 13, "Biedronka", "Nihilstyczna 1")
                 .addPavementDirection(4, 13, Direction.Down)
                 //--roads
-                .addOneRoad(2, 9, Collections.singletonList(Direction.Left))
-                .addRoadY(9, 11, 3)
-                .addOneRoad(3, 12, Collections.singletonList(Direction.Righ))
-                .addOneRoad(4, 12, Collections.singletonList(Direction.Down))
-                .addRoadDirection(4, 13, Direction.Left)
-                .addRoadY(13, 14, 3)
-                .addRoadX(3,2,15)
+                .addRoadDirection(1, 15, Direction.Righ)
+                .addOneRoad(2, 15, Collections.singletonList(Direction.Righ))
+                .addRoadY(15,14, 3)
+                .addOneRoad(3,13, Collections.singletonList(Direction.Righ))
+                .addRoadDirection(4, 13, Direction.Up)
+                .addRoadY(12,10,4)
+                .addRoadX(4,2,9)
                 
                 //Up Left Shop
                 .addPavementDirection(7, 5, Direction.Left)
@@ -122,8 +128,11 @@ public class Simulation {
                 .addPavementY(5, 6, 5)
                 .addOnePavement(5, 7, Collections.singletonList(Direction.Left))
                 .addPavementX(4, 6, 8)
-//                .addRetailShop(4, 7, "Lidl", "Nihilstyczna 1")
+                .addRetailShop(4, 7, "Lidl", "Nihilstyczna 1")
                 .addPavementDirection(4, 7, Direction.Down)
+                .addRoadX(1,3,7)
+                .addRoadDirection(4, 7, Direction.Up)
+                .addRoadY(6, 2, 4)
                 
                 //Down Left Shop
                 .addPavementDirection(7, 18, Direction.Left)
@@ -131,8 +140,14 @@ public class Simulation {
                 .addPavementY(18,19,5)
                 .addOnePavement(5, 20, Collections.singletonList(Direction.Left))
                 .addPavementX(4, 6, 21)
-//                .addRetailShop(4, 20, "Stokrotka", "Nowhere never")
+                .addRetailShop(4, 20, "Stokrotka", "Nowhere never")
                 .addPavementDirection(4, 20, Direction.Down)
+                .addRoadX(1,2,23)
+                .addRoadY(23,21,3)
+                .addOneRoad(3, 20, Collections.singletonList(Direction.Righ))
+                .addRoadDirection(4, 20, Direction.Up)
+                .addRoadY(19, 18, 4)
+                .addRoadX(4,2,17)
                 
                 
                 .addPavementDirection(8, 13, Direction.Righ)
@@ -165,7 +180,7 @@ public class Simulation {
                 .addPavementY(19, 17, 22)
                 .addRoadY(21,20,17)
                 .addRoadX(17,20,19)
-                .addRoadDirection(21, 25, Direction.Down)
+                .addRoadDirection(21, 19, Direction.Down)
                 .addOneRoad(21, 20, Collections.singletonList(Direction.Down))
                 //center bottom right
                 .addPavementDirection(24, 16, Direction.Down)
@@ -177,7 +192,7 @@ public class Simulation {
                 .addPavementY(19, 17, 28)
                 .addRoadY(21,20,23)
                 .addRoadX(23,26,19)
-                .addRoadDirection(27, 25, Direction.Down)
+                .addRoadDirection(27, 19, Direction.Down)
                 .addOneRoad(27, 20, Collections.singletonList(Direction.Down))
                 //center upper left
                 .addPavementY(9,8,16)
@@ -221,6 +236,7 @@ public class Simulation {
                 .addPavementDirection(35, 13, Direction.Up)
                 .addRoadX(33,34,14)
                 .addOneRoad(35, 14, Collections.singletonList(Direction.Up))
+                .addRoadDirection(35,13,Direction.Righ)
                 .addRoadY(13, 12, 36)
                 .addRoadX(36,34, 11)
                 
@@ -245,6 +261,28 @@ public class Simulation {
                 .add2x2RoadIntersection(0, 25)
                 .add2x2RoadIntersection(46, 25)
                 .add2x2RoadIntersection(46, 12)
+//                .add2x2RoadIntersection(8, 0)
+                .add2x2RoadIntersection(8, 25)
+                
+                //Wholesale
+                .addRoadX(46, 36, 18)
+                .addRoadY(18,22, 35)
+                .addRoadX(35,29,23)
+                .addRoadY(23,24,28)
+                .add2x2RoadIntersection(27, 25)
+                .addWholesaleShop(35, 23, "Makro", "Nowhere")
+                .addRoadDirection(46, 18, Direction.Left)
+                
+                .addRoadX(46,36,7)
+                .addRoadY(7,3 , 35)
+                .addRoadX(35,25,2)
+                .addOneRoad(24, 2, Collections.singletonList(Direction.Up))
+                .addWholesaleShop(35, 4, "Some Shop", "Gdańsk")
+        
+                .addRoadX(47,51,24)
+                .addRoadY(24,8,52)
+                .addRoadX(52, 48, 7)
+                .addWholesaleShop(52, 14, "Last One Standing", "Groszkowa 2")    
                 .build();
         locations = mapBuilder.getLocationMap();
         for(SimulationObject so: mapBuilder.getSimulationObjects()){
@@ -259,9 +297,11 @@ public class Simulation {
         
         PathFinder pathFinder = new PathFinder(pDirections, locations);
         for(int i=0;i<50;i++)
-            addThreadAgent(ClientFactory.createRandomClient(getRandomShop(null), pathFinder));
+            addThreadAgent(ClientFactory.createRandomClient(getRandomRetailShop(null), pathFinder));
         
         PathFinder supFinder = new PathFinder(mapBuilder.getSuppliersDirections(), locations);
+        
+        
         for(int i=0;i<50;i++)
             addThreadAgent(SupplierFactory.createRandomSupplier(getRandomShop(null), supFinder));
 

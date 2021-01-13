@@ -194,23 +194,30 @@ public class MapBuilder {
             }
         }
         //upper left
-        pedestrianDirection[y1][x1][Direction.Up.getVal()]= false;
-        pedestrianDirection[y1][x1][Direction.Left.getVal()]= x1>0;
+        suppliersDirections[y1][x1][Direction.Up.getVal()]= false;
+        suppliersDirections[y1][x1][Direction.Left.getVal()]= x1>0;
         //down left
-        pedestrianDirection[y2][x1][Direction.Left.getVal()]= false;
-        pedestrianDirection[y2][x1][Direction.Down.getVal()]= y2<(sizeY-1);
+        suppliersDirections[y2][x1][Direction.Left.getVal()]= false;
+        suppliersDirections[y2][x1][Direction.Down.getVal()]= y2<(sizeY-1);
         //upper right
-        pedestrianDirection[y1][x2][Direction.Righ.getVal()]= false;
-        pedestrianDirection[y1][x2][Direction.Up.getVal()]= y1>0;
+        suppliersDirections[y1][x2][Direction.Righ.getVal()]= false;
+        suppliersDirections[y1][x2][Direction.Up.getVal()]= y1>0;
         //lower right
-        pedestrianDirection[y2][x2][Direction.Down.getVal()]= false;
-        pedestrianDirection[y2][x2][Direction.Righ.getVal()]= x2<(sizeX-1);
+        suppliersDirections[y2][x2][Direction.Down.getVal()]= false;
+        suppliersDirections[y2][x2][Direction.Righ.getVal()]= x2<(sizeX-1);
         return this;
     }
     
     public MapBuilder addRetailShop(int x, int y, String name, String address){
         RetailShop shop = RetailShopFactory.createRetailShop(name, address, x, y, "retail.png");
-        locationMap[y][x] = RetailShopFactory.createRetailShop(name, address, x, y, "retail.png");//(Location) shop;
+        locationMap[y][x] = (Location) shop;
+        shops.add(shop);
+        return this;
+    }
+    
+    public MapBuilder addWholesaleShop(int x, int y, String name, String address){
+        WholesaleShop shop = WholesaleShopFactory.createWholesaleShop("Walmart", "The Best dress", x, y, "wholesale1.png");
+        locationMap[y][x] = (Location) shop;
         shops.add(shop);
         return this;
     }
@@ -225,6 +232,22 @@ public class MapBuilder {
             }
         }
         simulationObjects.addAll(intersections);
+        
+        for(int i=0;i<sizeX;i++){
+            pedestrianDirection[0][i][Direction.Up.getVal()] = false;
+            pedestrianDirection[sizeY-1][i][Direction.Down.getVal()] = false;
+            
+            suppliersDirections[0][i][Direction.Up.getVal()] = false;
+            suppliersDirections[sizeY-1][i][Direction.Down.getVal()] = false; 
+        }
+        
+        for(int i=0;i<sizeY;i++){
+            pedestrianDirection[i][0][Direction.Left.getVal()] = false;
+            pedestrianDirection[i][sizeX-1][Direction.Righ.getVal()] = false;
+            
+            suppliersDirections[i][0][Direction.Left.getVal()] = false;
+            suppliersDirections[i][sizeX-1][Direction.Righ.getVal()] = false;
+        }
         //TODO check borders
         return this;
     }

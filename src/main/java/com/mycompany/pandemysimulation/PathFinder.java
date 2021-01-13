@@ -32,7 +32,7 @@ public class PathFinder {
         boolean[][] visited = new boolean[sizeY][sizeX];
         PriorityQueue<QueElement> q = new PriorityQueue<>();
         q.add(new QueElement(this.heurystic(fromX, fromY, toX, toY), 0, new LinkedList<>(), this.locations[fromY][fromX]));
-        
+
         while(!q.isEmpty()){
             QueElement element = q.poll();
             Location lastLocation = element.getLastLocation();
@@ -61,6 +61,7 @@ public class PathFinder {
             }
         
         }
+        System.out.println(fromX+" "+fromY+":"+toX+" "+toY);
         return null;
     }
     

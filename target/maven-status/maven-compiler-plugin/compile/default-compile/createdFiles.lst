@@ -29,13 +29,13 @@ com/mycompany/pandemysimulation/Tile.class
 module-info.class
 com/mycompany/pandemysimulation/Supplier.class
 com/mycompany/pandemysimulation/InformationPanel.class
-com/mycompany/pandemysimulation/WholesaleFactory.class
 com/mycompany/pandemysimulation/ui/MapPanelController.class
 com/mycompany/pandemysimulation/SimulationObjectViewController.class
 com/mycompany/pandemysimulation/QueElement.class
 com/mycompany/pandemysimulation/InformationPanelController.class
 com/mycompany/pandemysimulation/RetailShopFactory.class
 com/mycompany/pandemysimulation/SimulationAgent.class
+com/mycompany/pandemysimulation/WholesaleShopFactory.class
 com/mycompany/pandemysimulation/PersonViewController.class
 com/mycompany/pandemysimulation/TileType.class
 com/mycompany/pandemysimulation/App$1$2.class

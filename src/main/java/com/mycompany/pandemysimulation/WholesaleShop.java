@@ -7,6 +7,7 @@ package com.mycompany.pandemysimulation;
 
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.concurrent.Semaphore;
 
 /**
  *
@@ -17,8 +18,11 @@ public class WholesaleShop extends Shop{
     private int idX;
     private int idY;
 
+    private Semaphore suppliersGate;
+    
     public WholesaleShop(String name, String address, int maxClients, int maxProducts, int idX, int idY, VisibleComponent visibleComponent) {
         super(name, address, maxClients, maxProducts, idX, idY, visibleComponent);
+        suppliersGate = new Semaphore(maxClients);
     }
     
     
@@ -44,12 +48,24 @@ public class WholesaleShop extends Shop{
 
     @Override
     public void enter(ThreadAgent threadAgent) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try{
+            if(threadAgent instanceof Supplier){
+                suppliersGate.acquire();
+            }
+        }catch(Exception e){
+            System.err.println(e);
+        }
     }
 
     @Override
     public void leave(ThreadAgent threadAgent) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try{
+            if(threadAgent instanceof Supplier){
+                suppliersGate.release();
+            }
+        }catch(Exception e){
+            System.err.println(e);
+        }
     }
     
     
