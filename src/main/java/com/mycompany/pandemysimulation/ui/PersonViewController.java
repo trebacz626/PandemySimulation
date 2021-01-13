@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.pandemysimulation;
+package com.mycompany.pandemysimulation.ui;
 
+import com.mycompany.pandemysimulation.Person;
+import com.mycompany.pandemysimulation.SimulationObjectViewController;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;

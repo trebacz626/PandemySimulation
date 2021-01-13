@@ -26,9 +26,6 @@ public class Client extends Person{
         this.cart = new ProductStorage(maxCartCapacity);
     }
 
-    
-    
-    
     private void consume(int n){
         cart.removeNProducts(n);
     }
@@ -38,32 +35,6 @@ public class Client extends Person{
         return App.simulation.getRandomRetailShop((Shop)this.getCurrentLocation());
         
     }
-
-//    @Override
-//    protected void start() {
-//        targetX = (new Random()).nextDouble()*300;
-//        targetY = (new Random()).nextDouble()*300;
-//        lastTime = System.currentTimeMillis();
-//        
-//    }
-//
-//    @Override
-//    protected void update() {
-//        long curTime = System.currentTimeMillis();
-//        double deltaTimeInSec = ((double)curTime - lastTime)/1000;
-//        double speed = 50;
-//        double deltaX = speed*deltaTimeInSec;
-//        this.xPos += this.xPos < targetX ? deltaX : -deltaX;
-//        double deltaY = speed*deltaTimeInSec;
-//        this.yPos += this.yPos < targetY ? deltaY : -deltaY;
-//        if( Math.abs(xPos - targetX) < 5 && Math.abs(yPos - targetY) <5){
-//            targetX = (new Random()).nextDouble()*300;
-//            targetY = (new Random()).nextDouble()*300;
-//        }
-//        lastTime = curTime;
-//        try{Thread.sleep(40);}catch(Exception e){};
-//    }
-    
     
     public void buyProducts(){
     

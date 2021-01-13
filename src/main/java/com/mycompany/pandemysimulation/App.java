@@ -1,5 +1,6 @@
 package com.mycompany.pandemysimulation;
 
+import com.mycompany.pandemysimulation.ui.UIManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

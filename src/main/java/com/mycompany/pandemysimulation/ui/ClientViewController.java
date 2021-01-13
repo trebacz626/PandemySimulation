@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.pandemysimulation;
+package com.mycompany.pandemysimulation.ui;
 
+import com.mycompany.pandemysimulation.App;
+import com.mycompany.pandemysimulation.Client;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -44,7 +46,7 @@ public class ClientViewController< T extends Client> extends PersonViewControlle
         if(curClient != null){
             posX.setText(String.valueOf((int)curClient.getxPos()));
             posY.setText(String.valueOf((int)curClient.getyPos()));
-            profilrImage.setImage(curClient.visibleComponent.getImage());
+            profilrImage.setImage(curClient.getVisibleComponent().getImage());
             isSick.setText(String.valueOf(curClient.isSick()));
             isVaccinated.setText(String.valueOf(curClient.isVaccinated()));
             pesel.setText(curClient.getPesel());
