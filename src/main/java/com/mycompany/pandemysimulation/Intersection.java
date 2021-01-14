@@ -5,6 +5,8 @@
  */
 package com.mycompany.pandemysimulation;
 
+import com.mycompany.pandemysimulation.core.SimulationObject;
+import com.mycompany.pandemysimulation.core.ThreadAgent;
 import java.util.LinkedList;
 import java.util.concurrent.locks.ReentrantLock;
 

@@ -5,6 +5,8 @@
  */
 package com.mycompany.pandemysimulation;
 
+import com.mycompany.pandemysimulation.core.Location;
+import com.mycompany.pandemysimulation.core.ThreadAgent;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.concurrent.Semaphore;
@@ -87,12 +89,4 @@ public class RetailShop extends Shop implements Location{
    private void removeExpiredProducts(){
    
    }
-
-    @Override
-    public String toString() {
-        return "RetailShop{" + "clientCapacity=" + clientCapacity + ", expiredSalePeriod=" + expiredSalePeriod + ", lastExpiredDate=" + lastExpiredDate + '}';
-    }
-   
-   
-   
 }

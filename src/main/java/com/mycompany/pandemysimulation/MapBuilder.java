@@ -5,6 +5,8 @@
  */
 package com.mycompany.pandemysimulation;
 
+import com.mycompany.pandemysimulation.core.Location;
+import com.mycompany.pandemysimulation.core.SimulationObject;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;

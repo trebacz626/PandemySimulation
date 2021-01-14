@@ -5,6 +5,8 @@
  */
 package com.mycompany.pandemysimulation;
 
+import com.mycompany.pandemysimulation.core.Location;
+import com.mycompany.pandemysimulation.core.ThreadAgent;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -21,10 +23,9 @@ public abstract class Person extends ThreadAgent{
     private Location currentLocation;
     private boolean waiting;
     private PathFinder pathFinder;
+    private Shop currentGoal;
     
-    
-    protected double targetX;
-    protected double targetY;
+
     protected long lastTime;
     
 
@@ -40,35 +41,42 @@ public abstract class Person extends ThreadAgent{
     }
     
     
-    protected abstract Location generateNextGoal();
+    protected abstract Shop generateNextGoal();
     
     
     
     protected void start() {
-//        synchronized(Person.class){
             currentLocation.enter(this);
-//        }
     }
     
     
     protected void update(){
-        while(true){
-            Location nextGoal = generateNextGoal();
-            List<Location> path = searchForPath(nextGoal);
+        currentGoal = generateNextGoal();
+        goToShop(currentGoal);
+        processShop(currentGoal);
+    }
+    
+    
+    protected abstract void processShop(Shop shop);
+    
+    protected void goToShop(Shop goal){
+            List<Location> path = searchForPath(goal);
             for(Location next: path){
+                nextStop = next;
                 next.enter(this);
                 currentLocation.leave(this);
-                currentLocation = next;
                 transfer();
+                currentLocation = nextStop;
+                onMoved();
             }
-            try{Thread.sleep(2000);}catch(Exception e){};
-        }
     }
+    
+    protected void onMoved(){}
     
     protected void transfer(){
         long lastTime = System.currentTimeMillis();
-        targetX = Coordinates.mapToWorld(currentLocation.getIdX());
-        targetY = Coordinates.mapToWorld(currentLocation.getIdY());
+        double targetX = Coordinates.mapToWorld(nextStop.getIdX());
+        double targetY = Coordinates.mapToWorld(nextStop.getIdY());
         double speed = 100;
         while(Math.abs(xPos - targetX) > 2 || Math.abs(yPos - targetY) > 2){
             long curTime = System.currentTimeMillis();
@@ -98,14 +106,6 @@ public abstract class Person extends ThreadAgent{
     private List<Location> searchForPath(Location to){
         return this.pathFinder.findPath(currentLocation.getIdX(), currentLocation.getIdY(), to.getIdX(), to.getIdY());
     }
-    
-//    protected void update() {
-//        while(true){
-//            Shop shop = getNextShop();
-//            takeJourneyTo(shop);
-//            serve(shop);
-//        }
-//    }
 
     public boolean isSick() {
         return sick;
@@ -142,5 +142,11 @@ public abstract class Person extends ThreadAgent{
     public void setWaiting(boolean waiting) {
         this.waiting = waiting;
     }
+
+    public Shop getCurrentGoal() {
+        return currentGoal;
+    }
+    
+    
     
 }

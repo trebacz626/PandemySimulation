@@ -3,8 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.pandemysimulation;
+package com.mycompany.pandemysimulation.core;
 
+import com.mycompany.pandemysimulation.ClientFactory;
+import com.mycompany.pandemysimulation.Direction;
+import com.mycompany.pandemysimulation.MapBuilder;
+import com.mycompany.pandemysimulation.PathFinder;
+import com.mycompany.pandemysimulation.RetailShop;
+import com.mycompany.pandemysimulation.Shop;
+import com.mycompany.pandemysimulation.SupplierFactory;
+import com.mycompany.pandemysimulation.WholesaleShop;
+import com.mycompany.pandemysimulation.WorldData;
+import com.mycompany.pandemysimulation.WorldGraph;
+import com.mycompany.pandemysimulation.deadlock.DeadlockFinder;
 import com.mycompany.pandemysimulation.ui.UIManager;
 import java.util.Collection;
 import java.util.Collections;
@@ -44,6 +55,10 @@ public class Simulation {
         
         addAgents();
         
+        for(MainLoopAgent agent : this.mainLoopAgents){
+            agent.start();
+        }
+        
         for(ThreadAgent agent : this.threadsAgents){
             Thread agentThread = new Thread(agent);
             agentThread.setDaemon(true);
@@ -76,19 +91,25 @@ public class Simulation {
     
     }
     
-    public Location getRandomRetailShop(Shop current){
-        Location location;
-        while(!((location = getRandomShop(current)) instanceof RetailShop));
-        return location;
+    public RetailShop getRandomRetailShop(Shop current){
+        Shop shop;
+        while(!((shop = getRandomShop(current)) instanceof RetailShop));
+        return (RetailShop)shop;
+    }
+    
+    public WholesaleShop getRandomWholesaleShop(Shop current){
+        Shop shop;
+        while(!((shop = getRandomShop(current)) instanceof WholesaleShop));
+        return (WholesaleShop)shop;
     }
 
-    public Location getRandomShop(Shop current){
+    public Shop getRandomShop(Shop current){
         Location location;
         do{
             location =  locations[new Random().nextInt(locations.length)][new Random().nextInt(locations[0].length)];
             
         }while( !(location instanceof Shop) || (current!=null&&location == current));
-        return location;
+        return (Shop)location;
     }
     
     private void createScene(){
@@ -262,7 +283,7 @@ public class Simulation {
                 .add2x2RoadIntersection(0, 25)
                 .add2x2RoadIntersection(46, 25)
                 .add2x2RoadIntersection(46, 12)
-//                .add2x2RoadIntersection(8, 0)
+                .add2x2RoadIntersection(8, 0)
                 .add2x2RoadIntersection(8, 25)
                 
                 //Wholesale
@@ -297,14 +318,20 @@ public class Simulation {
         
         
         PathFinder pathFinder = new PathFinder(pDirections, locations);
-        for(int i=0;i<50;i++)
+        for(int i=0;i<100;i++)
             addThreadAgent(ClientFactory.createRandomClient(getRandomRetailShop(null), pathFinder));
         
         PathFinder supFinder = new PathFinder(mapBuilder.getSuppliersDirections(), locations);
         
         
-        for(int i=0;i<50;i++)
+        for(int i=0;i<70;i++)
             addThreadAgent(SupplierFactory.createRandomSupplier(getRandomShop(null), supFinder));
+        
+        DeadlockFinder deadlockFinder = new DeadlockFinder(pDirections, locations);
+        List<Location> rsult = deadlockFinder.findDeadlock();
+        for(Location loc: rsult){
+            System.out.println(loc);
+        }
 
     }
     
@@ -316,13 +343,7 @@ public class Simulation {
     }
     
     public void addAgents(){
-//        for(int i =0; i<10; i++){
-//            addThreadAgent(ClientFactory.createRandomClient());
-//        }
-//        
-//        for(int i =0; i<10; i++){
-//            addThreadAgent(SupplierFactory.createRandomSupplier());
-//        }
+
     }
     
     private synchronized void addThreadAgent(ThreadAgent threadAgent){

@@ -25,15 +25,35 @@ public class ProductStorage {
         listOfProducts.add(product);
     }
     
+    public int getCapacity(){
+        return maxCapacity;
+    }
+    
     public int getFreePlace(){
         return maxCapacity - listOfProducts.size();
     }
     
     public void removeNProducts(int n){
-        listOfProducts = (LinkedList<Product>) listOfProducts.subList(0, listOfProducts.size()-n);
+        listOfProducts = new LinkedList<>(listOfProducts.subList(0, listOfProducts.size()-n));
+    }
+    
+    public Product getAndRemoveProduct(){
+        return listOfProducts.removeFirst();
     }
     
     public List<Product> getListOfProducts(){
         return listOfProducts;
+    }
+    
+    public boolean isEmpty(){
+        return listOfProducts.isEmpty();
+    }
+    
+    public boolean isFull(){
+        return listOfProducts.size() == maxCapacity;
+    }
+    
+    public int getNumberOfProducts(){
+        return listOfProducts.size();
     }
 }

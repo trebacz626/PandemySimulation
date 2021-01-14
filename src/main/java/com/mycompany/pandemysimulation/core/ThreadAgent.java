@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.pandemysimulation;
+package com.mycompany.pandemysimulation.core;
+
+import com.mycompany.pandemysimulation.VisibleComponent;
 
 /**
  *
@@ -19,10 +21,9 @@ public abstract class ThreadAgent extends SimulationAgent implements Runnable{
     @Override
     public void run() {
         this.start();
-//        while(isAlive){
+        while(isAlive){
             this.update();
-//            try{Thread.sleep(40);}catch(Exception e){};
-//        }
+        }
     }
     
     public void kill(){

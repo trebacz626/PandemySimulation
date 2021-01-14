@@ -5,7 +5,7 @@
  */
 package com.mycompany.pandemysimulation.ui;
 
-import com.mycompany.pandemysimulation.SimulationObject;
+import com.mycompany.pandemysimulation.core.SimulationObject;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;

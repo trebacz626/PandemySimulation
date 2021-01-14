@@ -5,7 +5,9 @@
  */
 package com.mycompany.pandemysimulation;
 
+import com.mycompany.pandemysimulation.core.Location;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -31,14 +33,30 @@ public class Client extends Person{
     }
     
     @Override
-    protected Location generateNextGoal() {
+    protected Shop generateNextGoal() {
         return App.simulation.getRandomRetailShop((Shop)this.getCurrentLocation());
         
     }
     
-    public void buyProducts(){
-    
+    protected void processShop(Shop shop){
+        int productsTobuy = new Random().nextInt(cart.getCapacity())+1;
+        if(cart.getFreePlace() < productsTobuy){
+            cart.removeNProducts(productsTobuy-cart.getFreePlace());
+        }
+        int boughtProducts = 0;
+        List<String> names = shop.getWarehouse().getProductNames();
+//        System.out.println(names);
+        if(names.isEmpty())return;
+        while(boughtProducts < productsTobuy){
+            Product product = shop.getWarehouse().getAndRemoveProduct(Utils.getRandomFromList(names));
+            if(product != null){
+                cart.addProduct(product);
+            }
+            boughtProducts++;
+        }
     }
+    
+    
 
     public String getPesel() {
         return pesel;
@@ -54,13 +72,7 @@ public class Client extends Person{
 
     @Override
     public String toString() {
-        return "Client{" + "pesel=" + pesel + ", firstName=" + firstName + ", lastName=" + lastName + ", cart=" + cart + ", targetX=" + targetX + ", targetY=" + targetY + ", lastTime=" + lastTime + '}';
+        return "Client{" + "pesel=" + pesel + ", firstName=" + firstName + ", lastName=" + lastName + ", cart=" + cart + ", lastTime=" + lastTime + '}';
     }
-    
-    
-    
-    
-    
-    
-    
+   
 }

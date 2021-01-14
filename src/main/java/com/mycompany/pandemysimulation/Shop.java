@@ -5,6 +5,9 @@
  */
 package com.mycompany.pandemysimulation;
 
+import com.mycompany.pandemysimulation.core.MainLoopAgent;
+import com.mycompany.pandemysimulation.core.Location;
+import com.mycompany.pandemysimulation.core.ThreadAgent;
 import java.util.LinkedList;
 
 /**

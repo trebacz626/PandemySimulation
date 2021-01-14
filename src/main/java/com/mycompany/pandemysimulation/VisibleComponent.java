@@ -5,6 +5,7 @@
  */
 package com.mycompany.pandemysimulation;
 
+import com.mycompany.pandemysimulation.core.SimulationObject;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -61,7 +62,7 @@ public class VisibleComponent implements EventHandler<MouseEvent>{
     @Override
     public void handle(MouseEvent event) {
         System.out.println("mouse click detected! "+event.getSource());
-        System.out.println(this.simulationObject.toString());
+        // System.out.println(this.simulationObject.toString());
         App.uiManager.getInformationPanel().showInformation(simulationObject);
     }
     

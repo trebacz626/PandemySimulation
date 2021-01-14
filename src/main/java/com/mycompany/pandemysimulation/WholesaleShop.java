@@ -5,6 +5,7 @@
  */
 package com.mycompany.pandemysimulation;
 
+import com.mycompany.pandemysimulation.core.ThreadAgent;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.concurrent.Semaphore;
@@ -42,6 +43,7 @@ public class WholesaleShop extends Shop{
     private void createProduct(){
         Product product = new Product("name", new Date(), Brand.AVON);
         if(!this.getWarehouse().isFull()){
+//            System.out.println("creating");
             this.getWarehouse().addProduct(product);
         }
     }

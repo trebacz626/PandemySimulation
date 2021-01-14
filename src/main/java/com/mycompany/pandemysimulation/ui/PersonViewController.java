@@ -6,7 +6,6 @@
 package com.mycompany.pandemysimulation.ui;
 
 import com.mycompany.pandemysimulation.Person;
-import com.mycompany.pandemysimulation.SimulationObjectViewController;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;

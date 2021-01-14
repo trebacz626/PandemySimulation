@@ -6,7 +6,7 @@
 package com.mycompany.pandemysimulation.ui;
 
 import com.mycompany.pandemysimulation.Client;
-import com.mycompany.pandemysimulation.SimulationObject;
+import com.mycompany.pandemysimulation.core.SimulationObject;
 import java.io.IOException;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;

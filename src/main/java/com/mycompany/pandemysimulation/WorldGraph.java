@@ -5,6 +5,7 @@
  */
 package com.mycompany.pandemysimulation;
 
+import com.mycompany.pandemysimulation.core.Location;
 import java.util.LinkedList;
 import javafx.util.Pair;
 

@@ -50,6 +50,7 @@ public class StoreStorage {
                     }
                 }catch(Exception e){
                     System.out.println(e);
+                    return;
                 }
             }
             try{
@@ -59,7 +60,7 @@ public class StoreStorage {
                 shelf.add(product);
                 synchronized(counterSynchronizer){
                     curCapacity++;
-                    counterSynchronizer.notify();
+                    counterSynchronizer.notifyAll();
                 }
             }finally{
                 unlock(product.getName());
@@ -89,7 +90,7 @@ public class StoreStorage {
                 unlock(productName);
                 synchronized(counterSynchronizer){
                     curCapacity--;
-                    counterSynchronizer.notify();
+                    counterSynchronizer.notifyAll();
                 }
                 return returnedProduct;
             }catch(Exception e){
@@ -133,40 +134,19 @@ public class StoreStorage {
     
     public List<Product> getListOfProducts(){
         LinkedList<Product> returned = new LinkedList<Product>();
-        for(List<Product> prodList: products.values()){
-            for(Product prod: prodList){
-                returned.add(prod);
-            }
+        for(String prodName: products.keySet()){
+            lock(prodName);
+            returned.addAll(products.get(prodName));
+            unlock(prodName);
         }
         return returned;
     }
     
     public boolean isFull(){
         synchronized(counterSynchronizer){
-            return curCapacity == maxCapacity;
+            return curCapacity >= maxCapacity;
         }
     }
     
 }
 
-
-//class StorageCounter{
-//
-//    int count;
-//    
-//    public StorageCounter(){
-//        this.count = 0;
-//    }
-//    
-//    public synchronized void add(){
-//        count++;
-//    }
-//    
-//    public synchronized void substract(){
-//        count--;
-//    }
-//    
-//    public synchronized int get(){
-//        return count;
-//    }
-//}

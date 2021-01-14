@@ -5,6 +5,7 @@
  */
 package com.mycompany.pandemysimulation;
 
+import com.mycompany.pandemysimulation.core.Location;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -27,11 +28,10 @@ public final class SupplierFactory {
         VisibleComponent vc = new VisibleComponent(Utils.getRandomFromArray(imageNames), 20, 20);
         Company comp = Utils.getRandomFromArray(Company.values());
         CarBrand brand = Utils.getRandomFromArray(CarBrand.values());
-        LinkedList<Location> listOfStops = new LinkedList<Location>();
-        int trunkCapacity = new Random().nextInt(300)+100;
+        int trunkCapacity = new Random().nextInt(20)+10;
         double gasCapacity = new Random().nextDouble()*500;
         
         
-        return new Supplier(brand, trunkCapacity, gasCapacity, comp, listOfStops, false, 0, false,null,currentLocation, false, Coordinates.mapToWorld(currentLocation.getIdX()),Coordinates.mapToWorld(currentLocation.getIdY()), vc, pathFinder);
+        return new Supplier(brand, trunkCapacity, gasCapacity, comp, false, 0, false,null,currentLocation, false, Coordinates.mapToWorld(currentLocation.getIdX()),Coordinates.mapToWorld(currentLocation.getIdY()), vc, pathFinder);
     }
 }

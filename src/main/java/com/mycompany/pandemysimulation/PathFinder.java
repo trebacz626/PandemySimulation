@@ -5,6 +5,7 @@
  */
 package com.mycompany.pandemysimulation;
 
+import com.mycompany.pandemysimulation.core.Location;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;

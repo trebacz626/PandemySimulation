@@ -5,7 +5,11 @@
  */
 package com.mycompany.pandemysimulation;
 
+import com.mycompany.pandemysimulation.core.Location;
+import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
 
 /**
  *
@@ -16,27 +20,65 @@ public class Supplier extends Person{
     private double gas;
     private double gasCapacity;
     private Company companyName;
-    private LinkedList<Location> listOfStops;
+    private LinkedList<Shop> listOfShops;
+    private int shopIndex;
     private ProductStorage trunk;
     private PathFinder pathFinder;
 
-    public Supplier(CarBrand carBrand, int trunkCapacity, double gasCapacity, Company companyName, LinkedList<Location> listOfStops, boolean sick, int shopsVisitedWhileSick, boolean vaccinated, Location nextStop, Location currentLocation, boolean waiting, double xPos, double yPos, VisibleComponent visibleComponent, PathFinder pathFinder) {
+    public Supplier(CarBrand carBrand, int trunkCapacity, double gasCapacity, Company companyName, boolean sick, int shopsVisitedWhileSick, boolean vaccinated, Location nextStop, Location currentLocation, boolean waiting, double xPos, double yPos, VisibleComponent visibleComponent, PathFinder pathFinder) {
         super(sick, shopsVisitedWhileSick, vaccinated, nextStop, currentLocation, waiting, xPos, yPos, visibleComponent, pathFinder);
         this.carBrand = carBrand;
         this.gasCapacity = gasCapacity;
         this.companyName = companyName;
-        this.listOfStops = listOfStops;
         this.trunk = new ProductStorage(trunkCapacity);
     }
     
     @Override
-    protected Location generateNextGoal() {
-        return App.simulation.getRandomShop((Shop)this.getCurrentLocation());
+    public void start(){
+        super.start();
+        this.listOfShops = new LinkedList<>();
+        for(int i =0;i<3;i++){
+            listOfShops.add(App.simulation.getRandomWholesaleShop(null));
+        }
+        
+        for(int i = 0;i<5;i++){
+            listOfShops.add(App.simulation.getRandomRetailShop(null));
+        }
+        Collections.shuffle(listOfShops);
+        listOfShops.addFirst((Shop)this.getCurrentLocation());
+        shopIndex=0;
         
     }
     
+    @Override
+    protected Shop generateNextGoal() {
+        return listOfShops.get((shopIndex++)%listOfShops.size());
+        
+    }
     
-
+    @Override
+    protected void processShop(Shop shop) {
+//        System.out.println("Process: "+carBrand+" "+companyName);
+        if(shop instanceof RetailShop){
+            if(trunk.isEmpty()) return;
+            int productsToStore = new Random().nextInt(trunk.getNumberOfProducts())+1;
+            while(!shop.getWarehouse().isFull() && !trunk.isEmpty()){
+//                System.out.println("Adding");
+                shop.getWarehouse().addProduct(trunk.getAndRemoveProduct());
+            }
+        }else{
+            if(trunk.isFull()) return;
+            List<String> names = shop.getWarehouse().getProductNames();
+            if(names.isEmpty())return;
+            while(!trunk.isFull()){
+                Product product = shop.getWarehouse().getAndRemoveProduct(Utils.getRandomFromList(names));
+                if(product != null){
+                    trunk.addProduct(product);
+                }
+            }
+        }
+    }
+    
     
     public LinkedList<Product> getProducts(){
         return null;
@@ -45,28 +87,11 @@ public class Supplier extends Person{
     public void refueal(){
         this.gas=this.gasCapacity;
     }
-    
-    public void leaveProducts(){
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-     public void updateRoute(){
-         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-     }
-    
 
-//    @Override
-//    protected void start() {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-//
-//    @Override
-//    protected void update() {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
 
     @Override
     public String toString() {
-        return "Supplier{" + "carBrand=" + carBrand + ", gas=" + gas + ", gasCapacity=" + gasCapacity + ", companyName=" + companyName + ", listOfStops=" + listOfStops + ", trunk=" + trunk + '}';
+        return "Supplier{" + "carBrand=" + carBrand + ", gas=" + gas + ", gasCapacity=" + gasCapacity + ", companyName=" + companyName + ", listOfStops=" + listOfShops + ", trunk=" + trunk + '}';
     }
     
 }
