@@ -37,60 +37,89 @@ public class DeadlockFinder {
         for(int y=0;y<sizeY;y++){
             for(int x = 0; x<sizeX;x++){
                 if(visited[y][x]) continue;
-                List<Location> result = DFS(locations[y][x]);
+                List<Node> result = DFS(locations[y][x]);
                 if(result!=null){
-                    return finCycleInResult(result);
+                    return transform(finCycleInResult(result));
                 }
             }
         }
         return null;
     }
     
-    private List<Location> DFS(Location location){
+    private List<Node> DFS(Location location){
         HashSet<Location> currentBranch  = new HashSet<>();
-        Stack<Location> stack = new Stack<>();
-        currentBranch.add(location);
-        stack.add(location);
+        Stack<Node> stack = new Stack<>();
+        Node initNode = new Node(location.getGroup());
+        initNode.setChildren(this.getDescendantLocations(initNode));
+        currentBranch.addAll(initNode.getLocations());
+        stack.add(initNode);
         while(!stack.empty()){
-            Location current = stack.peek();
-            List<Direction> actions = getActions(current);
+            Node current = stack.peek();
+            List<Location> descendants = current.getChildren();
             boolean didBreak = false;
-            for(Direction action : actions){
-                Location nextLocation = locations[current.getIdY()+action.dY()][current.getIdX()+action.dX()];
+            for(Location nextLocation: descendants){
                 if(currentBranch.contains(nextLocation)){
-                    stack.add(nextLocation);
-                    return new LinkedList<>(stack);
+                    stack.add(new Node(nextLocation.getGroup()));
+                    Collections.reverse(stack);
+                    return stack;
                 }
                 if( !visited[nextLocation.getIdY()][nextLocation.getIdX()]){
-                    stack.add(nextLocation);
-                    currentBranch.add(nextLocation);
+                    Node newNode = new Node(nextLocation.getGroup());
+                    newNode.setChildren(getDescendantLocations(newNode));
+                    stack.add(newNode);
+                    currentBranch.addAll(newNode.getLocations());
+                    for(Location nextLocationGroupmate: newNode.getLocations()){
+                        visited[nextLocationGroupmate.getIdY()][nextLocationGroupmate.getIdX()]=true;
+                    }
                     didBreak=true;
-                    visited[nextLocation.getIdY()][nextLocation.getIdX()]=true;
                     break;
                 }
             }
             if(!didBreak){
+                System.out.println("hmmm");
                 stack.pop();
-                currentBranch.remove(current);
+                //todo
+                currentBranch.removeAll(current.getLocations());
             }
         }
         return null;
     }
     
-    private List<Location> finCycleInResult(List<Location> result){
+    private List<Location> getDescendantLocations(Node node){
+        List<Location> result = new LinkedList<>();
+        for(Location location: node.getLocations()){
+            for(Direction action : getActions(location)){
+                Location nextLocation = locations[location.getIdY()+action.dY()][location.getIdX()+action.dX()];
+                if(!node.getLocations().contains(nextLocation) && !node.getLocations().contains(nextLocation)){
+                    result.add(nextLocation);
+                }
+            }
+        }
+        return result;
+    }
+    
+    private List<Node> finCycleInResult(List<Node> result){
 //        System.out.println(result);
-        Location last = result.remove(0);
-        List<Location> finalResult= new LinkedList<Location>();
+        Node last = result.remove(0);
+        List<Node> finalResult= new LinkedList<>();
         finalResult.add(last);
-        for(Location location:result){
-            if(location != last){
-                finalResult.add(location);
+        for(Node node:result){
+            if(node.getIdx() != last.getIdx() || node.getIdy() != last.getIdy()){
+                finalResult.add(node);
             }else{
                 break;
             }
         }
         Collections.reverse(finalResult);
         return finalResult;
+    }
+    
+    private List<Location> transform(List<Node> nodes){
+        List<Location> result = new LinkedList<>();
+        for(Node node: nodes){
+            result.addAll(node.getLocations());
+        }
+        return result;
     }
     
     

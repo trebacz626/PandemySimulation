@@ -8,6 +8,7 @@ package com.mycompany.pandemysimulation.deadlock;
 import com.mycompany.pandemysimulation.core.Location;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  *
@@ -15,32 +16,39 @@ import java.util.List;
  */
 class Node {
     
-    Location location;
-    List<Node> children;
-
-    Node parent;
+    private List<Location> locations;
+    private List<Location> children;
     
-    public Node(Node parent, Location location){
-        this.parent = parent;
-        this.location = location;
+    public Node(List<Location> locations){
+        this.locations = locations;
         this.children = new LinkedList<>();
     }
     
-    public void addChild(Node child){
+    public void addChild(Location child){
         this.children.add(child);
     }
 
-    public Location getLocation() {
-        return location;
+    public List<Location> getLocations() {
+        return locations;
     }
 
-    public List<Node> getChildren() {
+    public List<Location> getChildren() {
         return children;
     }
-
-    public Node getParent() {
-        return parent;
+    
+    public int getIdx(){
+        return locations.stream().map(location-> location.getIdX()).min(Integer::compare).orElseThrow();
     }
     
+    public int getIdy(){
+        return locations.stream().map(location-> location.getIdY()).min(Integer::compare).orElseThrow();
+    }
+
+    public void setChildren(List<Location> children) {
+        this.children = children;
+    }
     
+    public void setChild(Location child){
+        children.add(child);
+    }
 }

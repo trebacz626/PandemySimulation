@@ -100,8 +100,8 @@ public class MapBuilder {
             for(int x=x1;x<=x2;x++){
                 for(int i=0;i<4;i++){
                     pedestrianDirection[y][x][i]=true;
-                    locationMap[y][x] = new IntersectionTile(x,y,TileType.PI, intersection);
                 }
+                locationMap[y][x] = new IntersectionTile(x,y,TileType.PI, intersection);
             }
         }
         //upper left
@@ -191,8 +191,8 @@ public class MapBuilder {
             for(int x=x1;x<=x2;x++){
                 for(int i=0;i<4;i++){
                     suppliersDirections[y][x][i]=true;
-                    locationMap[y][x] = new IntersectionTile(x,y,TileType.RI, intersection);
                 }
+                locationMap[y][x] = new IntersectionTile(x,y,TileType.RI, intersection);
             }
         }
         //upper left

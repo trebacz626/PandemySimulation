@@ -5,9 +5,11 @@
  */
 package com.mycompany.pandemysimulation;
 
+import com.mycompany.pandemysimulation.core.Location;
 import com.mycompany.pandemysimulation.core.SimulationObject;
 import com.mycompany.pandemysimulation.core.ThreadAgent;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
@@ -17,10 +19,12 @@ import java.util.concurrent.locks.ReentrantLock;
 public class Intersection extends SimulationObject{
     
     private ReentrantLock lock; 
+    private List<Location> tiles;
     
     public Intersection(double posX, double posY, VisibleComponent visibleComponent){
         super(posX,posY,visibleComponent);
         lock = new ReentrantLock();
+        tiles=new LinkedList<Location>();
     }
     
     
@@ -39,6 +43,14 @@ public class Intersection extends SimulationObject{
 
     public double getYPos() {
         return yPos;
+    }
+    
+    protected void addTile(IntersectionTile tile){
+        tiles.add(tile);
+    }
+    
+    protected List<Location> getTiles(){
+        return tiles;
     }
     
 }

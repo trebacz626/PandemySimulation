@@ -8,7 +8,9 @@ package com.mycompany.pandemysimulation;
 import com.mycompany.pandemysimulation.core.MainLoopAgent;
 import com.mycompany.pandemysimulation.core.Location;
 import com.mycompany.pandemysimulation.core.ThreadAgent;
+import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -90,5 +92,10 @@ public abstract class Shop extends MainLoopAgent implements Location{
             text+=product.getName()+"\n";
         }
         return text;
+    }
+    
+    @Override
+    public List<Location> getGroup() {
+        return Collections.singletonList(this);
     }
 }

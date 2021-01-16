@@ -8,6 +8,8 @@ package com.mycompany.pandemysimulation;
 import com.mycompany.pandemysimulation.core.Location;
 import com.mycompany.pandemysimulation.core.SimulationObject;
 import com.mycompany.pandemysimulation.core.ThreadAgent;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 import javafx.scene.image.Image;
 
@@ -76,6 +78,11 @@ class Tile extends SimulationObject implements Location{
     @Override
     public String toString() {
         return "Tile{" + "idX=" + idX + ", idY=" + idY + ", lock=" + lock + ", tileType=" + tileType + '}';
+    }
+
+    @Override
+    public List<Location> getGroup() {
+        return Collections.singletonList(this);
     }
     
     

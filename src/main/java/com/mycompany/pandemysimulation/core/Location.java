@@ -5,6 +5,8 @@
  */
 package com.mycompany.pandemysimulation.core;
 
+import java.util.List;
+
 /**
  *
  * @author kacper
@@ -14,4 +16,5 @@ public interface Location {
     public int getIdY();
     public void enter(ThreadAgent threadAgent);
     public void leave(ThreadAgent threadAgent);
+    public List<Location> getGroup();
 }

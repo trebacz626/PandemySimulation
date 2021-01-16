@@ -5,7 +5,10 @@
  */
 package com.mycompany.pandemysimulation;
 
+import com.mycompany.pandemysimulation.core.Location;
 import com.mycompany.pandemysimulation.core.ThreadAgent;
+import java.util.Collections;
+import java.util.List;
 
 /**
  *
@@ -16,6 +19,7 @@ public class IntersectionTile extends Tile{
     public IntersectionTile(int idX, int idY, TileType tileType, Intersection intersection){
         super(idX,idY,tileType);
         this.intersection = intersection;
+        intersection.addTile(this);
     }
     
     public void enter(ThreadAgent threadAgent){
@@ -26,5 +30,10 @@ public class IntersectionTile extends Tile{
     public void leave(ThreadAgent threadAgent){
         intersection.leave(threadAgent);
         super.leave(threadAgent);
+    }
+    
+    @Override
+    public List<Location> getGroup() {
+        return intersection.getTiles();
     }
 }

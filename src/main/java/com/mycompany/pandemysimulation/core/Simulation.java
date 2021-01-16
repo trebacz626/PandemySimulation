@@ -304,7 +304,11 @@ public class Simulation {
                 .addRoadX(47,51,24)
                 .addRoadY(24,8,52)
                 .addRoadX(52, 48, 7)
-                .addWholesaleShop(52, 14, "Last One Standing", "Groszkowa 2")    
+                .addWholesaleShop(52, 14, "Last One Standing", "Groszkowa 2")   
+                
+                
+                //experimental
+                .add2x2PavementIntersection(7, 14)
                 .build();
         locations = mapBuilder.getLocationMap();
         for(SimulationObject so: mapBuilder.getSimulationObjects()){
