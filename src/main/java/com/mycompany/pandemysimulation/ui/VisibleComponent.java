@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.pandemysimulation;
+package com.mycompany.pandemysimulation.ui;
 
+import com.mycompany.pandemysimulation.App;
+import com.mycompany.pandemysimulation.Coordinates;
 import com.mycompany.pandemysimulation.core.SimulationObject;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;

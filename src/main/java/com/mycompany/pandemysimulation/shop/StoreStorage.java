@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.pandemysimulation;
+package com.mycompany.pandemysimulation.shop;
 
+import com.mycompany.pandemysimulation.Product;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;

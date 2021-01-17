@@ -3,8 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.pandemysimulation;
+package com.mycompany.pandemysimulation.shop;
 
+import com.mycompany.pandemysimulation.person.Brand;
+import com.mycompany.pandemysimulation.Product;
+import com.mycompany.pandemysimulation.person.Supplier;
+import com.mycompany.pandemysimulation.ui.VisibleComponent;
 import com.mycompany.pandemysimulation.core.ThreadAgent;
 import java.util.Date;
 import java.util.LinkedList;

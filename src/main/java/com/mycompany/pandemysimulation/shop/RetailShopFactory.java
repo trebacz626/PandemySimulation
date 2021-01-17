@@ -3,15 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.pandemysimulation;
+package com.mycompany.pandemysimulation.shop;
 
+import com.mycompany.pandemysimulation.Tile;
+import com.mycompany.pandemysimulation.ui.VisibleComponent;
+import java.util.Date;
 import java.util.Random;
 
 /**
  *
  * @author kacper
  */
-public final class WholesaleShopFactory {
+public class RetailShopFactory {
     public static int getMaxClients(){
         return new Random().nextInt(16)+5;
     }
@@ -21,8 +24,9 @@ public final class WholesaleShopFactory {
     }
     
     
-    public static WholesaleShop createWholesaleShop(String name, String address, int xPos, int yPos, String imageName){
+    public static RetailShop createRetailShop(String name, String address, int xPos, int yPos, String imageName){
         VisibleComponent vc = new VisibleComponent(imageName, Tile.tileSize, Tile.tileSize);
-        return new WholesaleShop(name, address, getMaxClients(), getMaxProducts(), xPos, yPos, vc);
+        int expiredSalePeriod = 7;
+        return new RetailShop(expiredSalePeriod,10, new Date(),name, address, getMaxClients(), getMaxProducts(), xPos, yPos, vc);
     }
 }

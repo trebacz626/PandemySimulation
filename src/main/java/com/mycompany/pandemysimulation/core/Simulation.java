@@ -6,17 +6,17 @@
 package com.mycompany.pandemysimulation.core;
 
 import com.mycompany.pandemysimulation.map.Location;
-import com.mycompany.pandemysimulation.Client;
-import com.mycompany.pandemysimulation.ClientFactory;
+import com.mycompany.pandemysimulation.person.Client;
+import com.mycompany.pandemysimulation.person.ClientFactory;
 import com.mycompany.pandemysimulation.Direction;
 import com.mycompany.pandemysimulation.map.MapBuilder;
-import com.mycompany.pandemysimulation.PathFinder;
-import com.mycompany.pandemysimulation.Person;
-import com.mycompany.pandemysimulation.RetailShop;
-import com.mycompany.pandemysimulation.Shop;
-import com.mycompany.pandemysimulation.SupplierFactory;
+import com.mycompany.pandemysimulation.map.PathFinder;
+import com.mycompany.pandemysimulation.person.Person;
+import com.mycompany.pandemysimulation.shop.RetailShop;
+import com.mycompany.pandemysimulation.shop.Shop;
+import com.mycompany.pandemysimulation.person.SupplierFactory;
 import com.mycompany.pandemysimulation.Utils;
-import com.mycompany.pandemysimulation.WholesaleShop;
+import com.mycompany.pandemysimulation.shop.WholesaleShop;
 import com.mycompany.pandemysimulation.WorldData;
 import com.mycompany.pandemysimulation.map.DeadlockFinder;
 import com.mycompany.pandemysimulation.map.Map;

@@ -3,8 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.pandemysimulation;
+package com.mycompany.pandemysimulation.person;
 
+import com.mycompany.pandemysimulation.Coordinates;
+import com.mycompany.pandemysimulation.Utils;
+import com.mycompany.pandemysimulation.map.PathFinder;
+import com.mycompany.pandemysimulation.ui.VisibleComponent;
 import com.mycompany.pandemysimulation.map.Location;
 import java.util.LinkedList;
 import java.util.Random;

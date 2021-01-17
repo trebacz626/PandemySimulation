@@ -6,9 +6,9 @@
 package com.mycompany.pandemysimulation.ui;
 
 import com.mycompany.pandemysimulation.App;
-import com.mycompany.pandemysimulation.Person;
-import com.mycompany.pandemysimulation.Shop;
-import com.mycompany.pandemysimulation.Supplier;
+import com.mycompany.pandemysimulation.person.Person;
+import com.mycompany.pandemysimulation.shop.Shop;
+import com.mycompany.pandemysimulation.person.Supplier;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.LinkedList;

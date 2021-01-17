@@ -5,7 +5,6 @@
  */
 package com.mycompany.pandemysimulation.ui;
 
-import com.mycompany.pandemysimulation.VisibleComponent;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.ResourceBundle;

@@ -3,8 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.pandemysimulation;
+package com.mycompany.pandemysimulation.shop;
 
+import com.mycompany.pandemysimulation.Coordinates;
+import com.mycompany.pandemysimulation.Product;
+import com.mycompany.pandemysimulation.ui.VisibleComponent;
 import com.mycompany.pandemysimulation.core.MainLoopAgent;
 import com.mycompany.pandemysimulation.map.Location;
 import com.mycompany.pandemysimulation.core.ThreadAgent;
@@ -84,7 +87,7 @@ public abstract class Shop extends MainLoopAgent implements Location{
     
     }
     
-    protected StoreStorage getWarehouse(){
+    public  StoreStorage getWarehouse(){
         return this.warehouse;
     }
     

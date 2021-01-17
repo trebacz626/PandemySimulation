@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.pandemysimulation;
+package com.mycompany.pandemysimulation.person;
 
+import com.mycompany.pandemysimulation.Product;
 import java.util.LinkedList;
 import java.util.List;
 

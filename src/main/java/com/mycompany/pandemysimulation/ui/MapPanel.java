@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.pandemysimulation;
+package com.mycompany.pandemysimulation.ui;
 
+import com.mycompany.pandemysimulation.ui.VisibleComponent;
 import java.util.LinkedList;
 import javafx.scene.image.Image;
 
