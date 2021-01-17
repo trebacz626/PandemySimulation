@@ -29,4 +29,31 @@ public abstract class SimulationObjectViewController<T extends SimulationObject>
     @FXML
     protected Text posY;
     
+    private T curSimulationObject;
+    
+    public void setSimulationObject(T so){
+        curSimulationObject = so;
+        update();
+    }
+    
+    public void start(){
+    
+    }
+    
+    public void update(){
+        if(curSimulationObject != null){
+            posX.setText(String.valueOf((int)curSimulationObject.getxPos()));
+            posY.setText(String.valueOf((int)curSimulationObject.getyPos()));
+            profilrImage.setImage(curSimulationObject.getVisibleComponent().getImage());
+        }
+    }
+    
+    protected T getSimulationObject(){
+        return curSimulationObject;
+    }
+    
+    protected void removeSimulationObject(){
+        curSimulationObject = null;
+    }
+    
 }

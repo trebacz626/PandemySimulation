@@ -20,10 +20,17 @@ public class Supplier extends Person{
     private double gas;
     private double gasCapacity;
     private Company companyName;
-    private LinkedList<Shop> listOfShops;
+    private List<Shop> route;
     private int shopIndex;
     private ProductStorage trunk;
     private PathFinder pathFinder;
+    private int uniqueId;
+    
+    private static int curId=0;
+    
+    private static synchronized int getNextId(){
+        return curId++;
+    }
 
     public Supplier(CarBrand carBrand, int trunkCapacity, double gasCapacity, Company companyName, boolean sick, int shopsVisitedWhileSick, boolean vaccinated, Location nextStop, Location currentLocation, boolean waiting, double xPos, double yPos, VisibleComponent visibleComponent, PathFinder pathFinder) {
         super(sick, shopsVisitedWhileSick, vaccinated, nextStop, currentLocation, waiting, xPos, yPos, visibleComponent, pathFinder);
@@ -31,40 +38,39 @@ public class Supplier extends Person{
         this.gasCapacity = gasCapacity;
         this.companyName = companyName;
         this.trunk = new ProductStorage(trunkCapacity);
+        this.uniqueId = getNextId();
     }
     
     @Override
     public boolean start(){
         if(!super.start())
             return false;
-        this.listOfShops = new LinkedList<>();
+        this.route = new LinkedList<>();
         for(int i =0;i<3;i++){
-            listOfShops.add(App.simulation.getRandomWholesaleShop(null));
+            route.add(App.simulation.getRandomWholesaleShop(null));
         }
-        
         for(int i = 0;i<5;i++){
-            listOfShops.add(App.simulation.getRandomRetailShop(null));
+            route.add(App.simulation.getRandomRetailShop(null));
         }
-        Collections.shuffle(listOfShops);
-        listOfShops.addFirst((Shop)this.getCurrentLocation());
+        Collections.shuffle(route);
+        route.add(0,(Shop)this.getCurrentLocation());
         shopIndex=0;
         return true;
     }
     
     @Override
-    protected Shop generateNextGoal() {
-        return listOfShops.get((shopIndex++)%listOfShops.size());
+    protected synchronized Shop generateNextGoal() {
+        return route.get((shopIndex++)%route.size());
         
     }
     
     @Override
     protected void processShop(Shop shop) {
-//        System.out.println("Process: "+carBrand+" "+companyName);
+        refuel();
         if(shop instanceof RetailShop){
             if(trunk.isEmpty()) return;
             int productsToStore = new Random().nextInt(trunk.getNumberOfProducts())+1;
             while(!shop.getWarehouse().isFull() && !trunk.isEmpty()){
-//                System.out.println("Adding");
                 shop.getWarehouse().addProduct(trunk.getAndRemoveProduct());
             }
         }else{
@@ -80,19 +86,42 @@ public class Supplier extends Person{
         }
     }
     
-    
     public LinkedList<Product> getProducts(){
         return null;
     }
     
-    public void refueal(){
+    private void refuel(){
         this.gas=this.gasCapacity;
+    }
+    
+    protected void onMove(){
+        this.gas-=1;
     }
 
 
     @Override
     public String toString() {
-        return "Supplier{" + "carBrand=" + carBrand + ", gas=" + gas + ", gasCapacity=" + gasCapacity + ", companyName=" + companyName + ", listOfStops=" + listOfShops + ", trunk=" + trunk + '}';
+        return "Supplier{" + "carBrand=" + carBrand + ", gas=" + gas + ", gasCapacity=" + gasCapacity + ", companyName=" + companyName + ", listOfStops=" + route + ", trunk=" + trunk + '}';
+    }
+
+    public CarBrand getCarBrand() {
+        return carBrand;
+    }
+
+    public Company getCompanyName() {
+        return companyName;
+    }
+
+    public int getUniqueId() {
+        return uniqueId;
+    }
+    
+    public List<Shop> getRoute(){
+        return route;
+    }
+    
+    public synchronized void setRoute(List<Shop> route){
+        this.route = route;
     }
     
 }

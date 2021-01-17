@@ -23,6 +23,13 @@ public abstract class Shop extends MainLoopAgent implements Location{
     private StoreStorage warehouse;
     private int idX;
     private int idY;
+    private int uniqueId;
+    
+    private static int curId=0;
+    
+    private static synchronized int getNextId(){
+        return curId++;
+    }
 
     public Shop(String name, String address, int maxClients, int maxProducts, int idX, int idY, VisibleComponent visibleComponent) {
         super(Coordinates.mapToWorld(idX), Coordinates.mapToWorld(idY), visibleComponent);
@@ -32,6 +39,7 @@ public abstract class Shop extends MainLoopAgent implements Location{
         this.warehouse = new StoreStorage(maxProducts);
         this.idX = idX;
         this.idY = idY;
+        this.uniqueId = getNextId(); 
     }
     
     public boolean start(){
@@ -60,6 +68,10 @@ public abstract class Shop extends MainLoopAgent implements Location{
         return address;
     }
     
+    public int getUniqueId(){
+        return uniqueId;
+    }
+    
     public LinkedList<Product> getProducts(){
         return null;
     }
@@ -78,7 +90,7 @@ public abstract class Shop extends MainLoopAgent implements Location{
     
     @Override
     public String toString() {
-        String text =  getName()+ " " + getxPos() + " "+ getyPos()+"\n Products: "; 
+        String text =  getName()+ " " + getxPos() + " "+ getyPos()+" ID: "+getUniqueId()+" \n Products: "; 
         for( Product product : warehouse.getListOfProducts()){
             text+=product.getName()+"\n";
         }

@@ -6,6 +6,7 @@
 package com.mycompany.pandemysimulation.ui;
 
 import com.mycompany.pandemysimulation.Client;
+import com.mycompany.pandemysimulation.Supplier;
 import com.mycompany.pandemysimulation.core.SimulationObject;
 import java.io.IOException;
 import javafx.application.Platform;
@@ -19,7 +20,7 @@ import javafx.stage.Stage;
  */
 public class InformationPanel {
     private SimulationObject currentSo;
-    private ClientViewController clientController;
+    private SimulationObjectViewController simulationObjectViewController;
     private InformationPanelController informationController;
     
     private Stage stage;
@@ -41,6 +42,8 @@ public class InformationPanel {
         currentSo = so;
         if (currentSo instanceof Client){
             showClientInformation((Client)so);
+        }else if(currentSo instanceof  Supplier){
+            showSupplierInformation((Supplier)so);
         }else{
             showOtherInformation(so);
         }
@@ -53,8 +56,8 @@ public class InformationPanel {
         if(currentSo == null){
             return;
         }
-        if (currentSo instanceof Client){
-            clientController.update();
+        if (currentSo instanceof Client || currentSo instanceof Supplier){
+            simulationObjectViewController.update();
         }else{
             informationController.update();
         }
@@ -63,20 +66,32 @@ public class InformationPanel {
     private void showClientInformation(Client client) throws IOException{
         FXMLLoader loader = UIManager.getFXMLLoader("clientView");
         Scene scene = new Scene(loader.load());
-        clientController = loader.<ClientViewController<Client>>getController();
-        clientController.setSimulationObject(client);
-        stage.setScene(scene);
-        stage.setOnCloseRequest(event ->Platform.exit());
-        stage.show();
+        simulationObjectViewController = loader.<ClientViewController<Client>>getController();
+        simulationObjectViewController.setSimulationObject(client);
+        simulationObjectViewController.start();
+        showInformation(scene);
+    }
+    
+    private void showSupplierInformation(Supplier supplier) throws IOException{
+        FXMLLoader loader = UIManager.getFXMLLoader("supplierView");
+        Scene scene = new Scene(loader.load());
+        simulationObjectViewController = loader.<SupplierViewController<Supplier>>getController();
+        simulationObjectViewController.setSimulationObject(supplier);
+        simulationObjectViewController.start();
+        showInformation(scene);
     }
     
     private void showOtherInformation(SimulationObject so) throws IOException{
         FXMLLoader loader = UIManager.getFXMLLoader("informationPanel");
         Scene scene = new Scene(loader.load());
         informationController = (InformationPanelController) loader.getController();
+        showInformation(scene);
+        informationController.displayInfo(so);
+    }
+    
+    private void showInformation(Scene scene){
         stage.setScene(scene);
         stage.setOnCloseRequest(event ->Platform.exit());
         stage.show();
-        informationController.displayInfo(so);
     }
 }

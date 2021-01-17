@@ -20,7 +20,6 @@ import javafx.scene.text.Text;
  */
 public class ClientViewController< T extends Client> extends PersonViewController<T> {
 
-    private T curClient;
     
     @FXML
     private Text surname;
@@ -37,25 +36,12 @@ public class ClientViewController< T extends Client> extends PersonViewControlle
         title.setText("Client");
     }   
     
-    public void setSimulationObject(T so){
-        curClient = so;
-        update();
-    }
-    
     public void update(){
-        if(curClient != null){
-            posX.setText(String.valueOf((int)curClient.getxPos()));
-            posY.setText(String.valueOf((int)curClient.getyPos()));
-            profilrImage.setImage(curClient.getVisibleComponent().getImage());
-            isSick.setText(String.valueOf(curClient.isSick()));
-            isVaccinated.setText(String.valueOf(curClient.isVaccinated()));
-            pesel.setText(curClient.getPesel());
-            name.setText(curClient.getFirstName());
-            surname.setText(curClient.getLastName());
-            removeButton.setOnMouseClicked(event -> {
-                App.simulation.removeThreadAgent(curClient);
-                curClient = null;
-            });
+        super.update();
+        if(getSimulationObject() != null){
+            pesel.setText(getSimulationObject().getPesel());
+            name.setText(getSimulationObject().getFirstName());
+            surname.setText(getSimulationObject().getLastName());
         }
     }
     

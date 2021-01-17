@@ -35,13 +35,14 @@ import java.util.stream.Collectors;
  * @author kacper
  */
 public class Simulation {
+
     private LinkedList<ThreadAgent> threadsAgents;
     private LinkedList<MainLoopAgent> mainLoopAgents;
     private LinkedList<SimulationObject> simulationObjects;
 //    public final WorldData worldData;
     public final UIManager uiManager;
     private MapManager mapManager;
-    
+
     public Simulation(UIManager uiManager) {
 //        this.worldData = new WorldData();
         this.uiManager = uiManager;
@@ -49,133 +50,143 @@ public class Simulation {
         this.mainLoopAgents = new LinkedList<MainLoopAgent>();
         this.simulationObjects = new LinkedList<SimulationObject>();
     }
-    
-      
-    
-    public void start(){
+
+    public void start() {
         System.out.println("Simulation Started");
-        
+
         createScene();
-        
+
         addAgents();
-        
-        for(MainLoopAgent agent : this.mainLoopAgents){
+
+        for (MainLoopAgent agent : this.mainLoopAgents) {
             agent.start();
         }
-        
-        for(ThreadAgent agent : this.threadsAgents){
+
+        for (ThreadAgent agent : this.threadsAgents) {
             Thread agentThread = new Thread(agent);
             agentThread.setDaemon(true);
             agentThread.start();
         }
-        
+
     }
-    
-    public void update(){
-        for(MainLoopAgent agent : this.mainLoopAgents){
+
+    public void update() {
+        for (MainLoopAgent agent : this.mainLoopAgents) {
             agent.update();
         }
         findDeadlock();
         uiManager.update();
     }
-    
-    private void findDeadlock(){
-        List<Person> people = threadsAgents.stream().filter(a->a instanceof Person).map(a->(Person)a).collect(Collectors.toList());
+
+    private void findDeadlock() {
+        List<Person> people = threadsAgents.stream().filter(a -> a instanceof Person).map(a -> (Person) a).collect(Collectors.toList());
         List<Person> toDelete = mapManager.findDeadLockPedestrian(people);
         List<Person> carsToDelete = mapManager.findDeadLockRoad(people);
         toDelete.addAll(carsToDelete);
-        for(Person person: toDelete){
+        for (Person person : toDelete) {
             removeThreadAgent(person);
         }
     }
-    
-    private void drawSimulationObject(SimulationObject so){
-        
-    }
-    
-    public void finish(){
-    
-    }
-    
-    public void startLockdown(){
-    
-    }
-    
-    public void endLockdown(){
-    
-    }
-    
-    public RetailShop getRandomRetailShop(Shop current){
-        Shop shop;
-        while(!((shop = getRandomShop(current)) instanceof RetailShop));
-        return (RetailShop)shop;
-    }
-    
-    public WholesaleShop getRandomWholesaleShop(Shop current){
-        Shop shop;
-        while(!((shop = getRandomShop(current)) instanceof WholesaleShop));
-        return (WholesaleShop)shop;
+
+    private void drawSimulationObject(SimulationObject so) {
+
     }
 
-    public Shop getRandomShop(Shop current){
-        MainLoopAgent agent;
-        do{
-            agent = Utils.getRandomFromList(mainLoopAgents);
-            
-        }while( !(agent instanceof Shop) || (current!=null&&agent == current));
-        return (Shop)agent;
+    public void finish() {
+
     }
-    
-    private void createScene(){
+
+    public void startLockdown() {
+
+    }
+
+    public void endLockdown() {
+
+    }
+
+    public RetailShop getRandomRetailShop(Shop current) {
+        Shop shop;
+        while (!((shop = getRandomShop(current)) instanceof RetailShop));
+        return (RetailShop) shop;
+    }
+
+    public WholesaleShop getRandomWholesaleShop(Shop current) {
+        Shop shop;
+        while (!((shop = getRandomShop(current)) instanceof WholesaleShop));
+        return (WholesaleShop) shop;
+    }
+
+    public Shop getRandomShop(Shop current) {
+        MainLoopAgent agent;
+        do {
+            agent = Utils.getRandomFromList(mainLoopAgents);
+
+        } while (!(agent instanceof Shop) || (current != null && agent == current));
+        return (Shop) agent;
+    }
+
+    public Shop getShopById(int id) {
+
+        for (MainLoopAgent agent : this.mainLoopAgents) {
+            if (agent instanceof Shop) {
+                if (((Shop) agent).getUniqueId() == id) {
+                    return (Shop) agent;
+                }
+            }
+        }
+        return null;
+    }
+
+    private void createScene() {
         MapBuilder builder = MapCreator.getMapBuilder();
         Map map = builder.build();
         mapManager = new MapManager(map);
-        for(SimulationObject so: builder.getSimulationObjects()){
-            if(so instanceof MainLoopAgent){
-                addMainLoopAgent((MainLoopAgent)so);
-            }else{
+        for (SimulationObject so : builder.getSimulationObjects()) {
+            if (so instanceof MainLoopAgent) {
+                addMainLoopAgent((MainLoopAgent) so);
+            } else {
                 addSimulationObject(so);
             }
-        }        
+        }
     }
-    
-    public List<Shop> getShops(){
+
+    public List<Shop> getShops() {
         return simulationObjects.stream().filter(so -> so instanceof Shop).map(so -> (Shop) so).collect(Collectors.toList());
     }
-    
-    private void createWorldGraph(LinkedList<Location> locations){
+
+    private void createWorldGraph(LinkedList<Location> locations) {
     }
-    
-    public void addAgents(){
-        for(int i=0;i<20;i++)
-            addThreadAgent(ClientFactory.createRandomClient(getRandomRetailShop(null), mapManager.getPedestrianPathFinder()));        
-        
-        for(int i=0;i<300;i++)
+
+    public void addAgents() {
+        for (int i = 0; i < 20; i++) {
+            addThreadAgent(ClientFactory.createRandomClient(getRandomRetailShop(null), mapManager.getPedestrianPathFinder()));
+        }
+
+        for (int i = 0; i < 1; i++) {
             addThreadAgent(SupplierFactory.createRandomSupplier(getRandomShop(null), mapManager.getRoadPathFinder()));
+        }
     }
-    
-    private synchronized void addThreadAgent(ThreadAgent threadAgent){
+
+    private synchronized void addThreadAgent(ThreadAgent threadAgent) {
         threadsAgents.add(threadAgent);
         addSimulationObject(threadAgent);
     }
-    
-    private synchronized void addMainLoopAgent(MainLoopAgent mainLoopAgent){
+
+    private synchronized void addMainLoopAgent(MainLoopAgent mainLoopAgent) {
         mainLoopAgents.add(mainLoopAgent);
         addSimulationObject(mainLoopAgent);
     }
-    
-    private synchronized void addSimulationObject(SimulationObject simulationObject){
+
+    private synchronized void addSimulationObject(SimulationObject simulationObject) {
         simulationObjects.add(simulationObject);
         uiManager.getMapPanelController().addVisibleComponent(simulationObject.getVisibleComponent());
     }
-    
-    
-    public synchronized void removeThreadAgent(ThreadAgent threadAgent){
+
+    public synchronized void removeThreadAgent(ThreadAgent threadAgent) {
         threadsAgents.remove(threadAgent);
         simulationObjects.remove(threadAgent);
         uiManager.getMapPanelController().removeVisibleComponent(threadAgent.getVisibleComponent());
         threadAgent.kill();
     }
-    
-    
+
 }

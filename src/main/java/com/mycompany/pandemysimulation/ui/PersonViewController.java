@@ -5,6 +5,7 @@
  */
 package com.mycompany.pandemysimulation.ui;
 
+import com.mycompany.pandemysimulation.App;
 import com.mycompany.pandemysimulation.Person;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -26,5 +27,17 @@ public abstract class PersonViewController<T extends Person> extends SimulationO
     protected Text isVaccinated;
     @FXML
     protected Button removeButton;  
+    
+    public void update(){
+        super.update();
+        if(getSimulationObject() != null){
+            isSick.setText(String.valueOf(getSimulationObject().isSick()));
+            isVaccinated.setText(String.valueOf(getSimulationObject().isVaccinated()));
+            removeButton.setOnMouseClicked(event -> {
+                App.simulation.removeThreadAgent(getSimulationObject());
+                removeSimulationObject();
+            });
+        }
+    }
     
 }

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="300" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.pandemysimulation.ui.SupplierViewController">
+   <children>
+       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="250.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+        <children>
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="150.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+                <children>
+                   <Text fx:id="title" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Symulation Object" textAlignment="CENTER" wrappingWidth="320.306640625">
+                      <font>
+                         <Font size="20.0" />
+                      </font>
+                   </Text>
+                   <Text layoutX="21.0" layoutY="-22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Position X:" x="100.0" y="100.0">
+                      <font>
+                         <Font size="16.0" />
+                      </font>
+                   </Text>
+                   <Text layoutX="22.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Position Y:" x="100.0" y="100.0">
+                      <font>
+                         <Font size="16.0" />
+                      </font>
+                   </Text>
+                   <ImageView fx:id="profilrImage" fitHeight="100.0" fitWidth="100.0" layoutX="14.0" layoutY="42.0" pickOnBounds="true" smooth="false">
+                      <image>
+                         <Image url="@../image/trump-circle.png" />
+                      </image>
+                   </ImageView>
+                   <Text fx:id="posX" layoutX="234.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="64.1796875">
+                      <font>
+                         <Font size="16.0" />
+                      </font>
+                   </Text>
+                   <Text fx:id="posY" layoutX="234.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="64.1796875">
+                      <font>
+                         <Font size="16.0" />
+                      </font>
+                   </Text>
+                </children>
+             </AnchorPane>
+           <Text layoutX="18.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sick:" wrappingWidth="154.7294921875">
+              <font>
+                 <Font size="16.0" />
+              </font>
+           </Text>
+           <Text fx:id="isSick" layoutX="201.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="False" wrappingWidth="88.7294921875">
+              <font>
+                 <Font size="16.0" />
+              </font>
+           </Text>
+           <Text fx:id="isVaccinated" layoutX="199.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="False" wrappingWidth="88.7294921875">
+              <font>
+                 <Font size="16.0" />
+              </font>
+           </Text>
+           <Text layoutX="18.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vaccinated:" wrappingWidth="154.7294921875">
+              <font>
+                 <Font size="16.0" />
+              </font>
+           </Text>
+           <Button fx:id="removeButton" layoutX="10.0" layoutY="206.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="280.0" text="Remove" />
+        </children>
+     </AnchorPane>
+      <Text layoutX="14.0" layoutY="263.0" strokeType="OUTSIDE" strokeWidth="0.0" text="UniqueId:" wrappingWidth="89.5078125">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text fx:id="uniqueId" layoutX="110.0" layoutY="263.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00000000000" wrappingWidth="175.5078125">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text fx:id="company" layoutX="110.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Company" wrappingWidth="175.5078125">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text layoutX="14.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Company:" wrappingWidth="89.5078125">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text layoutX="14.0" layoutY="303.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Car Brand:" wrappingWidth="89.5078125">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text fx:id="carBrand" layoutX="110.0" layoutY="303.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Some Brand" wrappingWidth="175.5078125">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <TextField fx:id="route" layoutX="14.0" layoutY="307.0" prefHeight="25.0" prefWidth="280.0" />
+      <Button fx:id="routeButton" layoutX="14.0" layoutY="332.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="280.0" text="Change Route" />
+   </children>
+</AnchorPane>
