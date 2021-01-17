@@ -3,9 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.pandemysimulation;
+package com.mycompany.pandemysimulation.map;
 
-import com.mycompany.pandemysimulation.core.Location;
+import com.mycompany.pandemysimulation.Coordinates;
+import com.mycompany.pandemysimulation.Direction;
+import com.mycompany.pandemysimulation.Intersection;
+import com.mycompany.pandemysimulation.IntersectionTile;
+import com.mycompany.pandemysimulation.RetailShop;
+import com.mycompany.pandemysimulation.RetailShopFactory;
+import com.mycompany.pandemysimulation.Shop;
+import com.mycompany.pandemysimulation.Tile;
+import com.mycompany.pandemysimulation.TileType;
+import com.mycompany.pandemysimulation.VisibleComponent;
+import com.mycompany.pandemysimulation.WholesaleShop;
+import com.mycompany.pandemysimulation.WholesaleShopFactory;
 import com.mycompany.pandemysimulation.core.SimulationObject;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -224,7 +235,7 @@ public class MapBuilder {
         return this;
     }
     
-    public MapBuilder build(){
+    public Map build(){
         for(int y=0;y<sizeY;y++){
             for(int x =0;x<sizeX;x++){
                 if(locationMap[y][x] == null){
@@ -251,7 +262,7 @@ public class MapBuilder {
             suppliersDirections[i][sizeX-1][Direction.Righ.getVal()] = false;
         }
         //TODO check borders
-        return this;
+        return new Map(sizeX, sizeY, locationMap, pedestrianDirection, suppliersDirections);
     }
     
     public Location[][] getLocationMap(){

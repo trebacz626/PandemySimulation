@@ -5,7 +5,7 @@
  */
 package com.mycompany.pandemysimulation;
 
-import com.mycompany.pandemysimulation.core.Location;
+import com.mycompany.pandemysimulation.map.Location;
 import com.mycompany.pandemysimulation.core.SimulationObject;
 import com.mycompany.pandemysimulation.core.ThreadAgent;
 import java.util.LinkedList;
@@ -28,8 +28,8 @@ public class Intersection extends SimulationObject{
     }
     
     
-    public void enter(ThreadAgent threadAgent){
-        lock.lock();
+    public void enter(ThreadAgent threadAgent)throws InterruptedException{
+        lock.lockInterruptibly();
     }
     
     public void leave(ThreadAgent threadAgent){

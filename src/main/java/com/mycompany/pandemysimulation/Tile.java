@@ -5,7 +5,7 @@
  */
 package com.mycompany.pandemysimulation;
 
-import com.mycompany.pandemysimulation.core.Location;
+import com.mycompany.pandemysimulation.map.Location;
 import com.mycompany.pandemysimulation.core.SimulationObject;
 import com.mycompany.pandemysimulation.core.ThreadAgent;
 import java.util.Collections;
@@ -17,7 +17,7 @@ import javafx.scene.image.Image;
  *
  * @author kacper
  */
-class Tile extends SimulationObject implements Location{  
+public class Tile extends SimulationObject implements Location{  
     public static final int tileSize = 30;
     private static Image pavementImage = new Image(App.class.getResource("image/"+"pavement.jpg").toString(), tileSize, tileSize, false, false);
     private static Image asphaltImage = new Image(App.class.getResource("image/"+"asphalt.png").toString(), tileSize, tileSize, false, false);
@@ -50,10 +50,12 @@ class Tile extends SimulationObject implements Location{
         lock = new ReentrantLock();
     }
     
-    public void enter(ThreadAgent threadAgent){
-        lock.lock();
+    @Override
+    public void enter(ThreadAgent threadAgent) throws InterruptedException{
+        lock.lockInterruptibly();
     }
     
+    @Override
     public void leave(ThreadAgent threadAgent){
         lock.unlock();
     }

@@ -18,7 +18,7 @@ public abstract class SimulationAgent extends SimulationObject{
         super(xPos, yPos, visibleComponent);
     }
     
-    protected abstract void start();
+    protected abstract boolean start();
     
-    protected abstract void update();
+    protected abstract boolean update();
 }

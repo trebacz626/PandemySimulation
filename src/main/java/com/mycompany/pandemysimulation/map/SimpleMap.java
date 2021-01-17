@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.pandemysimulation;
+package com.mycompany.pandemysimulation.map;
 
+import com.mycompany.pandemysimulation.Direction;
+import com.mycompany.pandemysimulation.map.MapBuilder;
 import java.util.Collections;
 
 /**
@@ -44,8 +46,7 @@ public class SimpleMap {
                 .addOnePavement(5, 6, Collections.singletonList(Direction.Up))
                 .addPavementX(5, 4, 5)
                 .addOnePavement(3, 5, Collections.singletonList(Direction.Down))
-                .addRetailShop(4, 5, "Żabka", "Nihilstyczna 4")
-                .build();
+                .addRetailShop(4, 5, "Żabka", "Nihilstyczna 4");
         return mapBuilder;
     }
 }

@@ -26,6 +26,14 @@ public enum Direction{
                 throw new ArrayIndexOutOfBoundsException();
         }
     }
+    public static Direction dXdYTodirection(int dx, int dy){
+        for(Direction d: Direction.values()){
+            if(dx == d.dx && dy == d.dy){
+                return d;
+            }
+        }
+        throw new ArrayIndexOutOfBoundsException("No such a direction");
+    }
     
     
     private int val;

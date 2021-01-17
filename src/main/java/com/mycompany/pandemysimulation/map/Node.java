@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.pandemysimulation.deadlock;
+package com.mycompany.pandemysimulation.map;
 
-import com.mycompany.pandemysimulation.core.Location;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;

@@ -18,7 +18,6 @@ public class App extends Application {
 
     public static UIManager uiManager;
     public static Simulation simulation;
-
     @Override
     public void start(Stage stage) throws IOException {
           uiManager = new UIManager(stage);

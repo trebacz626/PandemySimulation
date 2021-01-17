@@ -3,10 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.pandemysimulation.deadlock;
+package com.mycompany.pandemysimulation.map;
 
 import com.mycompany.pandemysimulation.Direction;
-import com.mycompany.pandemysimulation.core.Location;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -19,6 +18,7 @@ import java.util.Stack;
  */
 public class DeadlockFinder {
     boolean[][][] directions;
+    boolean[][][] occupied;
     Location[][] locations;
     int sizeX;
     int sizeY;
@@ -27,10 +27,27 @@ public class DeadlockFinder {
     public DeadlockFinder(boolean[][][] directions, Location[][] locations){
         this.directions = directions;
         this.locations = locations;
-        this.sizeY = directions.length;
-        this.sizeX = locations.length;
+        this.sizeY = locations.length;
+        this.sizeX = locations[0].length;
+        this.occupied = new boolean[sizeY][sizeX][4];
     }
     
+    public void reset(){
+        for(int y=0;y<sizeY;y++){
+            for(int x = 0; x<sizeX;x++){
+                for(int i=0;i<4;i++){
+                    occupied[y][x][i]=false;
+                }
+            }
+        }
+    }
+    
+    public void addEdge(Location next, Location current){
+        if(next == null || current == null || next == current)
+            return;
+        Direction direction = Direction.dXdYTodirection(next.getIdX()-current.getIdX(), next.getIdY() - current.getIdY());
+        occupied[current.getIdY()][current.getIdX()][direction.getVal()] = true && directions[current.getIdY()][current.getIdX()][direction.getVal()];
+    }
     
     public List<Location> findDeadlock(){
         visited = new boolean[sizeY][sizeX];
@@ -43,7 +60,7 @@ public class DeadlockFinder {
                 }
             }
         }
-        return null;
+        return new LinkedList<>();
     }
     
     private List<Node> DFS(Location location){
@@ -76,7 +93,7 @@ public class DeadlockFinder {
                 }
             }
             if(!didBreak){
-                System.out.println("hmmm");
+                // System.out.println("hmmm");
                 stack.pop();
                 //todo
                 currentBranch.removeAll(current.getLocations());
@@ -124,7 +141,7 @@ public class DeadlockFinder {
     
     
     private List<Direction> getActions(Location lastLocation){
-        boolean[] moves = directions[lastLocation.getIdY()][lastLocation.getIdX()];
+        boolean[] moves = occupied[lastLocation.getIdY()][lastLocation.getIdX()];
         List<Direction> actions = new LinkedList<>();
         for(int i =0; i< 4;i++){
             if(moves[i])actions.add(Direction.valToDirection(i));

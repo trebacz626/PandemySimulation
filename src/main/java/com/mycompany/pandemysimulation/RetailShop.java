@@ -5,7 +5,7 @@
  */
 package com.mycompany.pandemysimulation;
 
-import com.mycompany.pandemysimulation.core.Location;
+import com.mycompany.pandemysimulation.map.Location;
 import com.mycompany.pandemysimulation.core.ThreadAgent;
 import java.util.Date;
 import java.util.LinkedList;
@@ -35,26 +35,14 @@ public class RetailShop extends Shop implements Location{
         this.clientSempahore = new Semaphore(maxClients);
         this.supplierSemaphore = new Semaphore(1);
     }
-    
-    public void start(){
-    
-    }
-    
-    public void update(){
-    
-    }
 
     @Override
-    public void enter(ThreadAgent threadAgent) {
-        try{
+    public void enter(ThreadAgent threadAgent) throws InterruptedException {
             if(threadAgent instanceof Client){
                 clientSempahore.acquire();
             }else{
                 supplierSemaphore.acquire();
             }
-        }catch(Exception e){
-            System.err.println(e);
-        }
     }
 
     @Override

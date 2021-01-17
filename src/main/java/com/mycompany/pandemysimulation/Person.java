@@ -5,7 +5,7 @@
  */
 package com.mycompany.pandemysimulation;
 
-import com.mycompany.pandemysimulation.core.Location;
+import com.mycompany.pandemysimulation.map.Location;
 import com.mycompany.pandemysimulation.core.ThreadAgent;
 import java.util.LinkedList;
 import java.util.List;
@@ -19,7 +19,7 @@ public abstract class Person extends ThreadAgent{
     private boolean sick;
     private int shopsVisitedWhileSick;
     private boolean vaccinated;
-    private Location nextStop;
+    private Location nextLocation;
     private Location currentLocation;
     private boolean waiting;
     private PathFinder pathFinder;
@@ -29,12 +29,12 @@ public abstract class Person extends ThreadAgent{
     protected long lastTime;
     
 
-    public Person(boolean sick, int shopsVisitedWhileSick, boolean vaccinated, Location nextStop, Location currentLocation, boolean waiting, double xPos, double yPos, VisibleComponent visibleComponent, PathFinder pathFinder) {
+    public Person(boolean sick, int shopsVisitedWhileSick, boolean vaccinated, Location nextLocation, Location currentLocation, boolean waiting, double xPos, double yPos, VisibleComponent visibleComponent, PathFinder pathFinder) {
         super(xPos, yPos, visibleComponent);
         this.sick = sick;
         this.shopsVisitedWhileSick = shopsVisitedWhileSick;
         this.vaccinated = vaccinated;
-        this.nextStop = nextStop;
+        this.nextLocation = nextLocation;
         this.currentLocation = currentLocation;
         this.waiting = waiting;
         this.pathFinder = pathFinder;
@@ -45,38 +45,55 @@ public abstract class Person extends ThreadAgent{
     
     
     
-    protected void start() {
+    protected boolean start() {
+        try{
             currentLocation.enter(this);
+            return true;
+        }catch(InterruptedException e){
+            currentLocation.leave(this);
+            return false;
+        }
     }
     
     
-    protected void update(){
-        currentGoal = generateNextGoal();
-        goToShop(currentGoal);
-        processShop(currentGoal);
+    protected boolean update(){
+        try{
+            currentGoal = generateNextGoal();
+            goToShop(currentGoal);
+            processShop(currentGoal);
+        }catch(Exception e){
+            if(currentLocation!=null){
+                try{currentLocation.leave(this);}catch(Exception e2){}
+            }
+            if(nextLocation!=null){
+                try{nextLocation.leave(this);}catch(Exception e2){}
+            }
+            return false;
+        }
+        return true;
     }
     
     
     protected abstract void processShop(Shop shop);
     
-    protected void goToShop(Shop goal){
+    protected void goToShop(Shop goal) throws InterruptedException{
             List<Location> path = searchForPath(goal);
             for(Location next: path){
-                nextStop = next;
+                nextLocation = next;
                 next.enter(this);
                 currentLocation.leave(this);
                 transfer();
-                currentLocation = nextStop;
+                currentLocation = nextLocation;
                 onMoved();
             }
     }
     
     protected void onMoved(){}
     
-    protected void transfer(){
+    protected void transfer() throws InterruptedException{
         long lastTime = System.currentTimeMillis();
-        double targetX = Coordinates.mapToWorld(nextStop.getIdX());
-        double targetY = Coordinates.mapToWorld(nextStop.getIdY());
+        double targetX = Coordinates.mapToWorld(nextLocation.getIdX());
+        double targetY = Coordinates.mapToWorld(nextLocation.getIdY());
         double speed = 100;
         while(Math.abs(xPos - targetX) > 2 || Math.abs(yPos - targetY) > 2){
             long curTime = System.currentTimeMillis();
@@ -93,11 +110,8 @@ public abstract class Person extends ThreadAgent{
                 yPos-=delta;
             }
             lastTime = curTime;
-            try {
-                Thread.sleep(40);
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            }
+            Thread.sleep(40);
+
         }
         this.xPos = targetX;
         this.yPos = targetY;
@@ -119,8 +133,8 @@ public abstract class Person extends ThreadAgent{
         return vaccinated;
     }
 
-    public Location getNextStop() {
-        return nextStop;
+    public Location getNextLocation() {
+        return nextLocation;
     }
 
     public Location getCurrentLocation() {
@@ -146,7 +160,4 @@ public abstract class Person extends ThreadAgent{
     public Shop getCurrentGoal() {
         return currentGoal;
     }
-    
-    
-    
 }

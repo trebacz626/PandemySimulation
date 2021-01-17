@@ -16,11 +16,4 @@ public abstract class MainLoopAgent extends SimulationAgent{
         super(xPos, yPos, visibleComponent);
         
     }
-    
-    @Override
-    public abstract void start();
-    
-    @Override
-    public abstract void update();
-    
 }

@@ -51,15 +51,7 @@ public class UIManager {
 //        informationPanelStage.setOnCloseRequest(event ->Platform.exit());
 //        controlPanelStage.show();
 //        
-//        FXMLLoader informationLoader = getFXMLLoader("informationPanel");
-//        informationPanelScene = new Scene(informationLoader.load());
-//        informationPanelController = (InformationPanelController) informationLoader.getController();
-//        informationPanelStage = new Stage();
-//        informationPanelStage.setScene(informationPanelScene);
-//        informationPanelStage.setResizable(false);
-//        informationPanelStage.setOnCloseRequest(event ->Platform.exit());
-//        informationPanelStage.show();
-          informationPanel = new InformationPanel();
+        informationPanel = new InformationPanel();
 
     }
     

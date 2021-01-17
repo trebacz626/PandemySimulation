@@ -6,7 +6,7 @@
 package com.mycompany.pandemysimulation;
 
 import com.mycompany.pandemysimulation.core.MainLoopAgent;
-import com.mycompany.pandemysimulation.core.Location;
+import com.mycompany.pandemysimulation.map.Location;
 import com.mycompany.pandemysimulation.core.ThreadAgent;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -34,15 +34,12 @@ public abstract class Shop extends MainLoopAgent implements Location{
         this.idY = idY;
     }
     
-
-    @Override
-    public void start() {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean start(){
+        return true;
     }
-
-    @Override
-    public void update() {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+    public boolean update(){
+        return true;
     }
 
     @Override
@@ -53,13 +50,7 @@ public abstract class Shop extends MainLoopAgent implements Location{
     @Override
     public int getIdY() {
         return idY;
-    }
-    
-    public abstract void enter(ThreadAgent threadAgent);
-    
-    public abstract void leave(ThreadAgent threadAgent);
-    
-    
+    } 
 
     public String getName() {
         return name;

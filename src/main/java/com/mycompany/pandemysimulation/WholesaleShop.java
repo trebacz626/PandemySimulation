@@ -26,14 +26,10 @@ public class WholesaleShop extends Shop{
         suppliersGate = new Semaphore(maxClients);
     }
     
-    
-    public void start(){
-    
-    }
-    
     @Override
-    public void update(){
+    public boolean update(){
         createProduct();
+        return true;
     }
     
     public void addSupplierToQue(Supplier supplier){
@@ -49,25 +45,17 @@ public class WholesaleShop extends Shop{
     }
 
     @Override
-    public void enter(ThreadAgent threadAgent) {
-        try{
+    public void enter(ThreadAgent threadAgent) throws InterruptedException{
             if(threadAgent instanceof Supplier){
                 suppliersGate.acquire();
             }
-        }catch(Exception e){
-            System.err.println(e);
-        }
     }
 
     @Override
     public void leave(ThreadAgent threadAgent) {
-        try{
             if(threadAgent instanceof Supplier){
                 suppliersGate.release();
             }
-        }catch(Exception e){
-            System.err.println(e);
-        }
     }
     
     

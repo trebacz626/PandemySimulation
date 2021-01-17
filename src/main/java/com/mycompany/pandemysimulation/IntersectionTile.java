@@ -5,7 +5,7 @@
  */
 package com.mycompany.pandemysimulation;
 
-import com.mycompany.pandemysimulation.core.Location;
+import com.mycompany.pandemysimulation.map.Location;
 import com.mycompany.pandemysimulation.core.ThreadAgent;
 import java.util.Collections;
 import java.util.List;
@@ -22,12 +22,12 @@ public class IntersectionTile extends Tile{
         intersection.addTile(this);
     }
     
-    public void enter(ThreadAgent threadAgent){
+    public void enter(ThreadAgent threadAgent) throws InterruptedException{
         intersection.enter(threadAgent);
         super.enter(threadAgent);
     }
     
-    public void leave(ThreadAgent threadAgent){
+    public void leave(ThreadAgent threadAgent) {
         intersection.leave(threadAgent);
         super.leave(threadAgent);
     }

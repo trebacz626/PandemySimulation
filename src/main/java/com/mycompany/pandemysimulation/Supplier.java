@@ -5,7 +5,7 @@
  */
 package com.mycompany.pandemysimulation;
 
-import com.mycompany.pandemysimulation.core.Location;
+import com.mycompany.pandemysimulation.map.Location;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -34,8 +34,9 @@ public class Supplier extends Person{
     }
     
     @Override
-    public void start(){
-        super.start();
+    public boolean start(){
+        if(!super.start())
+            return false;
         this.listOfShops = new LinkedList<>();
         for(int i =0;i<3;i++){
             listOfShops.add(App.simulation.getRandomWholesaleShop(null));
@@ -47,7 +48,7 @@ public class Supplier extends Person{
         Collections.shuffle(listOfShops);
         listOfShops.addFirst((Shop)this.getCurrentLocation());
         shopIndex=0;
-        
+        return true;
     }
     
     @Override

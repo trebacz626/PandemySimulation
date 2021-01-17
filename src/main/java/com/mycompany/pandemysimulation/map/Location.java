@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.pandemysimulation.core;
+package com.mycompany.pandemysimulation.map;
 
+import com.mycompany.pandemysimulation.core.ThreadAgent;
 import java.util.List;
 
 /**
@@ -14,7 +15,7 @@ import java.util.List;
 public interface Location {
     public int getIdX();
     public int getIdY();
-    public void enter(ThreadAgent threadAgent);
+    public void enter(ThreadAgent threadAgent) throws InterruptedException;
     public void leave(ThreadAgent threadAgent);
     public List<Location> getGroup();
 }

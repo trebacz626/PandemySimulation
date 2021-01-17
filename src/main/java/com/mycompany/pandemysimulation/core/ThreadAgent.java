@@ -12,22 +12,22 @@ import com.mycompany.pandemysimulation.VisibleComponent;
  * @author kacper
  */
 public abstract class ThreadAgent extends SimulationAgent implements Runnable{
-    private boolean isAlive;
+    private Thread thread;
     public ThreadAgent(double xPos, double yPos, VisibleComponent visibleComponent) {
         super(xPos, yPos, visibleComponent);
-        isAlive = true;
     }
 
     @Override
     public void run() {
-        this.start();
-        while(isAlive){
-            this.update();
-        }
+        thread = Thread.currentThread();
+        if(!this.start())
+            return;
+        while(this.update());
+        System.out.println("Thread dies"+thread);
     }
     
     public void kill(){
-        isAlive = false;
+        thread.interrupt();
     }
     
     
