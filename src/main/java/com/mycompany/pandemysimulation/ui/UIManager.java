@@ -6,6 +6,7 @@
 package com.mycompany.pandemysimulation.ui;
 
 import com.mycompany.pandemysimulation.App;
+import com.mycompany.pandemysimulation.core.WorldData;
 import com.mycompany.pandemysimulation.ui.MapPanelController;
 import java.io.IOException;
 import javafx.application.Platform;
@@ -30,26 +31,32 @@ public class UIManager {
     
     private InformationPanel informationPanel;
     
-    public UIManager(Stage primaryStage) throws IOException{
+    public UIManager(Stage primaryStage, WorldData worldData) throws IOException{
         FXMLLoader loader = getFXMLLoader("mapPanel");
         Parent root = loader.load();
         mapPanelController =  (MapPanelController)loader.getController();
                 
         mapPanelScene = new Scene(root);
         primaryStage.setScene(mapPanelScene);
+        primaryStage.setX(0);
+        primaryStage.setY(0);
         primaryStage.show();
         primaryStage.setResizable(false);
         primaryStage.setOnCloseRequest(event ->Platform.exit());
         this.primaryStage = primaryStage;
         
-//        FXMLLoader controlLoader = getFXMLLoader("controlPanel");
-//        controlPanelScene = new Scene(controlLoader.load());
-//        controlPanelController = (ControlPanelController) controlLoader.getController();
-//        controlPanelStage = new Stage();
-//        controlPanelStage.setScene(controlPanelScene);
-//        controlPanelStage.setResizable(false);
-//        informationPanelStage.setOnCloseRequest(event ->Platform.exit());
-//        controlPanelStage.show();
+        FXMLLoader controlLoader = getFXMLLoader("controlPanel");
+        controlPanelScene = new Scene(controlLoader.load());
+        controlPanelController = (ControlPanelController) controlLoader.getController();
+        controlPanelController.setWorldData(worldData);
+        controlPanelController.start();
+        controlPanelStage = new Stage();
+        controlPanelStage.setScene(controlPanelScene);
+        controlPanelStage.setResizable(false);
+        controlPanelStage.setOnCloseRequest(event ->Platform.exit());
+        controlPanelStage.setX(1600);
+        controlPanelStage.setY(0);
+        controlPanelStage.show();
 //        
         informationPanel = new InformationPanel();
 
@@ -74,6 +81,7 @@ public class UIManager {
     public void update(){
         this.mapPanelController.draw();
         this.informationPanel.update();
+        this.controlPanelController.update();
     }
     
     

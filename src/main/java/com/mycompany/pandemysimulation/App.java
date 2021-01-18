@@ -20,8 +20,8 @@ public class App extends Application {
     public static Simulation simulation;
     @Override
     public void start(Stage stage) throws IOException {
-          uiManager = new UIManager(stage);
-          simulation = new Simulation(uiManager);
+          simulation = new Simulation(stage);
+          uiManager = simulation.getUIManager();
           Thread mainThread = new Thread(){
             @Override
             public void run(){
@@ -62,16 +62,3 @@ public class App extends Application {
     }
 
 }
-
-
-/*
-Plan:
-Add Supplier to Map
-Information Panel for every type of Object
-Add Wholesale and Shops
-Make World Graph
-Add just travel between
-Add Shoping
-Add Intersections
-
-*/

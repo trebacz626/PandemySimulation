@@ -12,6 +12,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ConcurrentSkipListMap;
 
 /**
  *
@@ -43,6 +44,7 @@ public class StoreStorage {
     }
     
     public void addProduct(Product product){
+        ConcurrentSkipListMap<Product,Float> pds = new ConcurrentSkipListMap<>();
         synchronized(producerSynchronizer){
             synchronized(counterSynchronizer){
                 try{

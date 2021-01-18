@@ -19,7 +19,6 @@ com/mycompany/pandemysimulation/person/ProductStorage.class
 com/mycompany/pandemysimulation/person/Person.class
 com/mycompany/pandemysimulation/person/Brand.class
 com/mycompany/pandemysimulation/ui/UIManager.class
-com/mycompany/pandemysimulation/ui/ControlPanel.class
 com/mycompany/pandemysimulation/map/Node.class
 com/mycompany/pandemysimulation/App.class
 com/mycompany/pandemysimulation/ui/ControlPanelController.class
@@ -35,7 +34,6 @@ com/mycompany/pandemysimulation/App$1$1.class
 com/mycompany/pandemysimulation/App$1.class
 com/mycompany/pandemysimulation/map/Location.class
 com/mycompany/pandemysimulation/shop/RetailShop.class
-com/mycompany/pandemysimulation/WorldData.class
 com/mycompany/pandemysimulation/person/Company.class
 com/mycompany/pandemysimulation/Tile.class
 module-info.class
@@ -51,6 +49,7 @@ com/mycompany/pandemysimulation/shop/WholesaleShop.class
 com/mycompany/pandemysimulation/App$1$2.class
 com/mycompany/pandemysimulation/person/CarBrand.class
 com/mycompany/pandemysimulation/person/ClientFactory.class
+com/mycompany/pandemysimulation/core/WorldData.class
 com/mycompany/pandemysimulation/Direction.class
 com/mycompany/pandemysimulation/ui/PersonViewController.class
 com/mycompany/pandemysimulation/map/MapManager.class

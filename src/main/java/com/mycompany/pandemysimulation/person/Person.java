@@ -5,6 +5,7 @@
  */
 package com.mycompany.pandemysimulation.person;
 
+import com.mycompany.pandemysimulation.App;
 import com.mycompany.pandemysimulation.Coordinates;
 import com.mycompany.pandemysimulation.map.PathFinder;
 import com.mycompany.pandemysimulation.ui.VisibleComponent;
@@ -94,7 +95,7 @@ public abstract class Person extends ThreadAgent {
         if (sick) {
             System.out.println(5-shopsVisitedWhileSick+" left till being healthy");
             shopsVisitedWhileSick++;
-            if (shopsVisitedWhileSick > 5) {
+            if (shopsVisitedWhileSick > App.simulation.getWorldData().getShopVisitedWhileSick()) {
                 System.out.println("I am healthy now");
                 sick = false;
             }

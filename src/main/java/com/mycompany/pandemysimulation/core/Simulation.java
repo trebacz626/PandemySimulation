@@ -17,18 +17,19 @@ import com.mycompany.pandemysimulation.shop.Shop;
 import com.mycompany.pandemysimulation.person.SupplierFactory;
 import com.mycompany.pandemysimulation.Utils;
 import com.mycompany.pandemysimulation.shop.WholesaleShop;
-import com.mycompany.pandemysimulation.WorldData;
 import com.mycompany.pandemysimulation.map.DeadlockFinder;
 import com.mycompany.pandemysimulation.map.Map;
 import com.mycompany.pandemysimulation.map.MapCreator;
 import com.mycompany.pandemysimulation.map.MapManager;
 import com.mycompany.pandemysimulation.ui.UIManager;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
+import javafx.stage.Stage;
 
 /**
  *
@@ -39,13 +40,13 @@ public class Simulation {
     private LinkedList<ThreadAgent> threadsAgents;
     private LinkedList<MainLoopAgent> mainLoopAgents;
     private LinkedList<SimulationObject> simulationObjects;
-//    public final WorldData worldData;
+    public final WorldData worldData;
     public final UIManager uiManager;
     private MapManager mapManager;
 
-    public Simulation(UIManager uiManager) {
-//        this.worldData = new WorldData();
-        this.uiManager = uiManager;
+    public Simulation(Stage stage) throws IOException {
+        this.worldData = new WorldData(0.5,0.5,0.5,0.5,5);
+        this.uiManager = new UIManager(stage, worldData);
         this.threadsAgents = new LinkedList<ThreadAgent>();
         this.mainLoopAgents = new LinkedList<MainLoopAgent>();
         this.simulationObjects = new LinkedList<SimulationObject>();
@@ -64,7 +65,6 @@ public class Simulation {
             agentThread.setDaemon(true);
             agentThread.start();
         }
-
     }
 
     public void update() {
@@ -72,6 +72,7 @@ public class Simulation {
             agent.update();
         }
         findDeadlock();
+        updateWorldData();
         uiManager.update();
     }
 
@@ -85,20 +86,19 @@ public class Simulation {
         }
     }
 
-    private void drawSimulationObject(SimulationObject so) {
-
-    }
-
-    public void finish() {
-
-    }
-
     public void startLockdown() {
 
     }
 
     public void endLockdown() {
 
+    }
+    
+    private void updateWorldData(){
+        List<Person> people = threadsAgents.stream().filter(ta->ta instanceof Person).map(ps->(Person)ps).collect(Collectors.toList());
+        List<Person> sickPeople = people.stream().filter(ps->ps.isSick()).collect(Collectors.toList());
+        this.worldData.setNumberOfSickPeople(sickPeople.size());
+        this.worldData.setNumberOfPeople(people.size());
     }
 
     public RetailShop getRandomRetailShop(Shop current) {
@@ -151,9 +151,6 @@ public class Simulation {
         return simulationObjects.stream().filter(so -> so instanceof Shop).map(so -> (Shop) so).collect(Collectors.toList());
     }
 
-    private void createWorldGraph(LinkedList<Location> locations) {
-    }
-
     public void addAgents() {
         for (int i = 0; i < 100; i++) {
             addThreadAgent(ClientFactory.createRandomClient(getRandomRetailShop(null), mapManager.getPedestrianPathFinder()));
@@ -186,4 +183,12 @@ public class Simulation {
         threadAgent.kill();
     }
 
+    
+    public UIManager getUIManager(){
+        return uiManager;
+    }
+    
+    public WorldData getWorldData(){
+        return worldData;
+    }
 }
