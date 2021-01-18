@@ -36,12 +36,12 @@ public class Tile extends SimulationObject implements Location{
         return new VisibleComponent(image, tileSize, tileSize);
     }
     
-    int idX;
-    int idY;
+    private int idX;
+    private int idY;
     
-    ReentrantLock lock;
+    private ReentrantLock lock;
     
-    TileType tileType;
+    private TileType tileType;
     
     public Tile(int idX, int idY, TileType tileType){
         super(Coordinates.mapToWorld(idX), Coordinates.mapToWorld(idY), getVisibleComponent(tileType));

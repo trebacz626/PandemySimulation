@@ -158,11 +158,11 @@ public class Simulation {
     }
 
     public void addAgents() {
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 100; i++) {
             addThreadAgent(ClientFactory.createRandomClient(getRandomRetailShop(null), mapManager.getPedestrianPathFinder()));
         }
 
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 100; i++) {
             addThreadAgent(SupplierFactory.createRandomSupplier(getRandomShop(null), mapManager.getRoadPathFinder()));
         }
     }
