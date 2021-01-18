@@ -26,7 +26,7 @@ public class VisibleComponent implements EventHandler<MouseEvent>{
     private int sizeY;
     
     public VisibleComponent(String imageName, int sizeX, int sizeY){
-        image = new Image(getClass().getResource("image/"+imageName).toString(), sizeX, sizeY, false, false);
+        image = new Image(App.class.getResource("image/"+imageName).toString(), sizeX, sizeY, false, false);
         imageView = new ImageView(image);
         imageView.setFitHeight(sizeX);
         imageView.setFitWidth(sizeY);
