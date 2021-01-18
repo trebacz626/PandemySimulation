@@ -53,11 +53,8 @@ public class Simulation {
 
     public void start() {
         System.out.println("Simulation Started");
-
         createScene();
-
         addAgents();
-
         for (MainLoopAgent agent : this.mainLoopAgents) {
             agent.start();
         }

@@ -19,7 +19,8 @@ import java.util.Random;
  *
  * @author kacper
  */
-public abstract class Person extends ThreadAgent{
+public abstract class Person extends ThreadAgent {
+
     private boolean sick;
     private int shopsVisitedWhileSick;
     private boolean vaccinated;
@@ -27,102 +28,136 @@ public abstract class Person extends ThreadAgent{
     private Location currentLocation;
     private boolean waiting;
     private PathFinder pathFinder;
-    private Shop currentGoal;
-    
+    private Shop currentShop;
 
     protected long lastTime;
-    
 
     public Person(boolean sick, int shopsVisitedWhileSick, boolean vaccinated, Location nextLocation, Location currentLocation, boolean waiting, double xPos, double yPos, VisibleComponent visibleComponent, PathFinder pathFinder) {
         super(xPos, yPos, visibleComponent);
         this.sick = sick;
-        this.shopsVisitedWhileSick = shopsVisitedWhileSick;
+        this.shopsVisitedWhileSick = 0;
         this.vaccinated = vaccinated;
         this.nextLocation = nextLocation;
         this.currentLocation = currentLocation;
         this.waiting = waiting;
         this.pathFinder = pathFinder;
     }
-    
-    
+
     protected abstract Shop generateNextGoal();
-    
-    
-    
+
     protected boolean start() {
-        try{
+        try {
             currentLocation.enter(this);
             return true;
-        }catch(InterruptedException e){
+        } catch (InterruptedException e) {
             currentLocation.leave(this);
             return false;
         }
     }
-    
-    
-    protected boolean update(){
-        try{
-            currentGoal = generateNextGoal();
-            goToShop(currentGoal);
-            processShop(currentGoal);
-        }catch(Exception e){
-            if(currentLocation!=null){
-                try{currentLocation.leave(this);}catch(Exception e2){}
+
+    protected boolean update() {
+        try {
+            currentShop = generateNextGoal();
+            goToShop(currentShop);
+            passDisease();
+            processShop(currentShop);
+        } catch (Exception e) {
+            if (currentLocation != null) {
+                try {
+                    currentLocation.leave(this);
+                } catch (Exception e2) {
+                }
             }
-            if(nextLocation!=null){
-                try{nextLocation.leave(this);}catch(Exception e2){}
+            if (nextLocation != null) {
+                try {
+                    nextLocation.leave(this);
+                } catch (Exception e2) {
+                }
             }
             return false;
         }
         return true;
     }
-    
-    
+
     protected abstract void processShop(Shop shop);
-    
-    protected void goToShop(Shop goal) throws InterruptedException{
-            List<Location> path = searchForPath(goal);
-            for(Location next: path){
-                nextLocation = next;
-                next.enter(this);
-                currentLocation.leave(this);
-                transfer();
-                currentLocation = nextLocation;
-                onMoved();
+
+    protected void goToShop(Shop goal) throws InterruptedException {
+        List<Location> path = searchForPath(goal);
+        for (Location next : path) {
+            nextLocation = next;
+            next.enter(this);
+            currentLocation.leave(this);
+            transfer();
+            currentLocation = nextLocation;
+            onMoved();
+        }
+        if (sick) {
+            System.out.println(5-shopsVisitedWhileSick+" left till being healthy");
+            shopsVisitedWhileSick++;
+            if (shopsVisitedWhileSick > 5) {
+                System.out.println("I am healthy now");
+                sick = false;
             }
+        }
     }
-    
-    protected void onMoved(){}
-    
-    protected void transfer() throws InterruptedException{
+
+    protected void onMoved() {
+    }
+
+    protected void transfer() throws InterruptedException {
         long lastTime = System.currentTimeMillis();
         double targetX = Coordinates.mapToWorld(nextLocation.getIdX());
         double targetY = Coordinates.mapToWorld(nextLocation.getIdY());
         double speed = 100;
-        while(Math.abs(xPos - targetX) > 2 || Math.abs(yPos - targetY) > 2){
+        while (Math.abs(xPos - targetX) > 2 || Math.abs(yPos - targetY) > 2) {
             long curTime = System.currentTimeMillis();
-            double deltaTimeInSec = ((double)curTime - lastTime)/1000;
-            double delta = speed*deltaTimeInSec;
-            if( this.xPos < targetX){
-                xPos+=delta;
-            }else if(this.xPos > targetX){
-                xPos-=delta;
+            double deltaTimeInSec = ((double) curTime - lastTime) / 1000;
+            double delta = speed * deltaTimeInSec;
+            if (this.xPos < targetX) {
+                xPos += delta;
+            } else if (this.xPos > targetX) {
+                xPos -= delta;
             }
-            if(yPos < targetY){
-                yPos+=delta;
-            }else if(yPos > targetY){
-                yPos-=delta;
+            if (yPos < targetY) {
+                yPos += delta;
+            } else if (yPos > targetY) {
+                yPos -= delta;
             }
             lastTime = curTime;
             Thread.sleep(40);
-
         }
         this.xPos = targetX;
         this.yPos = targetY;
     }
-    
-    private List<Location> searchForPath(Location to){
+
+    private List<Location> searchForPath(Location to) {
         return this.pathFinder.findPath(currentLocation.getIdX(), currentLocation.getIdY(), to.getIdX(), to.getIdY());
+    }
+
+    private void passDisease() {
+        if (isSick()) {
+            for (Person person : currentShop.getCopyOfPeopleInside()) {
+                if (person != this && !person.isSick() && new Random().nextDouble() < 0.5) {
+                    System.out.println("Infecting sb");
+                    person.infect();
+                }
+            }
+        } else {
+            for (Person person : currentShop.getCopyOfPeopleInside()) {
+                if (person != this && person.isSick() && new Random().nextDouble() < 0.5) {
+                    System.out.println("git infected");
+                    sick = true;
+                    return;
+                }
+            }
+        }
+    }
+
+    public void infect() {
+        if (new Random().nextDouble() < 0.5) {//TODO add probabilities
+            this.sick = true;
+            this.shopsVisitedWhileSick = 0;
+        }
     }
 
     public boolean isSick() {
@@ -162,6 +197,6 @@ public abstract class Person extends ThreadAgent{
     }
 
     public Shop getCurrentGoal() {
-        return currentGoal;
+        return currentShop;
     }
 }

@@ -18,7 +18,8 @@ import java.util.concurrent.Semaphore;
  *
  * @author kacper
  */
-public class RetailShop extends Shop implements Location{
+public class RetailShop extends Shop implements Location {
+
     private int clientCapacity;
     private int expiredSalePeriod;
     private Date lastExpiredDate;
@@ -27,7 +28,7 @@ public class RetailShop extends Shop implements Location{
     
     private Semaphore clientSempahore;
     private Semaphore supplierSemaphore;
-
+    
     public RetailShop(int clientCapacity, int expiredSalePeriod, Date lastExpiredDate, String name, String address, int maxClients, int maxProducts, int idX, int idY, VisibleComponent visibleComponent) {
         super(name, address, maxClients, maxProducts, idX, idY, visibleComponent);
         this.clientCapacity = clientCapacity;
@@ -38,46 +39,44 @@ public class RetailShop extends Shop implements Location{
         this.clientSempahore = new Semaphore(maxClients);
         this.supplierSemaphore = new Semaphore(1);
     }
-
+    
     @Override
     public void enter(ThreadAgent threadAgent) throws InterruptedException {
-            if(threadAgent instanceof Client){
-                clientSempahore.acquire();
-            }else{
-                supplierSemaphore.acquire();
-            }
+        if (threadAgent instanceof Client) {
+            clientSempahore.acquire();
+        } else {
+            supplierSemaphore.acquire();
+        }
+        super.enter(threadAgent);
     }
-
+    
     @Override
     public void leave(ThreadAgent threadAgent) {
-        if(threadAgent instanceof Client){
-                clientSempahore.release();
-            }else{
-                supplierSemaphore.release();
-            }
+        super.leave(threadAgent);
+        if (threadAgent instanceof Client) {
+            clientSempahore.release();
+        } else {
+            supplierSemaphore.release();
+        }
     }
     
-    
-    
-
     public int getClientCapacity() {
         return clientCapacity;
     }
     
-    
-    public void addClientToQue(Client client){
-    
+    public void addClientToQue(Client client) {
+        
     }
     
-    public void addSuplierToQue(Supplier supplier){
-    
+    public void addSuplierToQue(Supplier supplier) {
+        
     }
     
-   private void makeSale(){
-   
-   }
-   
-   private void removeExpiredProducts(){
-   
-   }
+    private void makeSale() {
+        
+    }
+    
+    private void removeExpiredProducts() {
+        
+    }
 }

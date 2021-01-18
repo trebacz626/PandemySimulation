@@ -11,6 +11,7 @@ import com.mycompany.pandemysimulation.ui.VisibleComponent;
 import com.mycompany.pandemysimulation.core.MainLoopAgent;
 import com.mycompany.pandemysimulation.map.Location;
 import com.mycompany.pandemysimulation.core.ThreadAgent;
+import com.mycompany.pandemysimulation.person.Person;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -19,7 +20,8 @@ import java.util.List;
  *
  * @author kacper
  */
-public abstract class Shop extends MainLoopAgent implements Location{
+public abstract class Shop extends MainLoopAgent implements Location {
+
     private String name;
     private String address;
     private int maxClients;
@@ -27,10 +29,11 @@ public abstract class Shop extends MainLoopAgent implements Location{
     private int idX;
     private int idY;
     private int uniqueId;
-    
-    private static int curId=0;
-    
-    private static synchronized int getNextId(){
+    private List<Person> peopleInside;
+
+    private static int curId = 0;
+
+    private static synchronized int getNextId() {
         return curId++;
     }
 
@@ -42,14 +45,29 @@ public abstract class Shop extends MainLoopAgent implements Location{
         this.warehouse = new StoreStorage(maxProducts);
         this.idX = idX;
         this.idY = idY;
-        this.uniqueId = getNextId(); 
+        this.uniqueId = getNextId();
+        this.peopleInside = new LinkedList<>();
+    }
+
+    @Override
+    public synchronized void enter(ThreadAgent threadAgent) throws InterruptedException{
+        this.peopleInside.add((Person) threadAgent);
+    }
+
+    @Override
+    public synchronized void leave(ThreadAgent threadAgent1) {
+        this.peopleInside.remove((Person)threadAgent1);
     }
     
-    public boolean start(){
+    public synchronized List<Person> getCopyOfPeopleInside(){
+        return new LinkedList<>(peopleInside);
+    }
+
+    public boolean start() {
         return true;
     }
-    
-    public boolean update(){
+
+    public boolean update() {
         return true;
     }
 
@@ -61,7 +79,7 @@ public abstract class Shop extends MainLoopAgent implements Location{
     @Override
     public int getIdY() {
         return idY;
-    } 
+    }
 
     public String getName() {
         return name;
@@ -70,36 +88,40 @@ public abstract class Shop extends MainLoopAgent implements Location{
     public String getAddress() {
         return address;
     }
-    
-    public int getUniqueId(){
+
+    public int getUniqueId() {
         return uniqueId;
     }
-    
-    public LinkedList<Product> getProducts(){
+
+    public LinkedList<Product> getProducts() {
         return null;
     }
-    
-    public void lockdown(){
-    
+
+    public void lockdown() {
+
     }
-    
-    public void unlock(){
-    
+
+    public void unlock() {
+
     }
-    
-    public  StoreStorage getWarehouse(){
+
+    public StoreStorage getWarehouse() {
         return this.warehouse;
     }
-    
+
     @Override
     public String toString() {
-        String text =  getName()+ " " + getxPos() + " "+ getyPos()+" ID: "+getUniqueId()+" \n Products: "; 
-        for( Product product : warehouse.getListOfProducts()){
-            text+=product.getName()+"\n";
+        String text = getName() + " " + getxPos() + " " + getyPos() + " ID: " + getUniqueId() + " \n Products: ";
+        for (Product product : warehouse.getListOfProducts()) {
+            text += product.getName() + "\n";
+        }
+        text+="Visitors:\n";
+        for(Person visitor: getCopyOfPeopleInside()){
+            text+=visitor.isSick()+" ";
         }
         return text;
     }
-    
+
     @Override
     public List<Location> getGroup() {
         return Collections.singletonList(this);

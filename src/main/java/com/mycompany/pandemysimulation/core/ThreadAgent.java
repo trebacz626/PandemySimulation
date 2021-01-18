@@ -23,7 +23,6 @@ public abstract class ThreadAgent extends SimulationAgent implements Runnable{
         if(!this.start())
             return;
         while(this.update());
-        System.out.println("Thread dies"+thread);
     }
     
     public void kill(){
