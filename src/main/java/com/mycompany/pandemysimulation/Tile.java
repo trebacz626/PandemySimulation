@@ -5,6 +5,7 @@
  */
 package com.mycompany.pandemysimulation;
 
+import com.mycompany.pandemysimulation.utils.Coordinates;
 import com.mycompany.pandemysimulation.ui.VisibleComponent;
 import com.mycompany.pandemysimulation.map.Location;
 import com.mycompany.pandemysimulation.core.SimulationObject;

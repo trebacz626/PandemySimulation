@@ -7,7 +7,7 @@ package com.mycompany.pandemysimulation.person;
 
 import com.mycompany.pandemysimulation.App;
 import com.mycompany.pandemysimulation.Product;
-import com.mycompany.pandemysimulation.Utils;
+import com.mycompany.pandemysimulation.utils.Utils;
 import com.mycompany.pandemysimulation.map.PathFinder;
 import com.mycompany.pandemysimulation.ui.VisibleComponent;
 import com.mycompany.pandemysimulation.shop.Shop;
@@ -39,8 +39,8 @@ public class Supplier extends Person{
         return curId++;
     }
 
-    public Supplier(CarBrand carBrand, int trunkCapacity, double gasCapacity, Company companyName, boolean sick, int shopsVisitedWhileSick, boolean vaccinated, Location nextStop, Location currentLocation, boolean waiting, double xPos, double yPos, VisibleComponent visibleComponent, PathFinder pathFinder) {
-        super(sick, shopsVisitedWhileSick, vaccinated, nextStop, currentLocation, waiting, xPos, yPos, visibleComponent, pathFinder);
+    public Supplier(CarBrand carBrand, int trunkCapacity, double gasCapacity, Company companyName, boolean sick, int shopsVisitedWhileSick, boolean vaccinated, boolean wearingMask, Location nextStop, Location currentLocation, boolean waiting, double xPos, double yPos, VisibleComponent visibleComponent, PathFinder pathFinder) {
+        super(sick, shopsVisitedWhileSick, vaccinated,wearingMask, nextStop, currentLocation, waiting, xPos, yPos, visibleComponent, pathFinder);
         this.carBrand = carBrand;
         this.gasCapacity = gasCapacity;
         this.companyName = companyName;

@@ -15,7 +15,7 @@ import com.mycompany.pandemysimulation.person.Person;
 import com.mycompany.pandemysimulation.shop.RetailShop;
 import com.mycompany.pandemysimulation.shop.Shop;
 import com.mycompany.pandemysimulation.person.SupplierFactory;
-import com.mycompany.pandemysimulation.Utils;
+import com.mycompany.pandemysimulation.utils.Utils;
 import com.mycompany.pandemysimulation.shop.WholesaleShop;
 import com.mycompany.pandemysimulation.map.DeadlockFinder;
 import com.mycompany.pandemysimulation.map.Map;
@@ -152,11 +152,11 @@ public class Simulation {
     }
 
     public void addAgents() {
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10; i++) {
             addThreadAgent(ClientFactory.createRandomClient(getRandomRetailShop(null), mapManager.getPedestrianPathFinder()));
         }
 
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10; i++) {
             addThreadAgent(SupplierFactory.createRandomSupplier(getRandomShop(null), mapManager.getRoadPathFinder()));
         }
     }

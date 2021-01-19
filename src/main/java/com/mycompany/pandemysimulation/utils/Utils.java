@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.pandemysimulation;
+package com.mycompany.pandemysimulation.utils;
 
 import java.util.List;
 import java.util.Random;

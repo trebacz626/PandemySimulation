@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="250.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.pandemysimulation.ui.ShopViewController">
+   <children>
+       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="150.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+        <children>
+           <Text fx:id="title" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Symulation Object" textAlignment="CENTER" wrappingWidth="320.306640625">
+              <font>
+                 <Font size="20.0" />
+              </font>
+           </Text>
+           <Text layoutX="21.0" layoutY="-22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Position X:" x="100.0" y="100.0">
+              <font>
+                 <Font size="16.0" />
+              </font>
+           </Text>
+           <Text layoutX="22.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Position Y:" x="100.0" y="100.0">
+              <font>
+                 <Font size="16.0" />
+              </font>
+           </Text>
+           <ImageView fx:id="profilrImage" fitHeight="100.0" fitWidth="100.0" layoutX="14.0" layoutY="42.0" pickOnBounds="true" smooth="false">
+              <image>
+                 <Image url="@../image/trump-circle.png" />
+              </image>
+           </ImageView>
+           <Text fx:id="posX" layoutX="234.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="64.1796875">
+              <font>
+                 <Font size="16.0" />
+              </font>
+           </Text>
+           <Text fx:id="posY" layoutX="234.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="64.1796875">
+              <font>
+                 <Font size="16.0" />
+              </font>
+           </Text>
+        </children>
+     </AnchorPane>
+      <Text layoutX="18.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" wrappingWidth="97.7294921875">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text fx:id="name" layoutX="124.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" wrappingWidth="163.7294921875">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text fx:id="address" layoutX="124.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address" wrappingWidth="163.7294921875">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text layoutX="18.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address:" wrappingWidth="97.7294921875">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text layoutX="19.0" layoutY="232.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Products:" wrappingWidth="97.7294921875">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <ScrollPane fitToWidth="true" layoutX="50.0" layoutY="244.0" prefHeight="173.0" prefWidth="200.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Text fx:id="products" layoutX="-1.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="fssd&#10;sdf&#10;s&#10;fsd&#10;&#10;fsdf&#10;df&#10;sfs&#10;fsd&#10;fsf&#10;&#10;fsd&#10;ff&#10;s&#10;f&#10;df&#10;sfs&#10;f&#10;f&#10;&#10;sd&#10;&#10;f&#10;" wrappingWidth="184.0">
+                     <font>
+                        <Font name="System Italic" size="14.0" />
+                     </font>
+                  </Text>
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

@@ -6,7 +6,7 @@
 package com.mycompany.pandemysimulation.ui;
 
 import com.mycompany.pandemysimulation.App;
-import com.mycompany.pandemysimulation.Coordinates;
+import com.mycompany.pandemysimulation.utils.Coordinates;
 import com.mycompany.pandemysimulation.core.SimulationObject;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;

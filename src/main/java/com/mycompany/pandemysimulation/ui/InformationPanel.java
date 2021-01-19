@@ -8,6 +8,8 @@ package com.mycompany.pandemysimulation.ui;
 import com.mycompany.pandemysimulation.person.Client;
 import com.mycompany.pandemysimulation.person.Supplier;
 import com.mycompany.pandemysimulation.core.SimulationObject;
+import com.mycompany.pandemysimulation.shop.Shop;
+import com.mycompany.pandemysimulation.shop.WholesaleShop;
 import java.io.IOException;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -44,6 +46,10 @@ public class InformationPanel {
             showClientInformation((Client)so);
         }else if(currentSo instanceof  Supplier){
             showSupplierInformation((Supplier)so);
+        }else if(currentSo instanceof WholesaleShop){
+            showWholesaleShopInformation((WholesaleShop)currentSo);
+        }else if(currentSo instanceof Shop){
+            showShopInformation((Shop)currentSo);
         }else{
             showOtherInformation(so);
         }
@@ -68,6 +74,24 @@ public class InformationPanel {
         Scene scene = new Scene(loader.load());
         simulationObjectViewController = loader.<ClientViewController<Client>>getController();
         simulationObjectViewController.setSimulationObject(client);
+        simulationObjectViewController.start();
+        showInformation(scene);
+    }
+    
+    private void showShopInformation(Shop shop) throws IOException{
+        FXMLLoader loader = UIManager.getFXMLLoader("shopView");
+        Scene scene = new Scene(loader.load());
+        simulationObjectViewController = loader.<ShopViewController<Shop>>getController();
+        simulationObjectViewController.setSimulationObject(shop);
+        simulationObjectViewController.start();
+        showInformation(scene);
+    }
+    
+    private void showWholesaleShopInformation(WholesaleShop shop) throws IOException{
+        FXMLLoader loader = UIManager.getFXMLLoader("wholesaleShopView");
+        Scene scene = new Scene(loader.load());
+        simulationObjectViewController = loader.<WholesaleShopViewController<WholesaleShop>>getController();
+        simulationObjectViewController.setSimulationObject(shop);
         simulationObjectViewController.start();
         showInformation(scene);
     }

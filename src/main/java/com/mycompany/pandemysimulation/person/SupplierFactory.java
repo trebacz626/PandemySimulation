@@ -5,8 +5,8 @@
  */
 package com.mycompany.pandemysimulation.person;
 
-import com.mycompany.pandemysimulation.Coordinates;
-import com.mycompany.pandemysimulation.Utils;
+import com.mycompany.pandemysimulation.utils.Coordinates;
+import com.mycompany.pandemysimulation.utils.Utils;
 import com.mycompany.pandemysimulation.map.PathFinder;
 import com.mycompany.pandemysimulation.ui.VisibleComponent;
 import com.mycompany.pandemysimulation.map.Location;
@@ -36,6 +36,6 @@ public final class SupplierFactory {
         double gasCapacity = new Random().nextDouble()*500;
         
         
-        return new Supplier(brand, trunkCapacity, gasCapacity, comp, false, 0, false,null,currentLocation, false, Coordinates.mapToWorld(currentLocation.getIdX()),Coordinates.mapToWorld(currentLocation.getIdY()), vc, pathFinder);
+        return new Supplier(brand, trunkCapacity, gasCapacity, comp, false, 0, false, 0.5 >new Random().nextDouble(),null,currentLocation, false, Coordinates.mapToWorld(currentLocation.getIdX()),Coordinates.mapToWorld(currentLocation.getIdY()), vc, pathFinder);
     }
 }

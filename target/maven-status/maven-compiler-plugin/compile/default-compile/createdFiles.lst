@@ -1,7 +1,6 @@
 com/mycompany/pandemysimulation/ui/SupplierViewController.class
 com/mycompany/pandemysimulation/map/DeadlockFinder.class
 com/mycompany/pandemysimulation/shop/RetailShopFactory.class
-com/mycompany/pandemysimulation/Utils.class
 com/mycompany/pandemysimulation/shop/WholesaleShopFactory.class
 com/mycompany/pandemysimulation/ui/VisibleComponent.class
 com/mycompany/pandemysimulation/person/Supplier.class
@@ -14,6 +13,7 @@ com/mycompany/pandemysimulation/ui/InformationPanel.class
 com/mycompany/pandemysimulation/ui/MapPanel.class
 com/mycompany/pandemysimulation/ui/SimulationObjectViewController.class
 com/mycompany/pandemysimulation/person/SupplierFactory.class
+com/mycompany/pandemysimulation/ui/WholesaleShopViewController.class
 com/mycompany/pandemysimulation/map/Map.class
 com/mycompany/pandemysimulation/person/ProductStorage.class
 com/mycompany/pandemysimulation/person/Person.class
@@ -24,7 +24,6 @@ com/mycompany/pandemysimulation/App.class
 com/mycompany/pandemysimulation/ui/ControlPanelController.class
 com/mycompany/pandemysimulation/Product.class
 com/mycompany/pandemysimulation/Intersection.class
-com/mycompany/pandemysimulation/Coordinates.class
 com/mycompany/pandemysimulation/map/MapBuilder.class
 com/mycompany/pandemysimulation/shop/Shop.class
 com/mycompany/pandemysimulation/map/QueElement.class
@@ -43,10 +42,12 @@ com/mycompany/pandemysimulation/ui/InformationPanelController.class
 com/mycompany/pandemysimulation/map/MapCreator.class
 com/mycompany/pandemysimulation/core/Simulation.class
 com/mycompany/pandemysimulation/core/SimulationAgent.class
+com/mycompany/pandemysimulation/utils/Coordinates.class
 com/mycompany/pandemysimulation/TileType.class
 com/mycompany/pandemysimulation/map/SimpleMap.class
 com/mycompany/pandemysimulation/shop/WholesaleShop.class
 com/mycompany/pandemysimulation/App$1$2.class
+com/mycompany/pandemysimulation/utils/Utils.class
 com/mycompany/pandemysimulation/person/CarBrand.class
 com/mycompany/pandemysimulation/person/ClientFactory.class
 com/mycompany/pandemysimulation/core/WorldData.class

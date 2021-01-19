@@ -5,7 +5,7 @@
  */
 package com.mycompany.pandemysimulation.shop;
 
-import com.mycompany.pandemysimulation.Coordinates;
+import com.mycompany.pandemysimulation.utils.Coordinates;
 import com.mycompany.pandemysimulation.Product;
 import com.mycompany.pandemysimulation.ui.VisibleComponent;
 import com.mycompany.pandemysimulation.core.MainLoopAgent;
@@ -15,6 +15,8 @@ import com.mycompany.pandemysimulation.person.Person;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 /**
  *
@@ -30,6 +32,7 @@ public abstract class Shop extends MainLoopAgent implements Location {
     private int idY;
     private int uniqueId;
     private List<Person> peopleInside;
+    private Executor executor;
 
     private static int curId = 0;
 
@@ -47,6 +50,7 @@ public abstract class Shop extends MainLoopAgent implements Location {
         this.idY = idY;
         this.uniqueId = getNextId();
         this.peopleInside = new LinkedList<>();
+        this.executor = Executors.newSingleThreadExecutor();
     }
 
     @Override
@@ -93,8 +97,8 @@ public abstract class Shop extends MainLoopAgent implements Location {
         return uniqueId;
     }
 
-    public LinkedList<Product> getProducts() {
-        return null;
+    public List<Product> getProducts() {
+        return warehouse.getListOfProducts();
     }
 
     public void lockdown() {

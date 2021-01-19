@@ -6,7 +6,7 @@
 package com.mycompany.pandemysimulation.person;
 
 import com.mycompany.pandemysimulation.App;
-import com.mycompany.pandemysimulation.Coordinates;
+import com.mycompany.pandemysimulation.utils.Coordinates;
 import com.mycompany.pandemysimulation.map.PathFinder;
 import com.mycompany.pandemysimulation.ui.VisibleComponent;
 import com.mycompany.pandemysimulation.shop.Shop;
@@ -25,6 +25,7 @@ public abstract class Person extends ThreadAgent {
     private boolean sick;
     private int shopsVisitedWhileSick;
     private boolean vaccinated;
+    private boolean wearingMask;
     private Location nextLocation;
     private Location currentLocation;
     private boolean waiting;
@@ -33,11 +34,12 @@ public abstract class Person extends ThreadAgent {
 
     protected long lastTime;
 
-    public Person(boolean sick, int shopsVisitedWhileSick, boolean vaccinated, Location nextLocation, Location currentLocation, boolean waiting, double xPos, double yPos, VisibleComponent visibleComponent, PathFinder pathFinder) {
+    public Person(boolean sick, int shopsVisitedWhileSick, boolean vaccinated,boolean wearingMask, Location nextLocation, Location currentLocation, boolean waiting, double xPos, double yPos, VisibleComponent visibleComponent, PathFinder pathFinder) {
         super(xPos, yPos, visibleComponent);
         this.sick = sick;
         this.shopsVisitedWhileSick = 0;
         this.vaccinated = vaccinated;
+        this.wearingMask = wearingMask;
         this.nextLocation = nextLocation;
         this.currentLocation = currentLocation;
         this.waiting = waiting;
@@ -93,7 +95,7 @@ public abstract class Person extends ThreadAgent {
             onMoved();
         }
         if (sick) {
-            System.out.println(5-shopsVisitedWhileSick+" left till being healthy");
+            System.out.println(App.simulation.getWorldData().getShopVisitedWhileSick()-shopsVisitedWhileSick+" left till being healthy");
             shopsVisitedWhileSick++;
             if (shopsVisitedWhileSick > App.simulation.getWorldData().getShopVisitedWhileSick()) {
                 System.out.println("I am healthy now");
@@ -136,18 +138,18 @@ public abstract class Person extends ThreadAgent {
     }
 
     private void passDisease() {
+        double transmisionRate = App.simulation.getWorldData().getTransmissionRate();
         if (isSick()) {
             for (Person person : currentShop.getCopyOfPeopleInside()) {
-                if (person != this && !person.isSick() && new Random().nextDouble() < 0.5) {
+                if (person != this && !person.isSick() && new Random().nextDouble() < transmisionRate) {
                     System.out.println("Infecting sb");
                     person.infect();
                 }
             }
         } else {
             for (Person person : currentShop.getCopyOfPeopleInside()) {
-                if (person != this && person.isSick() && new Random().nextDouble() < 0.5) {
-                    System.out.println("git infected");
-                    sick = true;
+                if (person != this && person.isSick() && new Random().nextDouble() < person.getOutgoingTransmissionModifiers()*transmisionRate) {
+                    this.infect();
                     return;
                 }
             }
@@ -155,10 +157,27 @@ public abstract class Person extends ThreadAgent {
     }
 
     public void infect() {
-        if (new Random().nextDouble() < 0.5) {//TODO add probabilities
+        if (new Random().nextDouble() < getIngoingTransmissionModifiers()) {
+            System.out.println("git infected");
             this.sick = true;
             this.shopsVisitedWhileSick = 0;
         }
+    }
+    
+    public double getIngoingTransmissionModifiers(){
+        double base = 1.0;
+        if(isVaccinated())
+            base*= App.simulation.getWorldData().getVaccineRate();
+        if(isWearingMask())
+            base*= App.simulation.getWorldData().getMaskEffect();
+        return base;
+    }
+    
+    public double getOutgoingTransmissionModifiers(){
+        double base = 1.0;
+        if(isWearingMask())
+            base*= App.simulation.getWorldData().getMaskEffect();
+        return base;
     }
 
     public boolean isSick() {
@@ -171,6 +190,10 @@ public abstract class Person extends ThreadAgent {
 
     public boolean isVaccinated() {
         return vaccinated;
+    }
+
+    public boolean isWearingMask() {
+        return wearingMask;
     }
 
     public Location getNextLocation() {

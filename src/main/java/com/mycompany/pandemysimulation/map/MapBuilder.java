@@ -5,7 +5,7 @@
  */
 package com.mycompany.pandemysimulation.map;
 
-import com.mycompany.pandemysimulation.Coordinates;
+import com.mycompany.pandemysimulation.utils.Coordinates;
 import com.mycompany.pandemysimulation.Direction;
 import com.mycompany.pandemysimulation.Intersection;
 import com.mycompany.pandemysimulation.IntersectionTile;
