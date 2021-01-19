@@ -38,7 +38,6 @@ com/mycompany/pandemysimulation/Tile.class
 module-info.class
 com/mycompany/pandemysimulation/core/MainLoopAgent.class
 com/mycompany/pandemysimulation/ui/MapPanelController.class
-com/mycompany/pandemysimulation/ui/InformationPanelController.class
 com/mycompany/pandemysimulation/map/MapCreator.class
 com/mycompany/pandemysimulation/core/Simulation.class
 com/mycompany/pandemysimulation/core/SimulationAgent.class

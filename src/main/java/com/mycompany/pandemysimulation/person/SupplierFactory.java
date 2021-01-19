@@ -29,7 +29,7 @@ public final class SupplierFactory {
     }
     
     public static Supplier createRandomSupplier(Location currentLocation, PathFinder pathFinder){
-        VisibleComponent vc = new VisibleComponent(Utils.getRandomFromArray(imageNames), 20, 20);
+        VisibleComponent vc = new VisibleComponent(Utils.getRandomFromArray(imageNames), 20, 20, "supplierView");
         Company comp = Utils.getRandomFromArray(Company.values());
         CarBrand brand = Utils.getRandomFromArray(CarBrand.values());
         int trunkCapacity = new Random().nextInt(20)+10;

@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="150.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="150.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.pandemysimulation.ui.SimulationObjectViewController">
    <children>
       <Text fx:id="title" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Symulation Object" textAlignment="CENTER" wrappingWidth="320.306640625">
          <font>

@@ -18,7 +18,7 @@ import javafx.scene.text.Text;
  *
  * @author kacper
  */
-public abstract class SimulationObjectViewController<T extends SimulationObject>  implements Initializable {
+public class SimulationObjectViewController<T extends SimulationObject>  implements Initializable {
 
     @FXML
     protected Text title;
@@ -54,6 +54,11 @@ public abstract class SimulationObjectViewController<T extends SimulationObject>
     
     protected void removeSimulationObject(){
         curSimulationObject = null;
+    }
+
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
+        
     }
     
 }

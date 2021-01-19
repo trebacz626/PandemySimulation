@@ -21,15 +21,27 @@ public class VisibleComponent implements EventHandler<MouseEvent>{
     private SimulationObject simulationObject;
     private Image image;
     private ImageView imageView;
+    private String informationPanelName;
     
     private int sizeX;
     private int sizeY;
+    
+    public VisibleComponent(String imageName, int sizeX, int sizeY, String informationPanelName){
+        image = new Image(App.class.getResource("image/"+imageName).toString(), sizeX, sizeY, false, false);
+        imageView = new ImageView(image);
+        imageView.setFitHeight(sizeX);
+        imageView.setFitWidth(sizeY);
+        this.informationPanelName = informationPanelName;
+        this.sizeX = sizeX;
+        this.sizeY = sizeY;
+    }
     
     public VisibleComponent(String imageName, int sizeX, int sizeY){
         image = new Image(App.class.getResource("image/"+imageName).toString(), sizeX, sizeY, false, false);
         imageView = new ImageView(image);
         imageView.setFitHeight(sizeX);
         imageView.setFitWidth(sizeY);
+        this.informationPanelName = "simulationObjectView";
         this.sizeX = sizeX;
         this.sizeY = sizeY;
     }
@@ -38,6 +50,7 @@ public class VisibleComponent implements EventHandler<MouseEvent>{
         imageView = new ImageView(image);
         imageView.setFitHeight(sizeX);
         imageView.setFitWidth(sizeY);
+        this.informationPanelName = "simulationObjectView";
         this.sizeX = sizeX;
         this.sizeY = sizeY;
     }
@@ -73,5 +86,8 @@ public class VisibleComponent implements EventHandler<MouseEvent>{
     public int getSizeY(){
         return sizeY;
     }
-    
+
+    String getInformationPanelName() {
+        return informationPanelName;
+    }
 }

@@ -28,7 +28,7 @@ public final class ClientFactory {
     }
     
     public static Client createRandomClient(Location currentLocation, PathFinder pathFinder){
-        VisibleComponent vc = new VisibleComponent(Utils.getRandomFromArray(imageNames), 20, 20);
+        VisibleComponent vc = new VisibleComponent(Utils.getRandomFromArray(imageNames), 20, 20, "clientView");
         String name = Utils.getRandomFromArray(names);
         String surname = Utils.getRandomFromArray(names);
         

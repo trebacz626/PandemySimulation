@@ -56,8 +56,7 @@ public class UIManager {
         controlPanelStage.setOnCloseRequest(event ->Platform.exit());
         controlPanelStage.setX(1600);
         controlPanelStage.setY(0);
-        controlPanelStage.show();
-//        
+        controlPanelStage.show();   
         informationPanel = new InformationPanel();
 
     }
