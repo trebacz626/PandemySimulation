@@ -20,32 +20,28 @@ import java.util.concurrent.Semaphore;
  */
 public class RetailShop extends Shop implements Location {
 
-    private int clientCapacity;
+    private int supplierCapacity;
     private int expiredSalePeriod;
     private Date lastExpiredDate;
-    private LinkedList<Supplier> supplierQue;
-    private LinkedList<Client> clientQue;
     
-    private Semaphore clientSempahore;
-    private Semaphore supplierSemaphore;
+    private DynamicGate clientGate;
+    private DynamicGate supplierGate;
     
-    public RetailShop(int clientCapacity, int expiredSalePeriod, Date lastExpiredDate, String name, String address, int maxClients, int maxProducts, int idX, int idY, VisibleComponent visibleComponent) {
+    public RetailShop(int supplierCapacity, int expiredSalePeriod, Date lastExpiredDate, String name, String address, int maxClients, int maxProducts, int idX, int idY, VisibleComponent visibleComponent) {
         super(name, address, maxClients, maxProducts, idX, idY, visibleComponent);
-        this.clientCapacity = clientCapacity;
+        this.supplierCapacity = supplierCapacity;
         this.expiredSalePeriod = expiredSalePeriod;
         this.lastExpiredDate = lastExpiredDate;
-        this.supplierQue = new LinkedList<Supplier>();
-        this.clientQue = new LinkedList<Client>();
-        this.clientSempahore = new Semaphore(maxClients);
-        this.supplierSemaphore = new Semaphore(1);
+        clientGate = new DynamicGate(maxClients);
+        supplierGate = new DynamicGate(supplierCapacity);
     }
     
     @Override
     public void enter(ThreadAgent threadAgent) throws InterruptedException {
         if (threadAgent instanceof Client) {
-            clientSempahore.acquire();
+            clientGate.enter();
         } else {
-            supplierSemaphore.acquire();
+            supplierGate.enter();
         }
         super.enter(threadAgent);
     }
@@ -54,29 +50,16 @@ public class RetailShop extends Shop implements Location {
     public void leave(ThreadAgent threadAgent) {
         super.leave(threadAgent);
         if (threadAgent instanceof Client) {
-            clientSempahore.release();
+            clientGate.leave();
         } else {
-            supplierSemaphore.release();
+            supplierGate.leave();
         }
     }
     
-    public int getClientCapacity() {
-        return clientCapacity;
-    }
-    
-    public void addClientToQue(Client client) {
-        
-    }
-    
-    public void addSuplierToQue(Supplier supplier) {
-        
-    }
-    
-    private void makeSale() {
-        
-    }
-    
-    private void removeExpiredProducts() {
-        
+    @Override
+    public boolean update(){
+        super.update();
+        clientGate.setNewCapacity(getClientCapacity());
+        return true;
     }
 }

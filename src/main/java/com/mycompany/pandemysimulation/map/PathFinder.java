@@ -46,7 +46,6 @@ public class PathFinder {
             if(lastLocation.getIdX() == toX && lastLocation.getIdY() == toY){
                 return element.getPath();
             }
-            //TODO consider
             if( !(lastLocation.getIdX() == fromX && lastLocation.getIdY() == fromY) && locations[lastLocation.getIdY()][lastLocation.getIdX()] instanceof Shop){
                 continue;
             }
@@ -64,7 +63,6 @@ public class PathFinder {
             }
         
         }
-        System.out.println(fromX+" "+fromY+":"+toX+" "+toY);
         return null;
     }
     

@@ -20,7 +20,6 @@ public class WorldData {
     private double lockDownThreshold;
     private int shopVisitedWhileSick;
     
-//    private Date currentTime;
     private boolean lockdown;   
 
     public WorldData(double transmissionRate, double vaccineRate, double maskEffect, double lockDownThreshold, int shopVisitedWhileSick) {
@@ -58,10 +57,6 @@ public class WorldData {
     public int getShopVisitedWhileSick() {
         return shopVisitedWhileSick;
     }
-
-//    public Date getCurrentTime() {
-//        return currentTime;
-//    }
 
     public boolean isLockdown() {
         return lockdown;
@@ -105,9 +100,9 @@ public class WorldData {
     
     private void updateLockdown(){
         if(getSickPercentage() > lockDownThreshold)
-            this.lockdown = false;
-        else
             this.lockdown = true;
+        else
+            this.lockdown = false;
     }
     
     

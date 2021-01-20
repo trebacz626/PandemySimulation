@@ -33,8 +33,8 @@ public class ShopViewController<T extends Shop> extends SimulationObjectViewCont
         super.update();
         address.setText(getSimulationObject().getAddress());
         name.setText(getSimulationObject().getName());
-        List<String> productNames = getSimulationObject().getProducts().stream().map(prod->prod.getName()).collect(Collectors.toList());
-        products.setText(String.join("\n", productNames));
+//        List<String> productNames = getSimulationObject().getProducts().stream().map(prod->prod.getName()).collect(Collectors.toList());
+        products.setText(String.valueOf(getSimulationObject().getWarehouse().getNumberOfProducts()));
     }
 
     @Override

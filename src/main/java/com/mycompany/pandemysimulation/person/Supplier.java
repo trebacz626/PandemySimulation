@@ -72,23 +72,18 @@ public class Supplier extends Person{
     }
     
     @Override
-    protected void processShop(Shop shop) {
+    protected void processShop(Shop shop) throws InterruptedException {
         refuel();
         if(shop instanceof RetailShop){
             if(trunk.isEmpty()) return;
-            int productsToStore = new Random().nextInt(trunk.getNumberOfProducts())+1;
+//            int productsToStore = new Random().nextInt(trunk.getNumberOfProducts())+1;
             while(!shop.getWarehouse().isFull() && !trunk.isEmpty()){
                 shop.getWarehouse().addProduct(trunk.getAndRemoveProduct());
             }
         }else{
-            if(trunk.isFull()) return;
-            List<String> names = shop.getWarehouse().getProductNames();
-            if(names.isEmpty())return;
             while(!trunk.isFull()){
-                Product product = shop.getWarehouse().getAndRemoveProduct(Utils.getRandomFromList(names));
-                if(product != null){
-                    trunk.addProduct(product);
-                }
+                Product product = shop.getWarehouse().takeRandomProduct();
+                trunk.addProduct(product);
             }
         }
     }

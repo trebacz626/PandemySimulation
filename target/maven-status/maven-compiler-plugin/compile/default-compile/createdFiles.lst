@@ -8,6 +8,7 @@ com/mycompany/pandemysimulation/core/ThreadAgent.class
 com/mycompany/pandemysimulation/core/SimulationObject.class
 com/mycompany/pandemysimulation/IntersectionTile.class
 com/mycompany/pandemysimulation/shop/StoreStorage.class
+com/mycompany/pandemysimulation/shop/SynchronizedShopStorage.class
 com/mycompany/pandemysimulation/ui/ShopViewController.class
 com/mycompany/pandemysimulation/ui/InformationPanel.class
 com/mycompany/pandemysimulation/ui/MapPanel.class
@@ -39,6 +40,7 @@ module-info.class
 com/mycompany/pandemysimulation/core/MainLoopAgent.class
 com/mycompany/pandemysimulation/ui/MapPanelController.class
 com/mycompany/pandemysimulation/map/MapCreator.class
+com/mycompany/pandemysimulation/shop/DynamicGate.class
 com/mycompany/pandemysimulation/core/Simulation.class
 com/mycompany/pandemysimulation/core/SimulationAgent.class
 com/mycompany/pandemysimulation/utils/Coordinates.class

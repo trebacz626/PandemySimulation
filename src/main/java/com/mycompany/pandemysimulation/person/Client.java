@@ -12,6 +12,7 @@ import com.mycompany.pandemysimulation.map.PathFinder;
 import com.mycompany.pandemysimulation.ui.VisibleComponent;
 import com.mycompany.pandemysimulation.shop.Shop;
 import com.mycompany.pandemysimulation.map.Location;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -44,20 +45,15 @@ public class Client extends Person{
         
     }
     
-    protected void processShop(Shop shop){
+    protected void processShop(Shop shop) throws InterruptedException{
         int productsTobuy = new Random().nextInt(cart.getCapacity())+1;
         if(cart.getFreePlace() < productsTobuy){
             cart.removeNProducts(productsTobuy-cart.getFreePlace());
         }
         int boughtProducts = 0;
-        List<String> names = shop.getWarehouse().getProductNames();
-//        System.out.println(names);
-        if(names.isEmpty())return;
         while(boughtProducts < productsTobuy){
-            Product product = shop.getWarehouse().getAndRemoveProduct(Utils.getRandomFromList(names));
-            if(product != null){
-                cart.addProduct(product);
-            }
+            Product product = shop.getWarehouse().takeRandomProduct();
+            cart.addProduct(product);
             boughtProducts++;
         }
     }

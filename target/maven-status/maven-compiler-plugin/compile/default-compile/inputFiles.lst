@@ -1,6 +1,7 @@
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/ui/InformationPanel.java
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/map/DeadlockFinder.java
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/map/Map.java
+/home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/shop/DynamicGate.java
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/shop/WholesaleShop.java
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/core/MainLoopAgent.java
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/core/Simulation.java
@@ -50,3 +51,4 @@
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/App.java
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/map/MapManager.java
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/person/CarBrand.java
+/home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/shop/SynchronizedShopStorage.java

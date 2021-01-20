@@ -53,7 +53,6 @@ public class Simulation {
     }
 
     public void start() {
-        System.out.println("Simulation Started");
         createScene();
         addAgents();
         for (MainLoopAgent agent : this.mainLoopAgents) {
@@ -74,6 +73,7 @@ public class Simulation {
         findDeadlock();
         updateWorldData();
         uiManager.update();
+        System.out.println("Is lockdown: "+worldData.isLockdown());
     }
 
     private void findDeadlock() {
@@ -152,11 +152,11 @@ public class Simulation {
     }
 
     public void addAgents() {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 100; i++) {
             addThreadAgent(ClientFactory.createRandomClient(getRandomRetailShop(null), mapManager.getPedestrianPathFinder()));
         }
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 100; i++) {
             addThreadAgent(SupplierFactory.createRandomSupplier(getRandomShop(null), mapManager.getRoadPathFinder()));
         }
     }

@@ -23,15 +23,17 @@ public class WholesaleShop extends Shop{
     private int idX;
     private int idY;
 
-    private Semaphore suppliersGate;
+    private DynamicGate suppliersGate;
     
     public WholesaleShop(String name, String address, int maxClients, int maxProducts, int idX, int idY, VisibleComponent visibleComponent) {
         super(name, address, maxClients, maxProducts, idX, idY, visibleComponent);
-        suppliersGate = new Semaphore(maxClients);
+        suppliersGate = new DynamicGate(maxClients);
     }
     
     @Override
     public boolean update(){
+        super.update();
+        suppliersGate.setNewCapacity(getClientCapacity());
         createProduct();
         return true;
     }
@@ -42,23 +44,20 @@ public class WholesaleShop extends Shop{
     
     private void createProduct(){
         Product product = new Product("name", new Date(), Brand.AVON);
-        if(!this.getWarehouse().isFull()){
-//            System.out.println("creating");
-            this.getWarehouse().addProduct(product);
-        }
+        this.addProductSync(product);
     }
 
     @Override
     public void enter(ThreadAgent threadAgent) throws InterruptedException{
             if(threadAgent instanceof Supplier){
-                suppliersGate.acquire();
+                suppliersGate.enter();
             }
     }
 
     @Override
     public void leave(ThreadAgent threadAgent) {
             if(threadAgent instanceof Supplier){
-                suppliersGate.release();
+                suppliersGate.leave();
             }
     }
     

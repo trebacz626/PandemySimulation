@@ -12,6 +12,7 @@ import com.mycompany.pandemysimulation.ui.VisibleComponent;
 import com.mycompany.pandemysimulation.shop.Shop;
 import com.mycompany.pandemysimulation.map.Location;
 import com.mycompany.pandemysimulation.core.ThreadAgent;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -82,7 +83,7 @@ public abstract class Person extends ThreadAgent {
         return true;
     }
 
-    protected abstract void processShop(Shop shop);
+    protected abstract void processShop(Shop shop)throws InterruptedException;
 
     protected void goToShop(Shop goal) throws InterruptedException {
         List<Location> path = searchForPath(goal);
@@ -95,10 +96,8 @@ public abstract class Person extends ThreadAgent {
             onMoved();
         }
         if (sick) {
-            System.out.println(App.simulation.getWorldData().getShopVisitedWhileSick()-shopsVisitedWhileSick+" left till being healthy");
             shopsVisitedWhileSick++;
             if (shopsVisitedWhileSick > App.simulation.getWorldData().getShopVisitedWhileSick()) {
-                System.out.println("I am healthy now");
                 sick = false;
             }
         }
@@ -142,7 +141,6 @@ public abstract class Person extends ThreadAgent {
         if (isSick()) {
             for (Person person : currentShop.getCopyOfPeopleInside()) {
                 if (person != this && !person.isSick() && new Random().nextDouble() < transmisionRate) {
-                    System.out.println("Infecting sb");
                     person.infect();
                 }
             }
@@ -158,7 +156,6 @@ public abstract class Person extends ThreadAgent {
 
     public void infect() {
         if (new Random().nextDouble() < getIngoingTransmissionModifiers()) {
-            System.out.println("git infected");
             this.sick = true;
             this.shopsVisitedWhileSick = 0;
         }

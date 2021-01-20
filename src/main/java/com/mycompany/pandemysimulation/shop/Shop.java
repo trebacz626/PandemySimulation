@@ -5,6 +5,7 @@
  */
 package com.mycompany.pandemysimulation.shop;
 
+import com.mycompany.pandemysimulation.App;
 import com.mycompany.pandemysimulation.utils.Coordinates;
 import com.mycompany.pandemysimulation.Product;
 import com.mycompany.pandemysimulation.ui.VisibleComponent;
@@ -15,6 +16,7 @@ import com.mycompany.pandemysimulation.person.Person;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -27,7 +29,7 @@ public abstract class Shop extends MainLoopAgent implements Location {
     private String name;
     private String address;
     private int maxClients;
-    private StoreStorage warehouse;
+    private SynchronizedShopStorage warehouse;
     private int idX;
     private int idY;
     private int uniqueId;
@@ -45,12 +47,16 @@ public abstract class Shop extends MainLoopAgent implements Location {
         this.name = name;
         this.address = address;
         this.maxClients = maxClients;
-        this.warehouse = new StoreStorage(maxProducts);
+        this.warehouse = new SynchronizedShopStorage(maxProducts);
         this.idX = idX;
         this.idY = idY;
         this.uniqueId = getNextId();
         this.peopleInside = new LinkedList<>();
-        this.executor = Executors.newSingleThreadExecutor();
+        this.executor = Executors.newSingleThreadExecutor((Runnable r) -> {
+            Thread t = new Thread(r);
+            t.setDaemon(true);
+            return t;
+        });
     }
 
     @Override
@@ -72,7 +78,36 @@ public abstract class Shop extends MainLoopAgent implements Location {
     }
 
     public boolean update() {
+        executor.execute(()->{ 
+            remanent();
+        });
         return true;
+    }
+    
+    
+    public void addProductSync(Product product){
+        executor.execute(()->{
+            try {
+                this.warehouse.addProduct(product);
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+        });
+    }
+    
+    public SynchronizedShopStorage getWarehouse(){
+        return warehouse;
+    }
+    
+    private void remanent(){
+        warehouse.lockForInspection();
+        List<Product> products = warehouse.getCopyOfProducts();
+        for(Product product: products){
+            if(new Random().nextDouble() >0.5){
+                warehouse.removeExpiredProduct(product);
+            }
+        }
+        warehouse.unlockAfterInspection();
     }
 
     @Override
@@ -96,29 +131,14 @@ public abstract class Shop extends MainLoopAgent implements Location {
     public int getUniqueId() {
         return uniqueId;
     }
-
-    public List<Product> getProducts() {
-        return warehouse.getListOfProducts();
-    }
-
-    public void lockdown() {
-
-    }
-
-    public void unlock() {
-
-    }
-
-    public StoreStorage getWarehouse() {
-        return this.warehouse;
+    
+    protected int getClientCapacity(){
+        return App.simulation.getWorldData().isLockdown() ? (int)(0.25*maxClients) : maxClients;
     }
 
     @Override
     public String toString() {
-        String text = getName() + " " + getxPos() + " " + getyPos() + " ID: " + getUniqueId() + " \n Products: ";
-        for (Product product : warehouse.getListOfProducts()) {
-            text += product.getName() + "\n";
-        }
+        String text = getName() + " " + getxPos() + " " + getyPos() + " ID: " + getUniqueId() + " \n Number of products: "+warehouse.getNumberOfProducts();
         text+="Visitors:\n";
         for(Person visitor: getCopyOfPeopleInside()){
             text+=visitor.isSick()+" ";

@@ -71,11 +71,8 @@ public class SupplierViewController<T extends Supplier> extends PersonViewContro
                     }
                     if(result.size() == 0)
                         return;
-                    System.out.println(result);
                     getSimulationObject().setRoute(result);
                 }catch(Exception e){
-                    System.out.println("backup");
-                    System.out.println(backup);
                     getSimulationObject().setRoute(backup);
                 }
             });

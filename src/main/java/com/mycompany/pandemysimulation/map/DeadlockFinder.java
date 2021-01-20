@@ -93,9 +93,7 @@ public class DeadlockFinder {
                 }
             }
             if(!didBreak){
-                // System.out.println("hmmm");
                 stack.pop();
-                //todo
                 currentBranch.removeAll(current.getLocations());
             }
         }
@@ -116,7 +114,6 @@ public class DeadlockFinder {
     }
     
     private List<Node> finCycleInResult(List<Node> result){
-//        System.out.println(result);
         Node last = result.remove(0);
         List<Node> finalResult= new LinkedList<>();
         finalResult.add(last);
