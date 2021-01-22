@@ -25,6 +25,7 @@ import com.mycompany.pandemysimulation.ui.UIManager;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -43,27 +44,23 @@ public class Simulation {
     public final WorldData worldData;
     public final UIManager uiManager;
     private MapManager mapManager;
+    private DateKeeper dateKeeper;
 
     public Simulation(Stage stage) throws IOException {
         this.worldData = new WorldData(0.5,0.5,0.5,0.5,5);
-        this.uiManager = new UIManager(stage, worldData);
+        this.uiManager = new UIManager(stage, this);
         this.threadsAgents = new LinkedList<ThreadAgent>();
         this.mainLoopAgents = new LinkedList<MainLoopAgent>();
         this.simulationObjects = new LinkedList<SimulationObject>();
+        this.dateKeeper = new DateKeeper();
     }
 
     public void start() {
         createScene();
-        addAgents();
         for (MainLoopAgent agent : this.mainLoopAgents) {
             agent.start();
         }
-
-        for (ThreadAgent agent : this.threadsAgents) {
-            Thread agentThread = new Thread(agent);
-            agentThread.setDaemon(true);
-            agentThread.start();
-        }
+        addAgents();
     }
 
     public void update() {
@@ -73,7 +70,6 @@ public class Simulation {
         findDeadlock();
         updateWorldData();
         uiManager.update();
-        System.out.println("Is lockdown: "+worldData.isLockdown());
     }
 
     private void findDeadlock() {
@@ -153,25 +149,28 @@ public class Simulation {
 
     public void addAgents() {
         for (int i = 0; i < 100; i++) {
-            addThreadAgent(ClientFactory.createRandomClient(getRandomRetailShop(null), mapManager.getPedestrianPathFinder()));
+            addThreadAgent(ClientFactory.createRandomClient(mapManager.getMap().getSpawnPointPedestrian(), mapManager.getPedestrianPathFinder()));
         }
 
-        for (int i = 0; i < 100; i++) {
-            addThreadAgent(SupplierFactory.createRandomSupplier(getRandomShop(null), mapManager.getRoadPathFinder()));
+        for (int i = 0; i < 1; i++) {
+            addThreadAgent(SupplierFactory.createRandomSupplier(mapManager.getMap().getSpawnPointRoad(), mapManager.getRoadPathFinder()));
         }
     }
 
-    private synchronized void addThreadAgent(ThreadAgent threadAgent) {
+    public synchronized void addThreadAgent(ThreadAgent threadAgent) {
         threadsAgents.add(threadAgent);
         addSimulationObject(threadAgent);
+        Thread agentThread = new Thread(threadAgent);
+            agentThread.setDaemon(true);
+            agentThread.start();
     }
 
-    private synchronized void addMainLoopAgent(MainLoopAgent mainLoopAgent) {
+    public synchronized void addMainLoopAgent(MainLoopAgent mainLoopAgent) {
         mainLoopAgents.add(mainLoopAgent);
         addSimulationObject(mainLoopAgent);
     }
 
-    private synchronized void addSimulationObject(SimulationObject simulationObject) {
+    public synchronized void addSimulationObject(SimulationObject simulationObject) {
         simulationObjects.add(simulationObject);
         uiManager.getMapPanelController().addVisibleComponent(simulationObject.getVisibleComponent());
     }
@@ -182,6 +181,14 @@ public class Simulation {
         uiManager.getMapPanelController().removeVisibleComponent(threadAgent.getVisibleComponent());
         threadAgent.kill();
     }
+    
+    public synchronized void addClient(){
+        addThreadAgent(ClientFactory.createRandomClient(mapManager.getMap().getSpawnPointPedestrian(), mapManager.getPedestrianPathFinder()));
+    }
+    
+    public synchronized void addSupplier(){
+        addThreadAgent(SupplierFactory.createRandomSupplier(mapManager.getMap().getSpawnPointRoad(), mapManager.getRoadPathFinder()));
+    }
 
     
     public UIManager getUIManager(){
@@ -190,5 +197,9 @@ public class Simulation {
     
     public WorldData getWorldData(){
         return worldData;
+    }
+    
+    public Date getCurrentDate(){
+        return dateKeeper.getCurDate();
     }
 }

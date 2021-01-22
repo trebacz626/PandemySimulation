@@ -6,6 +6,7 @@
 package com.mycompany.pandemysimulation.ui;
 
 import com.mycompany.pandemysimulation.App;
+import com.mycompany.pandemysimulation.core.Simulation;
 import com.mycompany.pandemysimulation.core.WorldData;
 import com.mycompany.pandemysimulation.ui.MapPanelController;
 import java.io.IOException;
@@ -31,7 +32,7 @@ public class UIManager {
     
     private InformationPanel informationPanel;
     
-    public UIManager(Stage primaryStage, WorldData worldData) throws IOException{
+    public UIManager(Stage primaryStage, Simulation simulation) throws IOException{
         FXMLLoader loader = getFXMLLoader("mapPanel");
         Parent root = loader.load();
         mapPanelController =  (MapPanelController)loader.getController();
@@ -48,7 +49,7 @@ public class UIManager {
         FXMLLoader controlLoader = getFXMLLoader("controlPanel");
         controlPanelScene = new Scene(controlLoader.load());
         controlPanelController = (ControlPanelController) controlLoader.getController();
-        controlPanelController.setWorldData(worldData);
+        controlPanelController.setSimulation(simulation);
         controlPanelController.start();
         controlPanelStage = new Stage();
         controlPanelStage.setScene(controlPanelScene);

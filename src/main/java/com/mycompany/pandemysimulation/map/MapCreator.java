@@ -205,6 +205,13 @@ public class MapCreator {
                 .addRoadX(47,51,24)
                 .addRoadY(24,8,52)
                 .addRoadX(52, 48, 7)
-                .addWholesaleShop(52, 14, "Last One Standing", "Groszkowa 2");
+                .addWholesaleShop(52, 14, "Last One Standing", "Groszkowa 2")
+                
+                .addOnePavement(9, 10, Collections.singletonList(Direction.Left))
+                .markSpawnPointPedestrian(9, 10)
+                
+                .addOneRoad(20, 24, Collections.singletonList(Direction.Down))
+                .markSpawnPointRoad(20, 24)
+                ;
     }
 }

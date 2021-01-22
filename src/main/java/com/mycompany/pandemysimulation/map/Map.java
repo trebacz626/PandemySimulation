@@ -16,13 +16,17 @@ public class Map {
     private Location[][] locations;
     private boolean[][][] pedestrianDirections;
     private boolean[][][] roadDirections;
+    private Location spawnPointPedestrian;
+    private Location spawnPointRoad;
 
-    public Map(int sizeX, int sizeY, Location[][] locations, boolean[][][] pedestrianDirections, boolean[][][] roadDirections) {
+    public Map(int sizeX, int sizeY, Location[][] locations, boolean[][][] pedestrianDirections, boolean[][][] roadDirections, Location spawnPointPedestrian, Location spawnPointRoad) {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.locations = locations;
         this.pedestrianDirections = pedestrianDirections;
         this.roadDirections = roadDirections;
+        this.spawnPointPedestrian = spawnPointPedestrian;
+        this.spawnPointRoad = spawnPointRoad;
     }
 
     public int getSizeX() {
@@ -39,6 +43,14 @@ public class Map {
 
     public Location[][] getLocations() {
         return locations;
+    }
+    
+    public Location getSpawnPointPedestrian(){
+        return spawnPointPedestrian;
+    }
+    
+    public Location getSpawnPointRoad(){
+        return spawnPointRoad;
     }
     
     protected boolean[][][] getPedestrianDirections(){

@@ -30,12 +30,14 @@ import java.util.List;
 public class MapBuilder {
     private int sizeX;
     private int sizeY;
-    Location[][] locationMap;
-    boolean[][][] pedestrianDirection;
-    boolean[][][] suppliersDirections;
-    List<Intersection> intersections;
-    List<SimulationObject> simulationObjects;
-    List<Shop> shops;
+    private Location[][] locationMap;
+    private boolean[][][] pedestrianDirection;
+    private boolean[][][] suppliersDirections;
+    private List<Intersection> intersections;
+    private List<SimulationObject> simulationObjects;
+    private List<Shop> shops;
+    private Location spawnPointPedestrian;
+    private Location spawnPointRoad;
     
     public MapBuilder(int sizeX, int sizeY){
         this.sizeX=sizeX;
@@ -235,6 +237,16 @@ public class MapBuilder {
         return this;
     }
     
+    public MapBuilder markSpawnPointPedestrian(int x, int y){
+        spawnPointPedestrian = locationMap[y][x];
+        return this;
+    }
+    
+    public MapBuilder markSpawnPointRoad(int x, int y){
+        spawnPointRoad = locationMap[y][x];
+        return this;
+    }
+    
     public Map build(){
         for(int y=0;y<sizeY;y++){
             for(int x =0;x<sizeX;x++){
@@ -262,7 +274,7 @@ public class MapBuilder {
             suppliersDirections[i][sizeX-1][Direction.Righ.getVal()] = false;
         }
         //TODO check borders
-        return new Map(sizeX, sizeY, locationMap, pedestrianDirection, suppliersDirections);
+        return new Map(sizeX, sizeY, locationMap, pedestrianDirection, suppliersDirections, spawnPointPedestrian, spawnPointRoad);
     }
     
     public Location[][] getLocationMap(){

@@ -217,7 +217,7 @@ public abstract class Person extends ThreadAgent {
         this.waiting = waiting;
     }
 
-    public Shop getCurrentGoal() {
+    public Shop getCurrentShop() {
         return currentShop;
     }
 }

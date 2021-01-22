@@ -60,7 +60,7 @@ public class Supplier extends Person{
             route.add(App.simulation.getRandomRetailShop(null));
         }
         Collections.shuffle(route);
-        route.add(0,(Shop)this.getCurrentLocation());
+//        route.add(0,(Shop)this.getCurrentLocation());
         shopIndex=0;
         return true;
     }

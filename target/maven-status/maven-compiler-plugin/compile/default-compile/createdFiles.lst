@@ -41,6 +41,7 @@ com/mycompany/pandemysimulation/core/MainLoopAgent.class
 com/mycompany/pandemysimulation/ui/MapPanelController.class
 com/mycompany/pandemysimulation/map/MapCreator.class
 com/mycompany/pandemysimulation/shop/DynamicGate.class
+com/mycompany/pandemysimulation/core/DateKeeper.class
 com/mycompany/pandemysimulation/core/Simulation.class
 com/mycompany/pandemysimulation/core/SimulationAgent.class
 com/mycompany/pandemysimulation/utils/Coordinates.class

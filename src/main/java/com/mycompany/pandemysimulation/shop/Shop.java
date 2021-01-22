@@ -12,13 +12,16 @@ import com.mycompany.pandemysimulation.ui.VisibleComponent;
 import com.mycompany.pandemysimulation.core.MainLoopAgent;
 import com.mycompany.pandemysimulation.map.Location;
 import com.mycompany.pandemysimulation.core.ThreadAgent;
+import com.mycompany.pandemysimulation.person.Brand;
 import com.mycompany.pandemysimulation.person.Person;
 import java.util.Collections;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /**
  *
@@ -34,7 +37,9 @@ public abstract class Shop extends MainLoopAgent implements Location {
     private int idY;
     private int uniqueId;
     private List<Person> peopleInside;
-    private Executor executor;
+    private Executor worker;
+    private Date lastCheckDate;
+    private int checkInterval;
 
     private static int curId = 0;
 
@@ -52,41 +57,48 @@ public abstract class Shop extends MainLoopAgent implements Location {
         this.idY = idY;
         this.uniqueId = getNextId();
         this.peopleInside = new LinkedList<>();
-        this.executor = Executors.newSingleThreadExecutor((Runnable r) -> {
+        this.worker = Executors.newSingleThreadExecutor((Runnable r) -> {
             Thread t = new Thread(r);
             t.setDaemon(true);
             return t;
         });
+        this.checkInterval = 7;
     }
 
     @Override
-    public synchronized void enter(ThreadAgent threadAgent) throws InterruptedException{
+    public synchronized void enter(ThreadAgent threadAgent) throws InterruptedException {
         this.peopleInside.add((Person) threadAgent);
     }
 
     @Override
     public synchronized void leave(ThreadAgent threadAgent1) {
-        this.peopleInside.remove((Person)threadAgent1);
+        this.peopleInside.remove((Person) threadAgent1);
     }
-    
-    public synchronized List<Person> getCopyOfPeopleInside(){
+
+    public synchronized List<Person> getCopyOfPeopleInside() {
         return new LinkedList<>(peopleInside);
     }
 
     public boolean start() {
+        this.lastCheckDate = App.simulation.getCurrentDate();
         return true;
     }
 
     public boolean update() {
-        executor.execute(()->{ 
-            remanent();
-        });
+        Date currentDate = App.simulation.getCurrentDate();
+        long deltaCheckTime = currentDate.getTime() - lastCheckDate.getTime();
+        long deltaCheckDays = TimeUnit.DAYS.convert(deltaCheckTime, TimeUnit.MILLISECONDS);
+        if (deltaCheckDays > this.checkInterval) {
+            worker.execute(() -> {
+                productCheck();
+            });
+            lastCheckDate = currentDate;
+        }
         return true;
     }
-    
-    
-    public void addProductSync(Product product){
-        executor.execute(()->{
+
+    public void addProductSync(Product product) {
+        worker.execute(() -> {
             try {
                 this.warehouse.addProduct(product);
             } catch (InterruptedException ex) {
@@ -94,17 +106,19 @@ public abstract class Shop extends MainLoopAgent implements Location {
             }
         });
     }
-    
-    public SynchronizedShopStorage getWarehouse(){
+
+    public SynchronizedShopStorage getWarehouse() {
         return warehouse;
     }
-    
-    private void remanent(){
+
+    private void productCheck() {
+//        System.out.println("Checking products");
+        Date curDate = new Date();
         warehouse.lockForInspection();
         List<Product> products = warehouse.getCopyOfProducts();
-        for(Product product: products){
-            if(new Random().nextDouble() >0.5){
-                warehouse.removeExpiredProduct(product);
+        for (Product product : products) {
+            if (product.getBeforeDate().getTime() -TimeUnit.MILLISECONDS.convert(this.checkInterval,TimeUnit.DAYS) > curDate.getTime()) {
+                try{warehouse.removeExpiredProduct(product);}catch(Exception e ){}
             }
         }
         warehouse.unlockAfterInspection();
@@ -131,17 +145,17 @@ public abstract class Shop extends MainLoopAgent implements Location {
     public int getUniqueId() {
         return uniqueId;
     }
-    
-    protected int getClientCapacity(){
-        return App.simulation.getWorldData().isLockdown() ? (int)(0.25*maxClients) : maxClients;
+
+    protected int getClientCapacity() {
+        return App.simulation.getWorldData().isLockdown() ? (int) (0.25 * maxClients) : maxClients;
     }
 
     @Override
     public String toString() {
-        String text = getName() + " " + getxPos() + " " + getyPos() + " ID: " + getUniqueId() + " \n Number of products: "+warehouse.getNumberOfProducts();
-        text+="Visitors:\n";
-        for(Person visitor: getCopyOfPeopleInside()){
-            text+=visitor.isSick()+" ";
+        String text = getName() + " " + getxPos() + " " + getyPos() + " ID: " + getUniqueId() + " \n Number of products: " + warehouse.getNumberOfProducts();
+        text += "Visitors:\n";
+        for (Person visitor : getCopyOfPeopleInside()) {
+            text += visitor.isSick() + " ";
         }
         return text;
     }

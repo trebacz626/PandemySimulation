@@ -9,6 +9,7 @@ import com.mycompany.pandemysimulation.Product;
 import com.mycompany.pandemysimulation.utils.Utils;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.Semaphore;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -19,60 +20,48 @@ import java.util.concurrent.locks.ReentrantLock;
 public class SynchronizedShopStorage {
 
     private List<Product> products;
-    private int curCapacity;
+//    private int curCapacity;
     private int maxCapacity;
 
     private Lock inspectionLock;
-    private Object counterMonitor;
+    private Semaphore occupiedSemaphore;
+    private Semaphore freeSemaphore;
 
     public SynchronizedShopStorage(int maxCapacity) {
         this.maxCapacity = maxCapacity;
         this.products = new LinkedList<>();
-        this.curCapacity = 0;
-        counterMonitor = new Object();
+//        this.curCapacity = 0;
         inspectionLock = new ReentrantLock();
+        occupiedSemaphore = new Semaphore(0);
+        freeSemaphore = new Semaphore(this.maxCapacity);
     }
 
     public void addProduct(Product prooduct) throws InterruptedException {
-        synchronized (counterMonitor) {
-            while (curCapacity >= maxCapacity) {
-                counterMonitor.wait();
-            }
-        }
+        freeSemaphore.acquire();
         inspectionLock.lock();
         products.add(prooduct);
         inspectionLock.unlock();
-        synchronized (counterMonitor) {
-            curCapacity++;
-            counterMonitor.notify();
-        }
+        occupiedSemaphore.release();
+
     }
 
     public Product takeRandomProduct() throws InterruptedException {
-        synchronized (counterMonitor) {
-            while (curCapacity == 0) {
-                counterMonitor.wait();
-            }
-        }
+
+        occupiedSemaphore.acquire();
         inspectionLock.lock();
         Product product = Utils.getRandomFromList(products);
         products.remove(product);
         inspectionLock.unlock();
-        synchronized (counterMonitor) {
-            curCapacity--;
-            counterMonitor.notify();
-        }
+        freeSemaphore.release();
         return product;
     }
 
     public int getNumberOfProducts() {
-        return curCapacity;
+        return products.size();
     }
     
     public boolean isFull(){
-        synchronized(counterMonitor){
-            return curCapacity == maxCapacity;
-        }
+        return products.size() == maxCapacity;
     }
 
     protected void lockForInspection() {
@@ -83,11 +72,10 @@ public class SynchronizedShopStorage {
         inspectionLock.unlock();
     }
 
-    protected void removeExpiredProduct(Product product) {
-        synchronized(counterMonitor){
-            products.remove(product);
-            curCapacity--;
-        }
+    protected void removeExpiredProduct(Product product) throws InterruptedException {
+        occupiedSemaphore.acquire();
+        products.remove(product);
+        freeSemaphore.release();
     }
 
     protected List<Product> getCopyOfProducts() {

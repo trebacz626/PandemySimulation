@@ -32,7 +32,6 @@ public class DynamicGate {
     }
 
     public synchronized void setNewCapacity(int maxNumber) {
-        System.out.println("counter "+maxNumber);
         this.capacity = maxNumber;
     }
 }

@@ -9,50 +9,56 @@
 
 <AnchorPane id="AnchorPane" prefHeight="500" prefWidth="300" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.pandemysimulation.ui.ControlPanelController">
    <children>
-      <Text layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of People">
+      <Text layoutX="13.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of People">
          <font>
             <Font size="16.0" />
          </font>
       </Text>
-      <Text fx:id="numberOfPeople" layoutX="179.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="113.7294921875" />
-      <Text fx:id="infectedPeople" layoutX="177.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="113.7294921875" />
-      <Text fx:id="infectedPercent" layoutX="12.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Infected Percent">
+      <Text fx:id="numberOfPeople" layoutX="178.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="113.7294921875" />
+      <Text fx:id="infectedPeople" layoutX="176.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="113.7294921875" />
+      <Text fx:id="infectedPercent" layoutX="11.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Infected Percent">
          <font>
             <Font size="16.0" />
          </font>
       </Text>
-      <Text layoutX="14.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Transmision rate:">
+      <Text layoutX="13.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Transmision rate:">
          <font>
             <Font size="16.0" />
          </font>
       </Text>
-      <TextField fx:id="transmissionRate" layoutX="177.0" layoutY="70.0" prefHeight="25.0" prefWidth="114.0" />
-      <TextField fx:id="maskEffect" layoutX="175.0" layoutY="106.0" prefHeight="25.0" prefWidth="114.0" />
-      <Text layoutX="12.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mask effect:">
+      <TextField fx:id="transmissionRate" layoutX="176.0" layoutY="102.0" prefHeight="25.0" prefWidth="114.0" />
+      <TextField fx:id="maskEffect" layoutX="174.0" layoutY="138.0" prefHeight="25.0" prefWidth="114.0" />
+      <Text layoutX="11.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mask effect:">
          <font>
             <Font size="16.0" />
          </font>
       </Text>
-      <Text layoutX="12.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lockdown threshold">
+      <Text layoutX="11.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lockdown threshold">
          <font>
             <Font size="16.0" />
          </font>
       </Text>
-      <TextField fx:id="lockdownTreshold" layoutX="175.0" layoutY="143.0" prefHeight="25.0" prefWidth="114.0" />
-      <TextField fx:id="shopsWhileSick" layoutX="175.0" layoutY="177.0" prefHeight="25.0" prefWidth="114.0" />
-      <Text layoutX="12.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Shops While Sick">
+      <TextField fx:id="lockdownTreshold" layoutX="174.0" layoutY="175.0" prefHeight="25.0" prefWidth="114.0" />
+      <TextField fx:id="shopsWhileSick" layoutX="174.0" layoutY="209.0" prefHeight="25.0" prefWidth="114.0" />
+      <Text layoutX="11.0" layoutY="227.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Shops While Sick">
          <font>
             <Font size="16.0" />
          </font>
       </Text>
-      <TextField fx:id="vaccinatedRate" layoutX="175.0" layoutY="211.0" prefHeight="25.0" prefWidth="114.0" />
-      <Text layoutX="12.0" layoutY="229.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vaccinated rate">
+      <TextField fx:id="vaccinatedRate" layoutX="174.0" layoutY="243.0" prefHeight="25.0" prefWidth="114.0" />
+      <Text layoutX="11.0" layoutY="261.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vaccinated rate">
          <font>
             <Font size="16.0" />
          </font>
       </Text>
-      <Button fx:id="createClient" layoutX="10.0" layoutY="297.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="267.0" text="Create Client" />
-      <Button fx:id="createSupplier" layoutX="10.0" layoutY="335.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="267.0" text="Create Supplier" />
-      <Button fx:id="updateRates" layoutX="10.0" layoutY="250.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="267.0" text="Update" />
+      <Button fx:id="createClient" layoutX="9.0" layoutY="329.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="267.0" text="Create Client" />
+      <Button fx:id="createSupplier" layoutX="9.0" layoutY="367.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="267.0" text="Create Supplier" />
+      <Button fx:id="updateRates" layoutX="9.0" layoutY="282.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="267.0" text="Update" />
+      <Text fx:id="date" layoutX="182.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date..." wrappingWidth="113.7294921875" />
+      <Text layoutX="17.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>
