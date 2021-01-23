@@ -76,7 +76,7 @@ public class VisibleComponent implements EventHandler<MouseEvent>{
 
     @Override
     public void handle(MouseEvent event) {
-        App.uiManager.getInformationPanel().showInformation(simulationObject);
+        App.simulation.getUIManager().getInformationPanel().showInformation(simulationObject);
     }
     
     public int getSizeX(){

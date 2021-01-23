@@ -6,12 +6,16 @@
 package com.mycompany.pandemysimulation.person;
 
 import com.mycompany.pandemysimulation.App;
+import com.mycompany.pandemysimulation.core.MainLoopAgent;
 import com.mycompany.pandemysimulation.utils.Coordinates;
 import com.mycompany.pandemysimulation.map.PathFinder;
 import com.mycompany.pandemysimulation.ui.VisibleComponent;
 import com.mycompany.pandemysimulation.shop.Shop;
 import com.mycompany.pandemysimulation.map.Location;
 import com.mycompany.pandemysimulation.core.ThreadAgent;
+import com.mycompany.pandemysimulation.shop.RetailShop;
+import com.mycompany.pandemysimulation.shop.WholesaleShop;
+import com.mycompany.pandemysimulation.utils.Utils;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
@@ -35,7 +39,7 @@ public abstract class Person extends ThreadAgent {
 
     protected long lastTime;
 
-    public Person(boolean sick, int shopsVisitedWhileSick, boolean vaccinated,boolean wearingMask, Location nextLocation, Location currentLocation, boolean waiting, double xPos, double yPos, VisibleComponent visibleComponent, PathFinder pathFinder) {
+    public Person(boolean sick, int shopsVisitedWhileSick, boolean vaccinated, boolean wearingMask, Location nextLocation, Location currentLocation, boolean waiting, double xPos, double yPos, VisibleComponent visibleComponent, PathFinder pathFinder) {
         super(xPos, yPos, visibleComponent);
         this.sick = sick;
         this.shopsVisitedWhileSick = 0;
@@ -83,7 +87,7 @@ public abstract class Person extends ThreadAgent {
         return true;
     }
 
-    protected abstract void processShop(Shop shop)throws InterruptedException;
+    protected abstract void processShop(Shop shop) throws InterruptedException;
 
     protected void goToShop(Shop goal) throws InterruptedException {
         List<Location> path = searchForPath(goal);
@@ -146,7 +150,7 @@ public abstract class Person extends ThreadAgent {
             }
         } else {
             for (Person person : currentShop.getCopyOfPeopleInside()) {
-                if (person != this && person.isSick() && new Random().nextDouble() < person.getOutgoingTransmissionModifiers()*transmisionRate) {
+                if (person != this && person.isSick() && new Random().nextDouble() < person.getOutgoingTransmissionModifiers() * transmisionRate) {
                     this.infect();
                     return;
                 }
@@ -160,21 +164,46 @@ public abstract class Person extends ThreadAgent {
             this.shopsVisitedWhileSick = 0;
         }
     }
-    
-    public double getIngoingTransmissionModifiers(){
+
+    public double getIngoingTransmissionModifiers() {
         double base = 1.0;
-        if(isVaccinated())
-            base*= App.simulation.getWorldData().getVaccineRate();
-        if(isWearingMask())
-            base*= App.simulation.getWorldData().getMaskEffect();
+        if (isVaccinated()) {
+            base *= App.simulation.getWorldData().getVaccineRate();
+        }
+        if (isWearingMask()) {
+            base *= App.simulation.getWorldData().getMaskEffect();
+        }
         return base;
     }
-    
-    public double getOutgoingTransmissionModifiers(){
+
+    public double getOutgoingTransmissionModifiers() {
         double base = 1.0;
-        if(isWearingMask())
-            base*= App.simulation.getWorldData().getMaskEffect();
+        if (isWearingMask()) {
+            base *= App.simulation.getWorldData().getMaskEffect();
+        }
         return base;
+    }
+
+    protected RetailShop getRandomRetailShop(Shop current) {
+        Shop shop;
+        while (!((shop = getRandomShop(current)) instanceof RetailShop));
+        return (RetailShop) shop;
+    }
+
+    protected WholesaleShop getRandomWholesaleShop(Shop current) {
+        Shop shop;
+        while (!((shop = getRandomShop(current)) instanceof WholesaleShop));
+        return (WholesaleShop) shop;
+    }
+
+    protected Shop getRandomShop(Shop current) {
+        List<MainLoopAgent> agents = App.simulation.getMainLooAgents();
+        MainLoopAgent agent;
+        do {
+            agent = Utils.getRandomFromList(agents);
+
+        } while (!(agent instanceof Shop) || (current != null && agent == current));
+        return (Shop) agent;
     }
 
     public boolean isSick() {

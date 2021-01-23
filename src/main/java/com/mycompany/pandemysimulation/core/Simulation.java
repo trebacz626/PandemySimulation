@@ -6,15 +6,12 @@
 package com.mycompany.pandemysimulation.core;
 
 import com.mycompany.pandemysimulation.map.Location;
-import com.mycompany.pandemysimulation.person.Client;
-import com.mycompany.pandemysimulation.person.ClientFactory;
-import com.mycompany.pandemysimulation.Direction;
+import com.mycompany.pandemysimulation.map.Direction;
 import com.mycompany.pandemysimulation.map.MapBuilder;
 import com.mycompany.pandemysimulation.map.PathFinder;
 import com.mycompany.pandemysimulation.person.Person;
 import com.mycompany.pandemysimulation.shop.RetailShop;
 import com.mycompany.pandemysimulation.shop.Shop;
-import com.mycompany.pandemysimulation.person.SupplierFactory;
 import com.mycompany.pandemysimulation.utils.Utils;
 import com.mycompany.pandemysimulation.shop.WholesaleShop;
 import com.mycompany.pandemysimulation.map.DeadlockFinder;
@@ -23,6 +20,7 @@ import com.mycompany.pandemysimulation.map.MapCreator;
 import com.mycompany.pandemysimulation.map.MapManager;
 import com.mycompany.pandemysimulation.ui.UIManager;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -46,24 +44,32 @@ public class Simulation {
     private MapManager mapManager;
     private DateKeeper dateKeeper;
 
-    public Simulation(Stage stage) throws IOException {
+    public Simulation(Stage stage, MapCreator mapCreator) throws IOException {
         this.worldData = new WorldData(0.5,0.5,0.5,0.5,5);
         this.uiManager = new UIManager(stage, this);
         this.threadsAgents = new LinkedList<ThreadAgent>();
         this.mainLoopAgents = new LinkedList<MainLoopAgent>();
         this.simulationObjects = new LinkedList<SimulationObject>();
         this.dateKeeper = new DateKeeper();
+        MapBuilder mapBuilder = mapCreator.getMapBuilder();
+        Map map = mapBuilder.build();
+        mapManager = new MapManager(map);
+        for (SimulationObject so : mapBuilder.getSimulationObjects()) {
+            if (so instanceof MainLoopAgent) {
+                addMainLoopAgent((MainLoopAgent) so);
+            } else {
+                addSimulationObject(so);
+            }
+        }
     }
 
-    public void start() {
-        createScene();
+    public synchronized void start() {
         for (MainLoopAgent agent : this.mainLoopAgents) {
             agent.start();
         }
-        addAgents();
     }
 
-    public void update() {
+    public synchronized void update() {
         for (MainLoopAgent agent : this.mainLoopAgents) {
             agent.update();
         }
@@ -81,80 +87,12 @@ public class Simulation {
             removeThreadAgent(person);
         }
     }
-
-    public void startLockdown() {
-
-    }
-
-    public void endLockdown() {
-
-    }
     
     private void updateWorldData(){
         List<Person> people = threadsAgents.stream().filter(ta->ta instanceof Person).map(ps->(Person)ps).collect(Collectors.toList());
         List<Person> sickPeople = people.stream().filter(ps->ps.isSick()).collect(Collectors.toList());
         this.worldData.setNumberOfSickPeople(sickPeople.size());
         this.worldData.setNumberOfPeople(people.size());
-    }
-
-    public RetailShop getRandomRetailShop(Shop current) {
-        Shop shop;
-        while (!((shop = getRandomShop(current)) instanceof RetailShop));
-        return (RetailShop) shop;
-    }
-
-    public WholesaleShop getRandomWholesaleShop(Shop current) {
-        Shop shop;
-        while (!((shop = getRandomShop(current)) instanceof WholesaleShop));
-        return (WholesaleShop) shop;
-    }
-
-    public Shop getRandomShop(Shop current) {
-        MainLoopAgent agent;
-        do {
-            agent = Utils.getRandomFromList(mainLoopAgents);
-
-        } while (!(agent instanceof Shop) || (current != null && agent == current));
-        return (Shop) agent;
-    }
-
-    public Shop getShopById(int id) {
-
-        for (MainLoopAgent agent : this.mainLoopAgents) {
-            if (agent instanceof Shop) {
-                if (((Shop) agent).getUniqueId() == id) {
-                    return (Shop) agent;
-                }
-            }
-        }
-        return null;
-    }
-
-    private void createScene() {
-        MapBuilder builder = MapCreator.getMapBuilder();
-        Map map = builder.build();
-        mapManager = new MapManager(map);
-        for (SimulationObject so : builder.getSimulationObjects()) {
-            if (so instanceof MainLoopAgent) {
-                addMainLoopAgent((MainLoopAgent) so);
-            } else {
-                addSimulationObject(so);
-            }
-        }
-    }
-
-    public List<Shop> getShops() {
-        return simulationObjects.stream().filter(so -> so instanceof Shop).map(so -> (Shop) so).collect(Collectors.toList());
-    }
-
-    public void addAgents() {
-        for (int i = 0; i < 100; i++) {
-            addThreadAgent(ClientFactory.createRandomClient(mapManager.getMap().getSpawnPointPedestrian(), mapManager.getPedestrianPathFinder()));
-        }
-
-        for (int i = 0; i < 1; i++) {
-            addThreadAgent(SupplierFactory.createRandomSupplier(mapManager.getMap().getSpawnPointRoad(), mapManager.getRoadPathFinder()));
-        }
     }
 
     public synchronized void addThreadAgent(ThreadAgent threadAgent) {
@@ -182,17 +120,21 @@ public class Simulation {
         threadAgent.kill();
     }
     
-    public synchronized void addClient(){
-        addThreadAgent(ClientFactory.createRandomClient(mapManager.getMap().getSpawnPointPedestrian(), mapManager.getPedestrianPathFinder()));
+    public synchronized List<ThreadAgent> getThreadAgents(){
+        return new ArrayList(threadsAgents);
     }
     
-    public synchronized void addSupplier(){
-        addThreadAgent(SupplierFactory.createRandomSupplier(mapManager.getMap().getSpawnPointRoad(), mapManager.getRoadPathFinder()));
+    public synchronized List<MainLoopAgent> getMainLooAgents(){
+        return new ArrayList(mainLoopAgents);
     }
 
     
     public UIManager getUIManager(){
         return uiManager;
+    }
+    
+    public MapManager getMapManager(){
+        return mapManager;
     }
     
     public WorldData getWorldData(){

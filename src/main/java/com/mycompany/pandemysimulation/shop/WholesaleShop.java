@@ -51,6 +51,7 @@ public class WholesaleShop extends Shop {
         long deltaProductionDays = TimeUnit.DAYS.convert(deltaProductionTime, TimeUnit.MILLISECONDS);
         if (deltaProductionDays >= 1) {
             for (int i = 0; i < this.dailyProduction; i++) {
+//              for (int i = 0; i < 5; i++) {
                createProduct();
             }
             lastProductionDate = currentDate;
@@ -65,7 +66,7 @@ public class WholesaleShop extends Shop {
     private void createProduct() {
         if(this.getWarehouse().isFull()) return;
         Date date = App.simulation.getCurrentDate();
-        date.setTime(date.getTime() + 30 * 24 * 60 * 60 * 1000);
+        date.setTime(date.getTime() + TimeUnit.MILLISECONDS.convert(60, TimeUnit.DAYS));
         Product product = new Product("name", date, Brand.AVON);
         this.addProductSync(product);
     }

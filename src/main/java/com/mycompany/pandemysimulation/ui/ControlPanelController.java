@@ -7,7 +7,10 @@ package com.mycompany.pandemysimulation.ui;
 
 import com.mycompany.pandemysimulation.core.Simulation;
 import com.mycompany.pandemysimulation.core.WorldData;
+import com.mycompany.pandemysimulation.person.Client;
 import com.mycompany.pandemysimulation.person.ClientFactory;
+import com.mycompany.pandemysimulation.person.Supplier;
+import com.mycompany.pandemysimulation.person.SupplierFactory;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -86,11 +89,13 @@ public class ControlPanelController implements Initializable {
         });
         
         createClient.setOnMouseClicked(event->{
-            simulation.addClient();
+            Client client = ClientFactory.createRandomClient(simulation.getMapManager().getMap().getSpawnPointPedestrian(), simulation.getMapManager().getPedestrianPathFinder());
+            simulation.addThreadAgent(client);
         });
         
         createSupplier.setOnMouseClicked(event->{
-            simulation.addSupplier();
+            Supplier supplier = SupplierFactory.createRandomSupplier(simulation.getMapManager().getMap().getSpawnPointRoad(), simulation.getMapManager().getRoadPathFinder());
+            simulation.addThreadAgent(supplier);
         });
         
         

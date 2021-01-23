@@ -5,7 +5,6 @@
  */
 package com.mycompany.pandemysimulation.map;
 
-import com.mycompany.pandemysimulation.Direction;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;

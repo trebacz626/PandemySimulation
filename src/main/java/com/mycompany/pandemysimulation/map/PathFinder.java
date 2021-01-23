@@ -5,7 +5,6 @@
  */
 package com.mycompany.pandemysimulation.map;
 
-import com.mycompany.pandemysimulation.Direction;
 import com.mycompany.pandemysimulation.shop.Shop;
 import com.mycompany.pandemysimulation.map.Location;
 import java.util.LinkedList;

@@ -54,10 +54,10 @@ public class Supplier extends Person{
             return false;
         this.route = new LinkedList<>();
         for(int i =0;i<3;i++){
-            route.add(App.simulation.getRandomWholesaleShop(null));
+            route.add(this.getRandomWholesaleShop(null));
         }
         for(int i = 0;i<5;i++){
-            route.add(App.simulation.getRandomRetailShop(null));
+            route.add(this.getRandomRetailShop(null));
         }
         Collections.shuffle(route);
 //        route.add(0,(Shop)this.getCurrentLocation());

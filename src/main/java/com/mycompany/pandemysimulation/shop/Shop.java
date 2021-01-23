@@ -32,7 +32,7 @@ public abstract class Shop extends MainLoopAgent implements Location {
     private String name;
     private String address;
     private int maxClients;
-    private SynchronizedShopStorage warehouse;
+    private SecondSynchronizedStore warehouse;
     private int idX;
     private int idY;
     private int uniqueId;
@@ -52,7 +52,7 @@ public abstract class Shop extends MainLoopAgent implements Location {
         this.name = name;
         this.address = address;
         this.maxClients = maxClients;
-        this.warehouse = new SynchronizedShopStorage(maxProducts);
+        this.warehouse = new SecondSynchronizedStore(maxProducts);
         this.idX = idX;
         this.idY = idY;
         this.uniqueId = getNextId();
@@ -88,7 +88,7 @@ public abstract class Shop extends MainLoopAgent implements Location {
         Date currentDate = App.simulation.getCurrentDate();
         long deltaCheckTime = currentDate.getTime() - lastCheckDate.getTime();
         long deltaCheckDays = TimeUnit.DAYS.convert(deltaCheckTime, TimeUnit.MILLISECONDS);
-        if (deltaCheckDays > this.checkInterval) {
+        if (true || deltaCheckDays > this.checkInterval) {
             worker.execute(() -> {
                 productCheck();
             });
@@ -107,18 +107,20 @@ public abstract class Shop extends MainLoopAgent implements Location {
         });
     }
 
-    public SynchronizedShopStorage getWarehouse() {
+    public SecondSynchronizedStore getWarehouse() {
         return warehouse;
     }
 
     private void productCheck() {
-//        System.out.println("Checking products");
-        Date curDate = new Date();
+        Date curDate = App.simulation.getCurrentDate();
         warehouse.lockForInspection();
         List<Product> products = warehouse.getCopyOfProducts();
         for (Product product : products) {
-            if (product.getBeforeDate().getTime() -TimeUnit.MILLISECONDS.convert(this.checkInterval,TimeUnit.DAYS) > curDate.getTime()) {
+
+            if(curDate.getTime() > product.getBeforeDate().getTime()){
                 try{warehouse.removeExpiredProduct(product);}catch(Exception e ){}
+            }else if (product.getBeforeDate().getTime() -TimeUnit.MILLISECONDS.convert(this.checkInterval,TimeUnit.DAYS) < curDate.getTime()) {
+                //TODO decrease price
             }
         }
         warehouse.unlockAfterInspection();

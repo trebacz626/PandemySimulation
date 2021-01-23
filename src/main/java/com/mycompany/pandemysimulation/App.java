@@ -1,6 +1,8 @@
 package com.mycompany.pandemysimulation;
 
 import com.mycompany.pandemysimulation.core.Simulation;
+import com.mycompany.pandemysimulation.person.ClientFactory;
+import com.mycompany.pandemysimulation.person.SupplierFactory;
 import com.mycompany.pandemysimulation.ui.UIManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -16,12 +18,10 @@ import javafx.application.Platform;
  */
 public class App extends Application {
 
-    public static UIManager uiManager;
     public static Simulation simulation;
     @Override
     public void start(Stage stage) throws IOException {
-          simulation = new Simulation(stage);
-          uiManager = simulation.getUIManager();
+          simulation = new Simulation(stage, new ComplexMap());
           Thread mainThread = new Thread(){
             @Override
             public void run(){
@@ -29,6 +29,7 @@ public class App extends Application {
                         @Override
                         public void run() {
                             simulation.start();
+                            addAgents();
                         }
                     });
                 while (true) {
@@ -50,15 +51,18 @@ public class App extends Application {
         mainThread.start();
     }
 
-
-
-    private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("fxml/"+fxml + ".fxml"));
-        return fxmlLoader.load();
-    }
-
     public static void main(String[] args) {
         launch();
+    }
+    
+    private void addAgents() {
+        for (int i = 0; i < 100; i++) {
+            simulation.addThreadAgent(ClientFactory.createRandomClient(simulation.getMapManager().getMap().getSpawnPointPedestrian(), simulation.getMapManager().getPedestrianPathFinder()));
+        }
+
+        for (int i = 0; i <100; i++) {
+            simulation.addThreadAgent(SupplierFactory.createRandomSupplier(simulation.getMapManager().getMap().getSpawnPointRoad(), simulation.getMapManager().getRoadPathFinder()));
+        }
     }
 
 }

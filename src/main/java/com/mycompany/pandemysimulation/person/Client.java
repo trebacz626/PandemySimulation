@@ -41,7 +41,7 @@ public class Client extends Person{
     
     @Override
     protected Shop generateNextGoal() {
-        return App.simulation.getRandomRetailShop(this.getCurrentShop());
+        return this.getRandomRetailShop(this.getCurrentShop());
         
     }
     

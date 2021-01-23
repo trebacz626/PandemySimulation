@@ -6,7 +6,6 @@
 package com.mycompany.pandemysimulation.map;
 
 import com.mycompany.pandemysimulation.utils.Coordinates;
-import com.mycompany.pandemysimulation.Direction;
 import com.mycompany.pandemysimulation.Intersection;
 import com.mycompany.pandemysimulation.IntersectionTile;
 import com.mycompany.pandemysimulation.shop.RetailShop;
@@ -295,7 +294,5 @@ public class MapBuilder {
 
     public List<Shop> getShops() {
         return shops;
-    }
-    
-    
+    } 
 }
