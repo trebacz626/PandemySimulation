@@ -9,7 +9,7 @@ package com.mycompany.pandemysimulation.map.tile;
  *
  * @author kacper
  */
-public enum TileType{
+public enum TileType {
     R,
     RI,
     P,

@@ -14,10 +14,11 @@ import java.util.stream.Collectors;
  *
  * @author kacper
  */
-public class DataManager extends AbstractDataManager{
-    public void update(){
-        List<Person> people = getSimulation().getThreadAgents().stream().filter(ta->ta instanceof Person).map(ps->(Person)ps).collect(Collectors.toList());
-        List<Person> sickPeople = people.stream().filter(ps->ps.isSick()).collect(Collectors.toList());
+public class DataManager extends AbstractDataManager {
+
+    public void update() {
+        List<Person> people = getSimulation().getThreadAgents().stream().filter(ta -> ta instanceof Person).map(ps -> (Person) ps).collect(Collectors.toList());
+        List<Person> sickPeople = people.stream().filter(ps -> ps.isSick()).collect(Collectors.toList());
         getSimulation().getWorldData().setNumberOfSickPeople(sickPeople.size());
         getSimulation().getWorldData().setNumberOfPeople(people.size());
     }

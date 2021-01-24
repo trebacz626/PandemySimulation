@@ -13,10 +13,16 @@ import java.util.List;
  * @author kacper
  */
 public interface Location {
+
     public int getIdX();
+
     public int getIdY();
+
     public void enter(ThreadAgent threadAgent) throws InterruptedException;
+
     public void leave(ThreadAgent threadAgent);
+
     public List<Location> getGroup();
+
     public boolean shouldGoThrough();
 }

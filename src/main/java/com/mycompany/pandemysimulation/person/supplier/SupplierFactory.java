@@ -19,30 +19,27 @@ import javafx.scene.image.Image;
  *
  * @author kacper
  */
-
 public final class SupplierFactory {
-    
+
     private final static String[] names = {"Adam", "Kacper"};
     private final static String[] surnames = {"Tusk", "Duda"};
     private final static String[] imageNames = {"car-icon-27.png", "brum.png", "pagani.png"};
-    
-    
-    public static Supplier createRandomSupplier(Simulation simulation){
+
+    public static Supplier createRandomSupplier(Simulation simulation) {
         Location currentLocation = simulation.getMapManager().getMap().getSpawnPointRoad();
         PathFinder pathFinder = simulation.getMapManager().getRoadPathFinder();
         String imageName = Utils.getRandomFromArray(imageNames);
-        VisibleComponent vc = new VisibleComponent(new Image(App.class.getResource("image/"+imageName).toString(),Coordinates.mapTileSize,Coordinates.mapTileSize,false,false), 20, 20, "supplierView");
+        VisibleComponent vc = new VisibleComponent(new Image(App.class.getResource("image/" + imageName).toString(), Coordinates.mapTileSize, Coordinates.mapTileSize, false, false), 20, 20, "supplierView");
         Company comp = Utils.getRandomFromArray(Company.values());
         CarBrand brand = Utils.getRandomFromArray(CarBrand.values());
-        int trunkCapacity = new Random().nextInt(20)+10;
-        double gasCapacity = new Random().nextDouble()*500;
-        
+        int trunkCapacity = new Random().nextInt(20) + 10;
+        double gasCapacity = new Random().nextDouble() * 500;
+
         Random generator = new Random();
         boolean isSick = 0.5 > generator.nextDouble();
         boolean isVaccinated = simulation.getWorldData().getVaccinateChance() > generator.nextDouble();
         boolean isWearingMask = 0.5 > generator.nextDouble();
-        
-        
-        return new Supplier(brand, trunkCapacity, gasCapacity, comp, isSick, isVaccinated, isWearingMask,null,currentLocation, Coordinates.mapToWorld(currentLocation.getIdX()),Coordinates.mapToWorld(currentLocation.getIdY()), vc, pathFinder);
+
+        return new Supplier(brand, trunkCapacity, gasCapacity, comp, isSick, isVaccinated, isWearingMask, null, currentLocation, Coordinates.mapToWorld(currentLocation.getIdX()), Coordinates.mapToWorld(currentLocation.getIdY()), vc, pathFinder);
     }
 }

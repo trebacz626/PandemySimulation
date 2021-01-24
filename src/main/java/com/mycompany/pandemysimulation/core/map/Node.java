@@ -13,16 +13,16 @@ import java.util.List;
  * @author kacper
  */
 class Node {
-    
+
     private List<Location> locations;
     private List<Location> children;
-    
-    protected Node(List<Location> locations){
+
+    protected Node(List<Location> locations) {
         this.locations = locations;
         this.children = new LinkedList<>();
     }
-    
-    protected void addChild(Location child){
+
+    protected void addChild(Location child) {
         this.children.add(child);
     }
 
@@ -33,20 +33,20 @@ class Node {
     protected List<Location> getChildren() {
         return children;
     }
-    
-    protected int getIdx(){
-        return locations.stream().map(location-> location.getIdX()).min(Integer::compare).orElseThrow();
+
+    protected int getIdx() {
+        return locations.stream().map(location -> location.getIdX()).min(Integer::compare).orElseThrow();
     }
-    
-    protected int getIdy(){
-        return locations.stream().map(location-> location.getIdY()).min(Integer::compare).orElseThrow();
+
+    protected int getIdy() {
+        return locations.stream().map(location -> location.getIdY()).min(Integer::compare).orElseThrow();
     }
 
     protected void setChildren(List<Location> children) {
         this.children = children;
     }
-    
-    protected void setChild(Location child){
+
+    protected void setChild(Location child) {
         children.add(child);
     }
 }

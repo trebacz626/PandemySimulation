@@ -11,9 +11,10 @@ import com.mycompany.pandemysimulation.core.ui.VisibleComponent;
  *
  * @author kacper
  */
-public abstract class MainLoopAgent extends SimulationAgent{
+public abstract class MainLoopAgent extends SimulationAgent {
+
     public MainLoopAgent(double xPos, double yPos, VisibleComponent visibleComponent) {
         super(xPos, yPos, visibleComponent);
-        
+
     }
 }

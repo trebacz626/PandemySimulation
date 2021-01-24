@@ -10,6 +10,7 @@ package com.mycompany.pandemysimulation.core;
  * @author kacper
  */
 public class WorldData {
+
     private int numberOfPeople;
     private int numberOfSickPeople;
     private double transmissionRate;
@@ -18,8 +19,8 @@ public class WorldData {
     private double lockDownThreshold;
     private int shopVisitedWhileSick;
     private double vaccinateChance;
-    
-    private boolean lockdown;   
+
+    private boolean lockdown;
 
     public WorldData(double transmissionRate, double vaccineRate, double maskEffect, double lockDownThreshold, int shopVisitedWhileSick, double vaccinateChance) {
         this.transmissionRate = transmissionRate;
@@ -100,18 +101,20 @@ public class WorldData {
     public void setVaccinateChance(double vaccinateChance) {
         this.vaccinateChance = vaccinateChance;
     }
-    
-    public double getSickPercentage(){
-        if(this.numberOfPeople == 0) return 0;
-        return (double) this.numberOfSickPeople/ (double)this.numberOfPeople;
+
+    public double getSickPercentage() {
+        if (this.numberOfPeople == 0) {
+            return 0;
+        }
+        return (double) this.numberOfSickPeople / (double) this.numberOfPeople;
     }
-    
-    private void updateLockdown(){
-        if(getSickPercentage() > lockDownThreshold)
+
+    private void updateLockdown() {
+        if (getSickPercentage() > lockDownThreshold) {
             this.lockdown = true;
-        else
+        } else {
             this.lockdown = false;
+        }
     }
-    
-    
+
 }

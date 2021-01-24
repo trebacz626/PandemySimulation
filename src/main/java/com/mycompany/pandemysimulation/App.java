@@ -23,27 +23,28 @@ import javafx.stage.Stage;
 public class App extends Application {
 
     private Simulation simulation;
+
     @Override
     public void start(Stage stage) throws IOException {
-          MapBuilder builder= new ComplexMap().getMapBuilder();
-          Map map = builder.build();
-          MapManager mapManager = new MapManager(map);
-          simulation = new Simulation(new UIManager(stage), mapManager, new DataManager());
-          Thread mainThread = new Thread(){
+        MapBuilder builder = new ComplexMap().getMapBuilder();
+        Map map = builder.build();
+        MapManager mapManager = new MapManager(map);
+        simulation = new Simulation(new UIManager(stage), mapManager, new DataManager());
+        Thread mainThread = new Thread() {
             @Override
-            public void run(){
+            public void run() {
                 Platform.runLater(new Runnable() {
-                        @Override
-                        public void run(){
-                            try {
-                                simulation.start();
-                            } catch (Exception ex) {
-                                ex.printStackTrace();
-                                Platform.exit();
-                            }
-                            addAgents(builder.getSimulationObjects());
+                    @Override
+                    public void run() {
+                        try {
+                            simulation.start();
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                            Platform.exit();
                         }
-                    });
+                        addAgents(builder.getSimulationObjects());
+                    }
+                });
                 while (true) {
                     try {
                         Thread.sleep(40);
@@ -66,7 +67,7 @@ public class App extends Application {
     public static void main(String[] args) {
         launch();
     }
-    
+
     private void addAgents(List<SimulationObject> objectsToAdd) {
         for (SimulationObject so : objectsToAdd) {
             if (so instanceof MainLoopAgent) {
@@ -79,7 +80,7 @@ public class App extends Application {
             simulation.addThreadAgent(ClientFactory.createRandomClient(simulation));
         }
 
-        for (int i = 0; i <1000; i++) {
+        for (int i = 0; i < 1000; i++) {
             simulation.addThreadAgent(SupplierFactory.createRandomSupplier(simulation));
         }
     }

@@ -106,23 +106,26 @@ public abstract class Shop extends MainLoopAgent implements Location {
         List<Product> products = warehouse.getCopyOfProducts();
         for (Product product : products) {
 
-            if(curDate.getTime() > product.getBeforeDate().getTime()){
-                try{warehouse.removeExpiredProduct(product);}catch(Exception e ){}
-            }else if (product.getBeforeDate().getTime() -TimeUnit.MILLISECONDS.convert(this.checkInterval,TimeUnit.DAYS) < curDate.getTime()) {
+            if (curDate.getTime() > product.getBeforeDate().getTime()) {
+                try {
+                    warehouse.removeExpiredProduct(product);
+                } catch (Exception e) {
+                }
+            } else if (product.getBeforeDate().getTime() - TimeUnit.MILLISECONDS.convert(this.checkInterval, TimeUnit.DAYS) < curDate.getTime()) {
                 //TODO decrease price
             }
         }
         warehouse.unlockAfterInspection();
     }
-    
+
     public synchronized List<Person> getCopyOfPeopleInside() {
         return new LinkedList<>(peopleInside);
     }
-    
+
     public SynchronizedStoreStorage getWarehouse() {
         return warehouse;
     }
-    
+
     @Override
     public int getIdX() {
         return idX;
@@ -153,9 +156,9 @@ public abstract class Shop extends MainLoopAgent implements Location {
     public List<Location> getGroup() {
         return Collections.singletonList(this);
     }
-    
+
     @Override
     public boolean shouldGoThrough() {
-       return false;
+        return false;
     }
 }

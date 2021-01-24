@@ -17,12 +17,12 @@ import java.util.Random;
  * @author kacper
  */
 public class SynchronizedStoreStorage {
+
     private HashMap<Product, Double> products;
     private int maxCapacity;
 //    private int freePlace;
     private int occupiedPlace;
-    
-    
+
     private boolean isInspected;
 
     public SynchronizedStoreStorage(int maxCapacity) {
@@ -34,16 +34,16 @@ public class SynchronizedStoreStorage {
     }
 
     public synchronized void addProduct(Product prooduct) throws InterruptedException {
-        while(occupiedPlace >= maxCapacity || isInspected){
+        while (occupiedPlace >= maxCapacity || isInspected) {
             wait();
         }
-        products.put(prooduct, new Random().nextDouble() * 100+1);
+        products.put(prooduct, new Random().nextDouble() * 100 + 1);
         occupiedPlace++;
         notify();
     }
 
     public synchronized Product takeRandomProduct() throws InterruptedException {
-        while(occupiedPlace == 0 || isInspected){
+        while (occupiedPlace == 0 || isInspected) {
             wait();
         }
         Product product = Utils.getRandomFromHashMap(products);
@@ -52,12 +52,12 @@ public class SynchronizedStoreStorage {
         notify();
         return product;
     }
-    
-    public int getSize(){
+
+    public int getSize() {
         return products.size();
     }
-    
-    public boolean isFull(){
+
+    public boolean isFull() {
         return products.size() == maxCapacity;
     }
 
@@ -75,7 +75,7 @@ public class SynchronizedStoreStorage {
         occupiedPlace--;
     }
 
-    public  synchronized List<Product> getCopyOfProducts() {
+    public synchronized List<Product> getCopyOfProducts() {
         return new LinkedList<>(products.keySet());
     }
 }

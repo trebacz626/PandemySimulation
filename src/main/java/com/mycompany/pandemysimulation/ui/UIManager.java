@@ -21,9 +21,9 @@ import javafx.stage.Stage;
  *
  * @author kacper
  */
-public class UIManager extends AbstractUIManager{
-    
-    protected static FXMLLoader getFXMLLoader(String fxml){
+public class UIManager extends AbstractUIManager {
+
+    protected static FXMLLoader getFXMLLoader(String fxml) {
 //        try{
 //            URL localPackage = UIManager.class.getResource("");
 //    URL urlLoader = UIManager.class.getProtectionDomain().getCodeSource().getLocation();
@@ -36,37 +36,37 @@ public class UIManager extends AbstractUIManager{
 //        }; 
 //        
 //        return new FXMLLoader(UIManager.class.getClassLoader().getResource("target/classes/com/mycompany/pandemysimulation/fxml/"+fxml + ".fxml"));
-        return new FXMLLoader(App.class.getResource("fxml/"+fxml + ".fxml"));
+        return new FXMLLoader(App.class.getResource("fxml/" + fxml + ".fxml"));
     }
-    
+
     private Simulation simulation;
     private MapPanelController mapPanelController;
     private Scene mapPanelScene;
     private Stage primaryStage;
-    
+
     private ControlPanelController controlPanelController;
     private Scene controlPanelScene;
     private Stage controlPanelStage;
-    
+
     private InformationPanel informationPanel;
-    
-    public UIManager(Stage primaryStage){
+
+    public UIManager(Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
-    
-    public void start() throws IOException{
+
+    public void start() throws IOException {
         FXMLLoader loader = getFXMLLoader("mapPanel");
         Parent root = loader.load();
-        mapPanelController =  (MapPanelController)loader.getController();
-                
+        mapPanelController = (MapPanelController) loader.getController();
+
         mapPanelScene = new Scene(root);
         primaryStage.setScene(mapPanelScene);
         primaryStage.setX(0);
         primaryStage.setY(0);
         primaryStage.show();
         primaryStage.setResizable(false);
-        primaryStage.setOnCloseRequest(event ->Platform.exit());
-        
+        primaryStage.setOnCloseRequest(event -> Platform.exit());
+
         FXMLLoader controlLoader = getFXMLLoader("controlPanel");
         controlPanelScene = new Scene(controlLoader.load());
         controlPanelController = (ControlPanelController) controlLoader.getController();
@@ -75,20 +75,19 @@ public class UIManager extends AbstractUIManager{
         controlPanelStage = new Stage();
         controlPanelStage.setScene(controlPanelScene);
         controlPanelStage.setResizable(false);
-        controlPanelStage.setOnCloseRequest(event ->Platform.exit());
+        controlPanelStage.setOnCloseRequest(event -> Platform.exit());
         controlPanelStage.setX(1600);
         controlPanelStage.setY(0);
-        controlPanelStage.show();   
+        controlPanelStage.show();
         informationPanel = new InformationPanel(simulation);
     }
-    
-    public void update(){
+
+    public void update() {
         this.mapPanelController.draw();
         this.informationPanel.update();
         this.controlPanelController.update();
     }
-    
-    
+
     @Override
     public void showInformation(SimulationObject simulationObject) {
         informationPanel.showInformation(simulationObject);
@@ -103,11 +102,12 @@ public class UIManager extends AbstractUIManager{
     @Override
     public void removeVisibleComponent(VisibleComponent visibleComponent) {
         mapPanelController.removeVisibleComponent(visibleComponent);
-        if( visibleComponent == informationPanel.getCurrentObject().getVisibleComponent())
+        if (visibleComponent == informationPanel.getCurrentObject().getVisibleComponent()) {
             informationPanel.onRemove();
+        }
     }
-    
-    public void setSimulation(Simulation simulation){
+
+    public void setSimulation(Simulation simulation) {
         this.simulation = simulation;
     }
 }

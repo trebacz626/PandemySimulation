@@ -23,19 +23,19 @@ public abstract class PersonViewController<T extends Person> extends SimulationO
     @FXML
     private Text isVaccinated;
     @FXML
-    private Button removeButton;  
-    
-    public void update(){
+    private Button removeButton;
+
+    public void update() {
         super.update();
-        if(getSimulationObject() != null){
+        if (getSimulationObject() != null) {
             isSick.setText(String.valueOf(getSimulationObject().isSick()));
             isVaccinated.setText(String.valueOf(getSimulationObject().isVaccinated()));
             removeButton.setOnMouseClicked(event -> {
-                    getInfromationPanel().onRemove();
-                    getSimulation().removeThreadAgent(getSimulationObject());
-                    removeSimulationObject();
+                getInfromationPanel().onRemove();
+                getSimulation().removeThreadAgent(getSimulationObject());
+                removeSimulationObject();
             });
         }
     }
-    
+
 }

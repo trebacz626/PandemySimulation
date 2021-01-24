@@ -11,13 +11,13 @@ import com.mycompany.pandemysimulation.core.ui.VisibleComponent;
  *
  * @author kacper
  */
-public abstract class SimulationAgent extends SimulationObject{
-    
+public abstract class SimulationAgent extends SimulationObject {
+
     public SimulationAgent(double xPos, double yPos, VisibleComponent visibleComponent) {
         super(xPos, yPos, visibleComponent);
     }
-    
+
     protected abstract boolean start();
-    
+
     protected abstract boolean update();
 }

@@ -56,17 +56,17 @@ public class ControlPanelController implements Initializable {
 
     @FXML
     private Text infectedPeople;
-    
+
     @FXML
     private Button updateRates;
-    
+
     @FXML
     private Text date;
-    
+
     private DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
     private Simulation simulation;
-    
+
     @FXML
     private TextField vaccinateChance;
 
@@ -85,22 +85,21 @@ public class ControlPanelController implements Initializable {
         vaccinatedRate.setText(formatDouble(simulation.getWorldData().getVaccineRate()));
         shopsWhileSick.setText(String.valueOf(simulation.getWorldData().getShopVisitedWhileSick()));
         vaccinateChance.setText(formatDouble(simulation.getWorldData().getVaccinateChance()));
-        
-        updateRates.setOnMouseClicked(event->{
+
+        updateRates.setOnMouseClicked(event -> {
             updateWorldData();
         });
-        
-        createClient.setOnMouseClicked(event->{
+
+        createClient.setOnMouseClicked(event -> {
             Client client = ClientFactory.createRandomClient(simulation);
             simulation.addThreadAgent(client);
         });
-        
-        createSupplier.setOnMouseClicked(event->{
+
+        createSupplier.setOnMouseClicked(event -> {
             Supplier supplier = SupplierFactory.createRandomSupplier(simulation);
             simulation.addThreadAgent(supplier);
         });
-        
-        
+
     }
 
     public void update() {

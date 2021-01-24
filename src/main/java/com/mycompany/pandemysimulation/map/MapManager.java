@@ -19,14 +19,14 @@ import java.util.stream.Collectors;
  *
  * @author kacper
  */
-public class MapManager extends AbstractMapManager{
+public class MapManager extends AbstractMapManager {
 
     public MapManager(Map map) {
         super(map);
     }
-    
+
     @Override
-    public void update(){
+    public void update() {
         List<Person> people = (List<Person>) getSimulation().getThreadAgents().stream().filter(a -> a instanceof Person).map(a -> (Person) a).collect(Collectors.toList());
         List<Person> toDelete = findDeadLockPedestrian(people);
         List<Person> carsToDelete = findDeadLockRoad(people);
@@ -37,12 +37,12 @@ public class MapManager extends AbstractMapManager{
     }
 
     private List<Person> findDeadLockPedestrian(List<Person> agents) {
-        List<Person> pedestrians = agents.stream().filter(agent->agent.getPathFinder() == getPedestrianPathFinder()).collect(Collectors.toList());
+        List<Person> pedestrians = agents.stream().filter(agent -> agent.getPathFinder() == getPedestrianPathFinder()).collect(Collectors.toList());
         return findDeadlock(getPedestrianDeadlockFinder(), pedestrians).stream().collect(Collectors.toList());
     }
 
     private List<Person> findDeadLockRoad(List<Person> agents) {
-        List<Person> cars = agents.stream().filter(agent->agent.getPathFinder() == getRoadPathFinder()).collect(Collectors.toList());
+        List<Person> cars = agents.stream().filter(agent -> agent.getPathFinder() == getRoadPathFinder()).collect(Collectors.toList());
         return findDeadlock(getRoadDeadlockFinder(), cars).stream().collect(Collectors.toList());
     }
 

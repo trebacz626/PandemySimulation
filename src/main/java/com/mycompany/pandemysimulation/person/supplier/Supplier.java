@@ -21,7 +21,8 @@ import java.util.List;
  *
  * @author kacper
  */
-public class Supplier extends Person{
+public class Supplier extends Person {
+
     private CarBrand carBrand;
     private double gas;
     private double gasCapacity;
@@ -30,65 +31,68 @@ public class Supplier extends Person{
     private int shopIndex;
     private PathFinder pathFinder;
     private int uniqueId;
-    
-    private static int curId=0;
-    
-    private static synchronized int getNextId(){
+
+    private static int curId = 0;
+
+    private static synchronized int getNextId() {
         return curId++;
     }
 
     protected Supplier(CarBrand carBrand, int trunkCapacity, double gasCapacity, Company companyName, boolean sick, boolean vaccinated, boolean wearingMask, Location nextStop, Location currentLocation, double xPos, double yPos, VisibleComponent visibleComponent, PathFinder pathFinder) {
-        super(trunkCapacity,sick, vaccinated,wearingMask, nextStop, currentLocation, xPos, yPos, visibleComponent, pathFinder);
+        super(trunkCapacity, sick, vaccinated, wearingMask, nextStop, currentLocation, xPos, yPos, visibleComponent, pathFinder);
         this.carBrand = carBrand;
         this.gasCapacity = gasCapacity;
         this.companyName = companyName;
         this.uniqueId = getNextId();
         this.route = new LinkedList<>();
     }
-    
+
     @Override
-    public boolean start(){
-        if(!super.start())
+    public boolean start() {
+        if (!super.start()) {
             return false;
-        for(int i =0;i<3;i++){
+        }
+        for (int i = 0; i < 3; i++) {
             route.add(this.getRandomWholesaleShop(null));
         }
-        for(int i = 0;i<5;i++){
+        for (int i = 0; i < 5; i++) {
             route.add(this.getRandomRetailShop(null));
         }
         Collections.shuffle(route);
-        shopIndex=0;
+        shopIndex = 0;
         return true;
     }
-    
+
     @Override
     protected synchronized Shop generateNextGoal() {
-        return route.get((shopIndex++)%route.size());
-        
+        return route.get((shopIndex++) % route.size());
+
     }
-    
+
     @Override
     protected void processShop(Shop shop) throws InterruptedException {
         refuel();
-        if(shop instanceof RetailShop){
-            if(getProductStorage().isEmpty()) return;
-            while(!shop.getWarehouse().isFull() && !getProductStorage().isEmpty()){
+        if (shop instanceof RetailShop) {
+            if (getProductStorage().isEmpty()) {
+                return;
+            }
+            while (!shop.getWarehouse().isFull() && !getProductStorage().isEmpty()) {
                 shop.getWarehouse().addProduct(getProductStorage().getAndRemoveProduct());
             }
-        }else{
-            while(!getProductStorage().isFull()){
+        } else {
+            while (!getProductStorage().isFull()) {
                 Product product = shop.getWarehouse().takeRandomProduct();
                 getProductStorage().addProduct(product);
             }
         }
     }
-    
-    private void refuel(){
-        this.gas=this.gasCapacity;
+
+    private void refuel() {
+        this.gas = this.gasCapacity;
     }
-    
-    protected void onMove(){
-        this.gas-=1;
+
+    protected void onMove() {
+        this.gas -= 1;
     }
 
     public CarBrand getCarBrand() {
@@ -102,13 +106,13 @@ public class Supplier extends Person{
     public int getUniqueId() {
         return uniqueId;
     }
-    
-    public List<Shop> getRoute(){
+
+    public List<Shop> getRoute() {
         return route;
     }
-    
-    public synchronized void setRoute(List<Shop> route){
+
+    public synchronized void setRoute(List<Shop> route) {
         this.route = route;
     }
-    
+
 }

@@ -66,8 +66,8 @@ public class SimulationObjectViewController<T extends SimulationObject> implemen
     protected Simulation getSimulation() {
         return simulation;
     }
-    
-    protected InformationPanel getInfromationPanel(){
+
+    protected InformationPanel getInfromationPanel() {
         return informationPanel;
     }
 

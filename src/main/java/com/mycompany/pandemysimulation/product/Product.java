@@ -12,14 +12,15 @@ import java.util.Date;
  * @author kacper
  */
 public class Product {
+
     private int id;
     private String name;
     private Date beforeDate;
-    private Brand brand; 
-    
-    private static int curId=0;
-    
-    private static synchronized int getNextId(){
+    private Brand brand;
+
+    private static int curId = 0;
+
+    private static synchronized int getNextId() {
         return curId++;
     }
 
@@ -45,7 +46,5 @@ public class Product {
     public Brand getBrand() {
         return brand;
     }
-    
-    
-    
+
 }

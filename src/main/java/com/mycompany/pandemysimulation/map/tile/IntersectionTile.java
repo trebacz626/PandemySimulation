@@ -13,24 +13,26 @@ import java.util.List;
  *
  * @author kacper
  */
-public class IntersectionTile extends Tile{
+public class IntersectionTile extends Tile {
+
     private Intersection intersection;
-    public IntersectionTile(int idX, int idY, TileType tileType, Intersection intersection){
-        super(idX,idY,tileType);
+
+    public IntersectionTile(int idX, int idY, TileType tileType, Intersection intersection) {
+        super(idX, idY, tileType);
         this.intersection = intersection;
         intersection.addTile(this);
     }
-    
-    public void enter(ThreadAgent threadAgent) throws InterruptedException{
+
+    public void enter(ThreadAgent threadAgent) throws InterruptedException {
         intersection.enter(threadAgent);
         super.enter(threadAgent);
     }
-    
+
     public void leave(ThreadAgent threadAgent) {
         intersection.leave(threadAgent);
         super.leave(threadAgent);
     }
-    
+
     @Override
     public List<Location> getGroup() {
         return intersection.getTiles();

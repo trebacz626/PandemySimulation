@@ -17,32 +17,31 @@ import java.util.concurrent.locks.ReentrantLock;
  *
  * @author kacper
  */
-public class Intersection extends SimulationObject{
-    
-    private ReentrantLock lock; 
+public class Intersection extends SimulationObject {
+
+    private ReentrantLock lock;
     private List<Location> tiles;
-    
-    public Intersection(double posX, double posY, VisibleComponent visibleComponent){
-        super(posX,posY,visibleComponent);
+
+    public Intersection(double posX, double posY, VisibleComponent visibleComponent) {
+        super(posX, posY, visibleComponent);
         lock = new ReentrantLock();
-        tiles=new LinkedList<Location>();
+        tiles = new LinkedList<Location>();
     }
-    
-    
-    public void enter(ThreadAgent threadAgent)throws InterruptedException{
+
+    public void enter(ThreadAgent threadAgent) throws InterruptedException {
         lock.lockInterruptibly();
     }
-    
-    public void leave(ThreadAgent threadAgent){
+
+    public void leave(ThreadAgent threadAgent) {
         lock.unlock();
     }
-    
-    protected void addTile(IntersectionTile tile){
+
+    protected void addTile(IntersectionTile tile) {
         tiles.add(tile);
     }
-    
-    protected List<Location> getTiles(){
+
+    protected List<Location> getTiles() {
         return tiles;
     }
-    
+
 }

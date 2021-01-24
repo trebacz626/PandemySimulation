@@ -14,6 +14,7 @@ import java.util.List;
  * @author kacper
  */
 public class ProductStorage {
+
     private LinkedList<Product> listOfProducts;
     private int maxCapacity;
 
@@ -21,40 +22,40 @@ public class ProductStorage {
         this.maxCapacity = maxCapacity;
         this.listOfProducts = new LinkedList<Product>();
     }
-    
-    public void addProduct(Product product){
+
+    public void addProduct(Product product) {
         listOfProducts.add(product);
     }
-    
-    public int getCapacity(){
+
+    public int getCapacity() {
         return maxCapacity;
     }
-    
-    public int getFreePlace(){
+
+    public int getFreePlace() {
         return maxCapacity - listOfProducts.size();
     }
-    
-    public void removeNProducts(int n){
-        listOfProducts = new LinkedList<>(listOfProducts.subList(0, listOfProducts.size()-n));
+
+    public void removeNProducts(int n) {
+        listOfProducts = new LinkedList<>(listOfProducts.subList(0, listOfProducts.size() - n));
     }
-    
-    public Product getAndRemoveProduct(){
+
+    public Product getAndRemoveProduct() {
         return listOfProducts.removeFirst();
     }
-    
-    public List<Product> getListOfProducts(){
+
+    public List<Product> getListOfProducts() {
         return listOfProducts;
     }
-    
-    public boolean isEmpty(){
+
+    public boolean isEmpty() {
         return listOfProducts.isEmpty();
     }
-    
-    public boolean isFull(){
+
+    public boolean isFull() {
         return listOfProducts.size() == maxCapacity;
     }
-    
-    public int getNumberOfProducts(){
+
+    public int getNumberOfProducts() {
         return listOfProducts.size();
     }
 }

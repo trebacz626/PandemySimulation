@@ -12,18 +12,19 @@ import java.util.Date;
  * @author kacper
  */
 class DateKeeper {
+
     private Date startDate;
 
     protected DateKeeper() {
         startDate = new Date();
     }
-    
-    protected Date getCurDate(){
+
+    protected Date getCurDate() {
         Date curDate = new Date();
         long diff = curDate.getTime() - startDate.getTime();
-        diff*=30000;
+        diff *= 30000;
         curDate.setTime(startDate.getTime() + diff);
         return curDate;
     }
-    
+
 }

@@ -30,7 +30,9 @@ public class DynamicGate {
     }
 
     public synchronized void leave() {
-        if(!threads.contains(Thread.currentThread()))throw new IllegalMonitorStateException();
+        if (!threads.contains(Thread.currentThread())) {
+            throw new IllegalMonitorStateException();
+        }
         threads.remove(Thread.currentThread());
         this.notify();
     }

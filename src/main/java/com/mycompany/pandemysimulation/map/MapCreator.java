@@ -10,5 +10,6 @@ package com.mycompany.pandemysimulation.map;
  * @author kacper
  */
 public abstract class MapCreator {
+
     public abstract MapBuilder getMapBuilder();
 }

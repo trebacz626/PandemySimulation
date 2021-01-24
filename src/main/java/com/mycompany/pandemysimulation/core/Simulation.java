@@ -18,7 +18,7 @@ import java.util.List;
  *
  * @author kacper
  */
-public class Simulation{
+public class Simulation {
 
     private LinkedList<ThreadAgent> threadsAgents;
     private LinkedList<MainLoopAgent> mainLoopAgents;
@@ -30,7 +30,7 @@ public class Simulation{
     private DateKeeper dateKeeper;
 
     public Simulation(AbstractUIManager uiManager, AbstractMapManager mapManager, AbstractDataManager dataManager) throws IOException {
-        this.worldData = new WorldData(0.5,0.5,0.5,0.5,5, 0.5);
+        this.worldData = new WorldData(0.5, 0.5, 0.5, 0.5, 5, 0.5);
         this.uiManager = uiManager;
         uiManager.setSimulation(this);
         this.threadsAgents = new LinkedList<ThreadAgent>();
@@ -62,8 +62,8 @@ public class Simulation{
         threadsAgents.add(threadAgent);
         addSimulationObject(threadAgent);
         Thread agentThread = new Thread(threadAgent);
-            agentThread.setDaemon(true);
-            agentThread.start();
+        agentThread.setDaemon(true);
+        agentThread.start();
     }
 
     public synchronized void addMainLoopAgent(MainLoopAgent mainLoopAgent) {
@@ -84,29 +84,28 @@ public class Simulation{
         uiManager.removeVisibleComponent(threadAgent.getVisibleComponent());
         threadAgent.kill();
     }
-    
-    public synchronized List<ThreadAgent> getThreadAgents(){
+
+    public synchronized List<ThreadAgent> getThreadAgents() {
         return new ArrayList(threadsAgents);
     }
-    
-    public synchronized List<MainLoopAgent> getMainLoopAgents(){
+
+    public synchronized List<MainLoopAgent> getMainLoopAgents() {
         return new ArrayList(mainLoopAgents);
     }
 
-    
-    public AbstractUIManager getUIManager(){
+    public AbstractUIManager getUIManager() {
         return uiManager;
     }
-    
-    public AbstractMapManager getMapManager(){
+
+    public AbstractMapManager getMapManager() {
         return mapManager;
     }
-    
-    public WorldData getWorldData(){
+
+    public WorldData getWorldData() {
         return worldData;
     }
-    
-    public Date getCurrentDate(){
+
+    public Date getCurrentDate() {
         return dateKeeper.getCurDate();
     }
 }

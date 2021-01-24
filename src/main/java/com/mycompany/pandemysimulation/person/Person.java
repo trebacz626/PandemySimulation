@@ -64,6 +64,11 @@ public abstract class Person extends ThreadAgent {
         }
     }
 
+    /**
+     *
+     * @return
+     */
+    @Override
     protected boolean update() {
         try {
             currentShop = generateNextGoal();
@@ -206,8 +211,8 @@ public abstract class Person extends ThreadAgent {
         } while (!(agent instanceof Shop) || (current != null && agent == current));
         return (Shop) agent;
     }
-    
-    protected ProductStorage getProductStorage(){
+
+    protected ProductStorage getProductStorage() {
         return productStorage;
     }
 

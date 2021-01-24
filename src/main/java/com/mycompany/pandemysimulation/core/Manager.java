@@ -13,20 +13,18 @@ public abstract class Manager {
 
     private Simulation simulation;
 
-    public void start() throws Exception{
-    
+    public void start() throws Exception {
+
     }
 
-    public void update(){
-    
+    public void update() {
+
     }
 
     protected Simulation getSimulation() {
         return simulation;
     }
 
-    
-    
     protected void setSimulation(Simulation simulation) {
         this.simulation = simulation;
     }

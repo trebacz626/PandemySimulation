@@ -17,7 +17,7 @@ import javafx.scene.text.Text;
  *
  * @author kacper
  */
-public class ShopViewController<T extends Shop> extends SimulationObjectViewController<T>{
+public class ShopViewController<T extends Shop> extends SimulationObjectViewController<T> {
 
     @FXML
     private Text address;
@@ -27,16 +27,16 @@ public class ShopViewController<T extends Shop> extends SimulationObjectViewCont
 
     @FXML
     private Text products;
-    
+
     @FXML
     private Text shopId;
-    
-    public void update(){
+
+    public void update() {
         super.update();
         shopId.setText(String.valueOf(getSimulationObject().getUniqueId()));
         address.setText(getSimulationObject().getAddress());
         name.setText(getSimulationObject().getName());
-        List<String> productNames = getSimulationObject().getWarehouse().getCopyOfProducts().stream().map(prod->prod.getName()).collect(Collectors.toList());
+        List<String> productNames = getSimulationObject().getWarehouse().getCopyOfProducts().stream().map(prod -> prod.getName()).collect(Collectors.toList());
         products.setText(String.join("\n", productNames));
     }
 
@@ -44,5 +44,5 @@ public class ShopViewController<T extends Shop> extends SimulationObjectViewCont
     public void initialize(URL arg0, ResourceBundle arg1) {
         getTitleTextField().setText("Shop");
     }
-    
+
 }

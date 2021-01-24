@@ -12,7 +12,8 @@ import javafx.scene.image.Image;
  * @author kacper
  */
 public class ImageLoader {
-    public static Image loadImage(){
+
+    public static Image loadImage() {
         return null;
     }
 }

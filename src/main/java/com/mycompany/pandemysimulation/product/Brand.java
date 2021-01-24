@@ -16,5 +16,5 @@ public enum Brand {
     FROSTEX,
     MARIMPEX,
     LAYS,
-    SOMBRERRO    
+    SOMBRERRO
 }

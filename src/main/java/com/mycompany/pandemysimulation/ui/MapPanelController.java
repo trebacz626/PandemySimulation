@@ -21,16 +21,15 @@ import javafx.scene.layout.AnchorPane;
  */
 public class MapPanelController implements Initializable {
 
-    
     @FXML
     private AnchorPane anchorPane;
 
     @FXML
     private ImageView background;
-    
+
     @FXML
     private AnchorPane layer1;
-    
+
     private LinkedList<VisibleComponent> visibleComponents;
 
     /**
@@ -41,18 +40,18 @@ public class MapPanelController implements Initializable {
         visibleComponents = new LinkedList();
     }
 
-    protected void addVisibleComponent(VisibleComponent vc){
+    protected void addVisibleComponent(VisibleComponent vc) {
         visibleComponents.add(vc);
         layer1.getChildren().add(vc.getImageView());
     }
-    
-    protected void removeVisibleComponent(VisibleComponent vc){
+
+    protected void removeVisibleComponent(VisibleComponent vc) {
         visibleComponents.remove(vc);
         layer1.getChildren().remove(vc.getImageView());
     }
-    
-    protected void draw(){
-        for(VisibleComponent vc : this.visibleComponents){
+
+    protected void draw() {
+        for (VisibleComponent vc : this.visibleComponents) {
             vc.update();
         }
     }

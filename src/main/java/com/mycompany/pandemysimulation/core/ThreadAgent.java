@@ -11,8 +11,10 @@ import com.mycompany.pandemysimulation.core.ui.VisibleComponent;
  *
  * @author kacper
  */
-public abstract class ThreadAgent extends SimulationAgent implements Runnable{
+public abstract class ThreadAgent extends SimulationAgent implements Runnable {
+
     private Thread thread;
+
     protected ThreadAgent(double xPos, double yPos, VisibleComponent visibleComponent) {
         super(xPos, yPos, visibleComponent);
     }
@@ -20,14 +22,14 @@ public abstract class ThreadAgent extends SimulationAgent implements Runnable{
     @Override
     public void run() {
         thread = Thread.currentThread();
-        if(!this.start())
+        if (!this.start()) {
             return;
-        while(this.update());
+        }
+        while (this.update());
     }
-    
-    public void kill(){
+
+    public void kill() {
         thread.interrupt();
     }
-    
-    
+
 }

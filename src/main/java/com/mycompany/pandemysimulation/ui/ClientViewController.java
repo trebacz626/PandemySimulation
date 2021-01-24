@@ -18,7 +18,6 @@ import javafx.scene.text.Text;
  */
 public class ClientViewController< T extends Client> extends PersonViewController<T> {
 
-    
     @FXML
     private Text surname;
 
@@ -27,20 +26,19 @@ public class ClientViewController< T extends Client> extends PersonViewControlle
 
     @FXML
     private Text pesel;
-    
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         getTitleTextField().setText("Client");
-    }   
-    
-    public void update(){
+    }
+
+    public void update() {
         super.update();
-        if(getSimulationObject() != null){
+        if (getSimulationObject() != null) {
             pesel.setText(getSimulationObject().getPesel());
             name.setText(getSimulationObject().getFirstName());
             surname.setText(getSimulationObject().getLastName());
         }
     }
-    
+
 }

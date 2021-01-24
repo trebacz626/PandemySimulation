@@ -15,21 +15,21 @@ import javafx.scene.control.Button;
  *
  * @author kacper
  */
-public class WholesaleShopViewController<T extends WholesaleShop> extends ShopViewController<T>{
-    
+public class WholesaleShopViewController<T extends WholesaleShop> extends ShopViewController<T> {
+
     @FXML
     private Button addProduct;
-    
+
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         getTitleTextField().setText("Wholesale Shop");
     }
-    
+
     @Override
-    public void start(){
+    public void start() {
         super.start();
-        addProduct.setOnMouseClicked(event->{
+        addProduct.setOnMouseClicked(event -> {
             getSimulationObject().createProduct();
-        });   
+        });
     }
 }

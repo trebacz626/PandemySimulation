@@ -11,6 +11,6 @@ import com.mycompany.pandemysimulation.core.Manager;
  *
  * @author kacper
  */
-public abstract class AbstractDataManager extends Manager{
-    
+public abstract class AbstractDataManager extends Manager {
+
 }
