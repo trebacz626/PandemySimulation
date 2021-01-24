@@ -18,7 +18,7 @@ import java.util.concurrent.locks.StampedLock;
  *
  * @author kacper
  */
-public class SecondSynchronizedStore {
+public class SynchronizedStoreStorage {
     private List<Product> products;
     private int maxCapacity;
 //    private int freePlace;
@@ -27,7 +27,7 @@ public class SecondSynchronizedStore {
     
     private boolean isInspected;
 
-    public SecondSynchronizedStore(int maxCapacity) {
+    public SynchronizedStoreStorage(int maxCapacity) {
         this.maxCapacity = maxCapacity;
         this.products = new LinkedList<>();
         isInspected = false;

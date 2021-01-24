@@ -8,10 +8,10 @@ package com.mycompany.pandemysimulation.person;
 import com.mycompany.pandemysimulation.App;
 import com.mycompany.pandemysimulation.core.MainLoopAgent;
 import com.mycompany.pandemysimulation.utils.Coordinates;
-import com.mycompany.pandemysimulation.map.PathFinder;
-import com.mycompany.pandemysimulation.ui.VisibleComponent;
+import com.mycompany.pandemysimulation.core.map.PathFinder;
+import com.mycompany.pandemysimulation.core.ui.VisibleComponent;
 import com.mycompany.pandemysimulation.shop.Shop;
-import com.mycompany.pandemysimulation.map.Location;
+import com.mycompany.pandemysimulation.core.map.Location;
 import com.mycompany.pandemysimulation.core.ThreadAgent;
 import com.mycompany.pandemysimulation.shop.retailshop.RetailShop;
 import com.mycompany.pandemysimulation.shop.wholesaleshop.WholesaleShop;
@@ -101,7 +101,7 @@ public abstract class Person extends ThreadAgent {
         }
         if (sick) {
             shopsVisitedWhileSick++;
-            if (shopsVisitedWhileSick > App.simulation.getWorldData().getShopVisitedWhileSick()) {
+            if (shopsVisitedWhileSick > getSimulation().getWorldData().getShopVisitedWhileSick()) {
                 sick = false;
             }
         }
@@ -115,25 +115,25 @@ public abstract class Person extends ThreadAgent {
         double targetX = Coordinates.mapToWorld(nextLocation.getIdX());
         double targetY = Coordinates.mapToWorld(nextLocation.getIdY());
         double speed = 100;
-        while (Math.abs(xPos - targetX) > 2 || Math.abs(yPos - targetY) > 2) {
+        while (Math.abs(getxPos() - targetX) > 2 || Math.abs(getyPos() - targetY) > 2) {
             long curTime = System.currentTimeMillis();
             double deltaTimeInSec = ((double) curTime - lastTime) / 1000;
             double delta = speed * deltaTimeInSec;
-            if (this.xPos < targetX) {
-                xPos += delta;
-            } else if (this.xPos > targetX) {
-                xPos -= delta;
+            if (this.getxPos() < targetX) {
+                setxPos(getxPos()+delta);
+            } else if (this.getxPos() > targetX) {
+                setxPos(getxPos()-delta);
             }
-            if (yPos < targetY) {
-                yPos += delta;
-            } else if (yPos > targetY) {
-                yPos -= delta;
+            if (getyPos() < targetY) {
+                setyPos(getyPos() + delta);
+            } else if (getyPos() > targetY) {
+                setyPos(getyPos() - delta);
             }
             lastTime = curTime;
             Thread.sleep(40);
         }
-        this.xPos = targetX;
-        this.yPos = targetY;
+        setxPos(targetX);
+        setyPos(targetY);
     }
 
     private List<Location> searchForPath(Location to) {
@@ -141,7 +141,7 @@ public abstract class Person extends ThreadAgent {
     }
 
     private void passDisease() {
-        double transmisionRate = App.simulation.getWorldData().getTransmissionRate();
+        double transmisionRate = getSimulation().getWorldData().getTransmissionRate();
         if (isSick()) {
             for (Person person : currentShop.getCopyOfPeopleInside()) {
                 if (person != this && !person.isSick() && new Random().nextDouble() < transmisionRate) {
@@ -158,28 +158,28 @@ public abstract class Person extends ThreadAgent {
         }
     }
 
-    public void infect() {
+    protected void infect() {
         if (new Random().nextDouble() < getIngoingTransmissionModifiers()) {
             this.sick = true;
             this.shopsVisitedWhileSick = 0;
         }
     }
 
-    public double getIngoingTransmissionModifiers() {
+    protected double getIngoingTransmissionModifiers() {
         double base = 1.0;
         if (isVaccinated()) {
-            base *= App.simulation.getWorldData().getVaccineRate();
+            base *= getSimulation().getWorldData().getVaccineRate();
         }
         if (isWearingMask()) {
-            base *= App.simulation.getWorldData().getMaskEffect();
+            base *= getSimulation().getWorldData().getMaskEffect();
         }
         return base;
     }
 
-    public double getOutgoingTransmissionModifiers() {
+    protected double getOutgoingTransmissionModifiers() {
         double base = 1.0;
         if (isWearingMask()) {
-            base *= App.simulation.getWorldData().getMaskEffect();
+            base *= getSimulation().getWorldData().getMaskEffect();
         }
         return base;
     }
@@ -197,7 +197,7 @@ public abstract class Person extends ThreadAgent {
     }
 
     protected Shop getRandomShop(Shop current) {
-        List<MainLoopAgent> agents = App.simulation.getMainLooAgents();
+        List<MainLoopAgent> agents = getSimulation().getMainLooAgents();
         MainLoopAgent agent;
         do {
             agent = Utils.getRandomFromList(agents);
@@ -248,5 +248,9 @@ public abstract class Person extends ThreadAgent {
 
     public Shop getCurrentShop() {
         return currentShop;
+    }
+    
+    public PathFinder getPathFinder(){
+        return pathFinder;
     }
 }

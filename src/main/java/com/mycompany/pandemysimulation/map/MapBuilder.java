@@ -5,6 +5,9 @@
  */
 package com.mycompany.pandemysimulation.map;
 
+import com.mycompany.pandemysimulation.core.map.Location;
+import com.mycompany.pandemysimulation.core.map.Direction;
+import com.mycompany.pandemysimulation.core.map.Map;
 import com.mycompany.pandemysimulation.utils.Coordinates;
 import com.mycompany.pandemysimulation.Intersection;
 import com.mycompany.pandemysimulation.IntersectionTile;
@@ -13,7 +16,7 @@ import com.mycompany.pandemysimulation.shop.retailshop.RetailShopFactory;
 import com.mycompany.pandemysimulation.shop.Shop;
 import com.mycompany.pandemysimulation.Tile;
 import com.mycompany.pandemysimulation.TileType;
-import com.mycompany.pandemysimulation.ui.VisibleComponent;
+import com.mycompany.pandemysimulation.core.ui.VisibleComponent;
 import com.mycompany.pandemysimulation.shop.wholesaleshop.WholesaleShop;
 import com.mycompany.pandemysimulation.shop.wholesaleshop.WholesaleShopFactory;
 import com.mycompany.pandemysimulation.core.SimulationObject;

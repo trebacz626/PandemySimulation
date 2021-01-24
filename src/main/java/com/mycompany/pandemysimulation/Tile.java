@@ -6,8 +6,8 @@
 package com.mycompany.pandemysimulation;
 
 import com.mycompany.pandemysimulation.utils.Coordinates;
-import com.mycompany.pandemysimulation.ui.VisibleComponent;
-import com.mycompany.pandemysimulation.map.Location;
+import com.mycompany.pandemysimulation.core.ui.VisibleComponent;
+import com.mycompany.pandemysimulation.core.map.Location;
 import com.mycompany.pandemysimulation.core.SimulationObject;
 import com.mycompany.pandemysimulation.core.ThreadAgent;
 import java.util.Collections;
@@ -61,15 +61,6 @@ public class Tile extends SimulationObject implements Location{
     public void leave(ThreadAgent threadAgent){
         lock.unlock();
     }
-    
-
-    public double getXPos() {
-        return xPos;
-    }
-
-    public double getYPos() {
-        return yPos;
-    }
 
     public int getIdX() {
         return idX;
@@ -87,6 +78,11 @@ public class Tile extends SimulationObject implements Location{
     @Override
     public List<Location> getGroup() {
         return Collections.singletonList(this);
+    }
+    
+    @Override
+    public boolean shouldGoThrough() {
+       return true;
     }
     
     

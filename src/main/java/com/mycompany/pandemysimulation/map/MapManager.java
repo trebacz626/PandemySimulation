@@ -5,12 +5,18 @@
  */
 package com.mycompany.pandemysimulation.map;
 
+import com.mycompany.pandemysimulation.core.map.PathFinder;
+import com.mycompany.pandemysimulation.core.map.Location;
+import com.mycompany.pandemysimulation.core.map.DeadlockFinder;
+import com.mycompany.pandemysimulation.core.Simulation;
 import com.mycompany.pandemysimulation.person.client.Client;
 import com.mycompany.pandemysimulation.person.Person;
 import com.mycompany.pandemysimulation.shop.Shop;
 import com.mycompany.pandemysimulation.person.supplier.Supplier;
 import com.mycompany.pandemysimulation.core.ThreadAgent;
-import com.mycompany.pandemysimulation.map.Map;
+import com.mycompany.pandemysimulation.core.map.AbstractMapManager;
+import com.mycompany.pandemysimulation.core.map.DeadlockFinder;
+import com.mycompany.pandemysimulation.core.map.Map;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,30 +25,31 @@ import java.util.stream.Collectors;
  *
  * @author kacper
  */
-public class MapManager {
-
-    private Map map;
-    private PathFinder pedestrianPathFinder;
-    private PathFinder roadPathFinder;
-    private DeadlockFinder pedestrianDeadlockFinder;
-    private DeadlockFinder roadDeadlockFinder;
+public class MapManager extends AbstractMapManager{
 
     public MapManager(Map map) {
-        this.map = map;
-        this.pedestrianPathFinder = new PathFinder(map.getPedestrianDirections(), map.getLocations());
-        this.roadPathFinder = new PathFinder(map.getRoadDirections(), map.getLocations());
-        this.pedestrianDeadlockFinder = new DeadlockFinder(map.getPedestrianDirections(), map.getLocations());
-        this.roadDeadlockFinder = new DeadlockFinder(map.getRoadDirections(), map.getLocations());
+        super(map);
+    }
+    
+    @Override
+    public void update(){
+        List<Person> people = (List<Person>) getSimulation().getThreadAgents().stream().filter(a -> a instanceof Person).map(a -> (Person) a).collect(Collectors.toList());
+        List<Person> toDelete = findDeadLockPedestrian(people);
+        List<Person> carsToDelete = findDeadLockRoad(people);
+        toDelete.addAll(carsToDelete);
+        for (Person person : toDelete) {
+            getSimulation().removeThreadAgent(person);
+        }
     }
 
-    public List<Person> findDeadLockPedestrian(List<Person> agents) {
-        List<Person> pedestrians = agents.stream().filter(agent->agent instanceof Client).collect(Collectors.toList());
-        return findDeadlock(pedestrianDeadlockFinder, pedestrians).stream().collect(Collectors.toList());
+    private List<Person> findDeadLockPedestrian(List<Person> agents) {
+        List<Person> pedestrians = agents.stream().filter(agent->agent.getPathFinder() == getPedestrianPathFinder()).collect(Collectors.toList());
+        return findDeadlock(getPedestrianDeadlockFinder(), pedestrians).stream().collect(Collectors.toList());
     }
 
-    public List<Person> findDeadLockRoad(List<Person> agents) {
-        List<Person> cars = agents.stream().filter(agent->agent instanceof Supplier).collect(Collectors.toList());
-        return findDeadlock(roadDeadlockFinder, cars).stream().collect(Collectors.toList());
+    private List<Person> findDeadLockRoad(List<Person> agents) {
+        List<Person> cars = agents.stream().filter(agent->agent.getPathFinder() == getRoadPathFinder()).collect(Collectors.toList());
+        return findDeadlock(getRoadDeadlockFinder(), cars).stream().collect(Collectors.toList());
     }
 
     private List<Person> findDeadlock(DeadlockFinder deadlockFinder, List<Person> agents) {
@@ -59,17 +66,5 @@ public class MapManager {
             }
         }
         return agentsToRemove;
-    }
-
-    public Map getMap() {
-        return map;
-    }
-
-    public PathFinder getPedestrianPathFinder() {
-        return pedestrianPathFinder;
-    }
-
-    public PathFinder getRoadPathFinder() {
-        return roadPathFinder;
     }
 }

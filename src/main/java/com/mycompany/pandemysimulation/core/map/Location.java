@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.pandemysimulation.map;
+package com.mycompany.pandemysimulation.core.map;
 
 import com.mycompany.pandemysimulation.core.ThreadAgent;
 import java.util.List;
@@ -18,4 +18,5 @@ public interface Location {
     public void enter(ThreadAgent threadAgent) throws InterruptedException;
     public void leave(ThreadAgent threadAgent);
     public List<Location> getGroup();
+    public boolean shouldGoThrough();
 }

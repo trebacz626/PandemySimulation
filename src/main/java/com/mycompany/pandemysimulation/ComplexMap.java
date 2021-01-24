@@ -5,7 +5,7 @@
  */
 package com.mycompany.pandemysimulation;
 
-import com.mycompany.pandemysimulation.map.Direction;
+import com.mycompany.pandemysimulation.core.map.Direction;
 import com.mycompany.pandemysimulation.map.MapBuilder;
 import com.mycompany.pandemysimulation.map.MapCreator;
 import java.util.Collections;

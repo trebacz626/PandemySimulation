@@ -3,10 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.pandemysimulation.map;
+package com.mycompany.pandemysimulation.core.map;
 
-import com.mycompany.pandemysimulation.shop.Shop;
-import com.mycompany.pandemysimulation.map.Location;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
@@ -45,7 +43,7 @@ public class PathFinder {
             if(lastLocation.getIdX() == toX && lastLocation.getIdY() == toY){
                 return element.getPath();
             }
-            if( !(lastLocation.getIdX() == fromX && lastLocation.getIdY() == fromY) && locations[lastLocation.getIdY()][lastLocation.getIdX()] instanceof Shop){
+            if( !(lastLocation.getIdX() == fromX && lastLocation.getIdY() == fromY) && !locations[lastLocation.getIdY()][lastLocation.getIdX()].shouldGoThrough()){
                 continue;
             }
             List<Direction> actions = getActions(lastLocation);

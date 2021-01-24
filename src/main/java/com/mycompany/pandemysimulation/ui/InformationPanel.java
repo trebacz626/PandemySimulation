@@ -43,7 +43,7 @@ public class InformationPanel {
     public void showInformation(SimulationObject so){
         try{
             currentSo = so;
-            showInformation(currentSo.getVisibleComponent().getInformationPanelName());
+            showInformation(currentSo.getVisibleComponent().getViewName());
         }catch(Exception e ){
             e.printStackTrace();
             Platform.exit();

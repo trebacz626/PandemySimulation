@@ -5,17 +5,19 @@
  */
 package com.mycompany.pandemysimulation.core;
 
-import com.mycompany.pandemysimulation.ui.VisibleComponent;
+import com.mycompany.pandemysimulation.core.ui.VisibleComponent;
 
 /**
  *
  * @author kacper
  */
 public abstract class SimulationObject {
-    protected int id;
-    protected double xPos;
-    protected double yPos;
-    protected VisibleComponent visibleComponent;
+
+    private int id;
+    private double xPos;
+    private double yPos;
+    private VisibleComponent visibleComponent;
+    private Simulation simulation;
 
     public SimulationObject(double xPos, double yPos, VisibleComponent visibleComponent) {
         this.xPos = xPos;
@@ -27,7 +29,6 @@ public abstract class SimulationObject {
     public int getId() {
         return id;
     }
-    
 
     public double getxPos() {
         return xPos;
@@ -40,6 +41,23 @@ public abstract class SimulationObject {
     public VisibleComponent getVisibleComponent() {
         return visibleComponent;
     }
+
+    protected Simulation getSimulation() {
+        return simulation;
+    }
+
+    protected void setSimulation(Simulation simulation) {
+        this.simulation = simulation;
+    }
+
+    public void setxPos(double xPos) {
+        this.xPos = xPos;
+    }
+
+    public void setyPos(double yPos) {
+        this.yPos = yPos;
+    }
     
     
+
 }

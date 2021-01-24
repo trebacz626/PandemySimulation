@@ -7,9 +7,9 @@ package com.mycompany.pandemysimulation.person.client;
 
 import com.mycompany.pandemysimulation.utils.Coordinates;
 import com.mycompany.pandemysimulation.utils.Utils;
-import com.mycompany.pandemysimulation.map.PathFinder;
-import com.mycompany.pandemysimulation.ui.VisibleComponent;
-import com.mycompany.pandemysimulation.map.Location;
+import com.mycompany.pandemysimulation.core.map.PathFinder;
+import com.mycompany.pandemysimulation.core.ui.VisibleComponent;
+import com.mycompany.pandemysimulation.core.map.Location;
 import java.util.Random;
 
 /**

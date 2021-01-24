@@ -44,7 +44,7 @@ public class SupplierViewController<T extends Supplier> extends PersonViewContro
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        title.setText("Supplier");
+        getTitleTextField().setText("Supplier");
     }
 
     public void start() {
@@ -85,7 +85,7 @@ public class SupplierViewController<T extends Supplier> extends PersonViewContro
 
     private Shop getShopById(int id) {
 
-        for (MainLoopAgent agent : App.simulation.getMainLooAgents()) {
+        for (MainLoopAgent agent : getSimulation().getMainLooAgents()) {
             if (agent instanceof Shop) {
                 if (((Shop) agent).getUniqueId() == id) {
                     return (Shop) agent;

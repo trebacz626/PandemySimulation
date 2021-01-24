@@ -7,8 +7,8 @@ package com.mycompany.pandemysimulation.shop.retailshop;
 
 import com.mycompany.pandemysimulation.person.client.Client;
 import com.mycompany.pandemysimulation.person.supplier.Supplier;
-import com.mycompany.pandemysimulation.ui.VisibleComponent;
-import com.mycompany.pandemysimulation.map.Location;
+import com.mycompany.pandemysimulation.core.ui.VisibleComponent;
+import com.mycompany.pandemysimulation.core.map.Location;
 import com.mycompany.pandemysimulation.core.ThreadAgent;
 import com.mycompany.pandemysimulation.sync.DynamicGate;
 import com.mycompany.pandemysimulation.shop.Shop;

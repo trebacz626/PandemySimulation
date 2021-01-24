@@ -6,7 +6,7 @@
 package com.mycompany.pandemysimulation.shop.retailshop;
 
 import com.mycompany.pandemysimulation.Tile;
-import com.mycompany.pandemysimulation.ui.VisibleComponent;
+import com.mycompany.pandemysimulation.core.ui.VisibleComponent;
 import java.util.Date;
 import java.util.Random;
 

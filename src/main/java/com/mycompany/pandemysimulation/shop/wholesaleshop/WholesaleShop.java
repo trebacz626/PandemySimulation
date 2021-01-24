@@ -9,7 +9,7 @@ import com.mycompany.pandemysimulation.App;
 import com.mycompany.pandemysimulation.product.Brand;
 import com.mycompany.pandemysimulation.product.Product;
 import com.mycompany.pandemysimulation.person.supplier.Supplier;
-import com.mycompany.pandemysimulation.ui.VisibleComponent;
+import com.mycompany.pandemysimulation.core.ui.VisibleComponent;
 import com.mycompany.pandemysimulation.core.ThreadAgent;
 import com.mycompany.pandemysimulation.sync.DynamicGate;
 import com.mycompany.pandemysimulation.shop.Shop;
@@ -40,7 +40,7 @@ public class WholesaleShop extends Shop {
     @Override
     public boolean start() {
         super.start();
-        lastProductionDate = App.simulation.getCurrentDate();
+        lastProductionDate = getSimulation().getCurrentDate();
         return true;
     }
 
@@ -48,7 +48,7 @@ public class WholesaleShop extends Shop {
     public boolean update() {
         super.update();
         suppliersGate.setNewCapacity(getClientCapacity());
-        Date currentDate = App.simulation.getCurrentDate();
+        Date currentDate = getSimulation().getCurrentDate();
         long deltaProductionTime = currentDate.getTime() - lastProductionDate.getTime();
         long deltaProductionDays = TimeUnit.DAYS.convert(deltaProductionTime, TimeUnit.MILLISECONDS);
         if (deltaProductionDays >= 1) {
@@ -67,7 +67,7 @@ public class WholesaleShop extends Shop {
 
     private void createProduct() {
         if(this.getWarehouse().isFull()) return;
-        Date date = App.simulation.getCurrentDate();
+        Date date = getSimulation().getCurrentDate();
         date.setTime(date.getTime() + TimeUnit.MILLISECONDS.convert(60, TimeUnit.DAYS));
         Product product = new Product("name", date, Brand.AVON);
         this.addProductSync(product);

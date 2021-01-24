@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.pandemysimulation.map;
+package com.mycompany.pandemysimulation.core.map;
 
 import java.util.Collections;
 import java.util.HashSet;

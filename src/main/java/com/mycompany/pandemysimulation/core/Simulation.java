@@ -5,81 +5,57 @@
  */
 package com.mycompany.pandemysimulation.core;
 
-import com.mycompany.pandemysimulation.map.MapBuilder;
+import com.mycompany.pandemysimulation.core.map.AbstractMapManager;
+import com.mycompany.pandemysimulation.core.ui.AbstractUIManager;
 import com.mycompany.pandemysimulation.person.Person;
-import com.mycompany.pandemysimulation.map.Map;
-import com.mycompany.pandemysimulation.map.MapCreator;
-import com.mycompany.pandemysimulation.map.MapManager;
-import com.mycompany.pandemysimulation.ui.UIManager;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
-import javafx.stage.Stage;
 
 /**
  *
  * @author kacper
  */
-public class Simulation {
+public class Simulation{
 
     private LinkedList<ThreadAgent> threadsAgents;
     private LinkedList<MainLoopAgent> mainLoopAgents;
     private LinkedList<SimulationObject> simulationObjects;
     private final WorldData worldData;
-    private final UIManager uiManager;
-    private MapManager mapManager;
+    private final AbstractUIManager uiManager;
+    private AbstractMapManager mapManager;
     private DateKeeper dateKeeper;
 
-    public Simulation(Stage stage, MapCreator mapCreator) throws IOException {
+    public Simulation(AbstractUIManager uiManager, AbstractMapManager mapManager) throws IOException {
         this.worldData = new WorldData(0.5,0.5,0.5,0.5,5);
-        this.uiManager = new UIManager(stage, this);
+        this.uiManager = uiManager;
+        uiManager.setSimulation(this);
         this.threadsAgents = new LinkedList<ThreadAgent>();
         this.mainLoopAgents = new LinkedList<MainLoopAgent>();
         this.simulationObjects = new LinkedList<SimulationObject>();
         this.dateKeeper = new DateKeeper();
-        MapBuilder mapBuilder = mapCreator.getMapBuilder();
-        Map map = mapBuilder.build();
-        mapManager = new MapManager(map);
-        for (SimulationObject so : mapBuilder.getSimulationObjects()) {
-            if (so instanceof MainLoopAgent) {
-                addMainLoopAgent((MainLoopAgent) so);
-            } else {
-                addSimulationObject(so);
-            }
-        }
+        this.mapManager = mapManager;
+        mapManager.setSimulation(this);
     }
 
-    public synchronized void start() {
-        for (MainLoopAgent agent : this.mainLoopAgents) {
-            agent.start();
-        }
+    public synchronized void start() throws Exception {
+        uiManager.start();
+        mapManager.start();
     }
 
     public synchronized void update() {
         for (MainLoopAgent agent : this.mainLoopAgents) {
             agent.update();
         }
-        findDeadlock();
+        mapManager.update();
         updateWorldData();
         uiManager.update();
     }
-
-    private void findDeadlock() {
-        List<Person> people = threadsAgents.stream().filter(a -> a instanceof Person).map(a -> (Person) a).collect(Collectors.toList());
-        List<Person> toDelete = mapManager.findDeadLockPedestrian(people);
-        List<Person> carsToDelete = mapManager.findDeadLockRoad(people);
-        toDelete.addAll(carsToDelete);
-        for (Person person : toDelete) {
-            removeThreadAgent(person);
-        }
-    }
     
+    //TODO dele
     private void updateWorldData(){
         List<Person> people = threadsAgents.stream().filter(ta->ta instanceof Person).map(ps->(Person)ps).collect(Collectors.toList());
         List<Person> sickPeople = people.stream().filter(ps->ps.isSick()).collect(Collectors.toList());
@@ -98,17 +74,19 @@ public class Simulation {
     public synchronized void addMainLoopAgent(MainLoopAgent mainLoopAgent) {
         mainLoopAgents.add(mainLoopAgent);
         addSimulationObject(mainLoopAgent);
+        mainLoopAgent.start();
     }
 
     public synchronized void addSimulationObject(SimulationObject simulationObject) {
         simulationObjects.add(simulationObject);
-        uiManager.getMapPanelController().addVisibleComponent(simulationObject.getVisibleComponent());
+        simulationObject.setSimulation(this);
+        uiManager.addVisibleComponent(simulationObject.getVisibleComponent());
     }
 
     public synchronized void removeThreadAgent(ThreadAgent threadAgent) {
         threadsAgents.remove(threadAgent);
         simulationObjects.remove(threadAgent);
-        uiManager.getMapPanelController().removeVisibleComponent(threadAgent.getVisibleComponent());
+        uiManager.removeVisibleComponent(threadAgent.getVisibleComponent());
         threadAgent.kill();
     }
     
@@ -121,11 +99,11 @@ public class Simulation {
     }
 
     
-    public UIManager getUIManager(){
+    public AbstractUIManager getUIManager(){
         return uiManager;
     }
     
-    public MapManager getMapManager(){
+    public AbstractMapManager getMapManager(){
         return mapManager;
     }
     

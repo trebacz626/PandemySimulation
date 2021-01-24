@@ -5,7 +5,7 @@
  */
 package com.mycompany.pandemysimulation.core;
 
-import com.mycompany.pandemysimulation.ui.VisibleComponent;
+import com.mycompany.pandemysimulation.core.ui.VisibleComponent;
 
 /**
  *

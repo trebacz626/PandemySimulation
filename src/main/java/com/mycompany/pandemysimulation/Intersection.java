@@ -5,8 +5,8 @@
  */
 package com.mycompany.pandemysimulation;
 
-import com.mycompany.pandemysimulation.ui.VisibleComponent;
-import com.mycompany.pandemysimulation.map.Location;
+import com.mycompany.pandemysimulation.core.ui.VisibleComponent;
+import com.mycompany.pandemysimulation.core.map.Location;
 import com.mycompany.pandemysimulation.core.SimulationObject;
 import com.mycompany.pandemysimulation.core.ThreadAgent;
 import java.util.LinkedList;
@@ -35,15 +35,6 @@ public class Intersection extends SimulationObject{
     
     public void leave(ThreadAgent threadAgent){
         lock.unlock();
-    }
-    
-
-    public double getXPos() {
-        return xPos;
-    }
-
-    public double getYPos() {
-        return yPos;
     }
     
     protected void addTile(IntersectionTile tile){

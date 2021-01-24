@@ -39,7 +39,7 @@ public class ShopViewController<T extends Shop> extends SimulationObjectViewCont
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        title.setText("Shop");
+        getTitleTextField().setText("Shop");
     }
     
 }

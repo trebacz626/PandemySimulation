@@ -8,11 +8,11 @@ package com.mycompany.pandemysimulation.person.supplier;
 import com.mycompany.pandemysimulation.App;
 import com.mycompany.pandemysimulation.product.Product;
 import com.mycompany.pandemysimulation.utils.Utils;
-import com.mycompany.pandemysimulation.map.PathFinder;
-import com.mycompany.pandemysimulation.ui.VisibleComponent;
+import com.mycompany.pandemysimulation.core.map.PathFinder;
+import com.mycompany.pandemysimulation.core.ui.VisibleComponent;
 import com.mycompany.pandemysimulation.shop.Shop;
 import com.mycompany.pandemysimulation.shop.retailshop.RetailShop;
-import com.mycompany.pandemysimulation.map.Location;
+import com.mycompany.pandemysimulation.core.map.Location;
 import com.mycompany.pandemysimulation.person.Person;
 import com.mycompany.pandemysimulation.person.ProductStorage;
 import java.util.Collections;
@@ -62,7 +62,6 @@ public class Supplier extends Person{
             route.add(this.getRandomRetailShop(null));
         }
         Collections.shuffle(route);
-//        route.add(0,(Shop)this.getCurrentLocation());
         shopIndex=0;
         return true;
     }
@@ -78,7 +77,6 @@ public class Supplier extends Person{
         refuel();
         if(shop instanceof RetailShop){
             if(trunk.isEmpty()) return;
-//            int productsToStore = new Random().nextInt(trunk.getNumberOfProducts())+1;
             while(!shop.getWarehouse().isFull() && !trunk.isEmpty()){
                 shop.getWarehouse().addProduct(trunk.getAndRemoveProduct());
             }

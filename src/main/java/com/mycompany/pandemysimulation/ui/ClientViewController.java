@@ -33,7 +33,7 @@ public class ClientViewController< T extends Client> extends PersonViewControlle
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        title.setText("Client");
+        getTitleTextField().setText("Client");
     }   
     
     public void update(){

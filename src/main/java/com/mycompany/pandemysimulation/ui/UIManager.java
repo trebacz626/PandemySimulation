@@ -5,11 +5,17 @@
  */
 package com.mycompany.pandemysimulation.ui;
 
+import com.mycompany.pandemysimulation.core.ui.VisibleComponent;
 import com.mycompany.pandemysimulation.App;
 import com.mycompany.pandemysimulation.core.Simulation;
+import com.mycompany.pandemysimulation.core.ui.AbstractUIManager;
+import com.mycompany.pandemysimulation.core.SimulationObject;
 import com.mycompany.pandemysimulation.core.WorldData;
 import com.mycompany.pandemysimulation.ui.MapPanelController;
 import java.io.IOException;
+import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -21,7 +27,25 @@ import javafx.stage.Stage;
  *
  * @author kacper
  */
-public class UIManager {
+public class UIManager extends AbstractUIManager{
+    
+    protected static FXMLLoader getFXMLLoader(String fxml){
+//        try{
+//            URL localPackage = UIManager.class.getResource("");
+//    URL urlLoader = UIManager.class.getProtectionDomain().getCodeSource().getLocation();
+//    String localDir = localPackage.getPath();
+//    String loaderDir = urlLoader.getPath();
+//    System.out.printf("loaderDir = %s\n localDir = %s\n", loaderDir, localDir);
+//        }catch(Exception e){
+//            e.printStackTrace();
+//            System.err.println("eeeee");
+//        }; 
+//        
+//        return new FXMLLoader(UIManager.class.getClassLoader().getResource("target/classes/com/mycompany/pandemysimulation/fxml/"+fxml + ".fxml"));
+        return new FXMLLoader(App.class.getResource("fxml/"+fxml + ".fxml"));
+    }
+    
+    private Simulation simulation;
     private MapPanelController mapPanelController;
     private Scene mapPanelScene;
     private Stage primaryStage;
@@ -32,7 +56,11 @@ public class UIManager {
     
     private InformationPanel informationPanel;
     
-    public UIManager(Stage primaryStage, Simulation simulation) throws IOException{
+    public UIManager(Stage primaryStage){
+        this.primaryStage = primaryStage;
+    }
+    
+    public void start() throws IOException{
         FXMLLoader loader = getFXMLLoader("mapPanel");
         Parent root = loader.load();
         mapPanelController =  (MapPanelController)loader.getController();
@@ -44,7 +72,6 @@ public class UIManager {
         primaryStage.show();
         primaryStage.setResizable(false);
         primaryStage.setOnCloseRequest(event ->Platform.exit());
-        this.primaryStage = primaryStage;
         
         FXMLLoader controlLoader = getFXMLLoader("controlPanel");
         controlPanelScene = new Scene(controlLoader.load());
@@ -59,23 +86,6 @@ public class UIManager {
         controlPanelStage.setY(0);
         controlPanelStage.show();   
         informationPanel = new InformationPanel();
-
-    }
-    
-    protected static FXMLLoader getFXMLLoader(String fxml){
-        return new FXMLLoader(App.class.getResource("fxml/"+fxml + ".fxml"));
-    }
-
-    public MapPanelController getMapPanelController() {
-        return mapPanelController;
-    }
-
-    public ControlPanelController getControlPanelController() {
-        return controlPanelController;
-    }
-
-    public InformationPanel getInformationPanel() {
-        return informationPanel;
     }
     
     public void update(){
@@ -85,4 +95,23 @@ public class UIManager {
     }
     
     
+    @Override
+    public void showInformation(SimulationObject simulationObject) {
+        informationPanel.showInformation(simulationObject);
+    }
+
+    @Override
+    public void addVisibleComponent(VisibleComponent visibleComponent) {
+        super.addVisibleComponent(visibleComponent);
+        mapPanelController.addVisibleComponent(visibleComponent);
+    }
+
+    @Override
+    public void removeVisibleComponent(VisibleComponent visibleComponent) {
+        mapPanelController.removeVisibleComponent(visibleComponent);
+    }
+    
+    public void setSimulation(Simulation simulation){
+        this.simulation = simulation;
+    }
 }

@@ -12,7 +12,7 @@ import com.mycompany.pandemysimulation.Tile;
  * @author kacper
  */
 public final class Coordinates {
-    
+    public static final int mapTileSize = 30;
     private Coordinates(){
     }
     

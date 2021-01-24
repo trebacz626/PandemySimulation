@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.pandemysimulation.ui;
+package com.mycompany.pandemysimulation.core.ui;
 
 import com.mycompany.pandemysimulation.App;
 import com.mycompany.pandemysimulation.utils.Coordinates;
+import com.mycompany.pandemysimulation.core.SimulationObject;
 import com.mycompany.pandemysimulation.core.SimulationObject;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
@@ -17,8 +18,7 @@ import javafx.scene.input.MouseEvent;
  *
  * @author kacper
  */
-public class VisibleComponent implements EventHandler<MouseEvent>{
-    private SimulationObject simulationObject;
+public class VisibleComponent extends AbstractVisibleComponent implements EventHandler<MouseEvent>{
     private Image image;
     private ImageView imageView;
     private String informationPanelName;
@@ -62,21 +62,20 @@ public class VisibleComponent implements EventHandler<MouseEvent>{
     public ImageView getImageView(){
         return imageView;
     }
-    
+    @Override
     public void setSimulationObject(SimulationObject so){
-        this.simulationObject = so;
+        super.setSimulationObject(so);
         this.imageView.setOnMouseClicked(this);
-        update();
     }
     
     public void update(){
-        this.imageView.setLayoutX(Coordinates.toUIX(simulationObject.getxPos()) - this.sizeX/2);
-        this.imageView.setLayoutY(Coordinates.toUIY(simulationObject.getyPos()) - this.sizeY/2);
+        this.imageView.setLayoutX(Coordinates.toUIX(getSimulationObject().getxPos()) - this.sizeX/2);
+        this.imageView.setLayoutY(Coordinates.toUIY(getSimulationObject().getyPos()) - this.sizeY/2);
     }
 
     @Override
     public void handle(MouseEvent event) {
-        App.simulation.getUIManager().getInformationPanel().showInformation(simulationObject);
+        getUIManager().showInformation(getSimulationObject());
     }
     
     public int getSizeX(){
@@ -87,7 +86,7 @@ public class VisibleComponent implements EventHandler<MouseEvent>{
         return sizeY;
     }
 
-    String getInformationPanelName() {
+    public String getViewName() {
         return informationPanelName;
     }
 }

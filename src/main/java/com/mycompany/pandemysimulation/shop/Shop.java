@@ -8,9 +8,9 @@ package com.mycompany.pandemysimulation.shop;
 import com.mycompany.pandemysimulation.App;
 import com.mycompany.pandemysimulation.utils.Coordinates;
 import com.mycompany.pandemysimulation.product.Product;
-import com.mycompany.pandemysimulation.ui.VisibleComponent;
+import com.mycompany.pandemysimulation.core.ui.VisibleComponent;
 import com.mycompany.pandemysimulation.core.MainLoopAgent;
-import com.mycompany.pandemysimulation.map.Location;
+import com.mycompany.pandemysimulation.core.map.Location;
 import com.mycompany.pandemysimulation.core.ThreadAgent;
 import com.mycompany.pandemysimulation.product.Brand;
 import com.mycompany.pandemysimulation.person.Person;
@@ -32,7 +32,7 @@ public abstract class Shop extends MainLoopAgent implements Location {
     private String name;
     private String address;
     private int maxClients;
-    private SecondSynchronizedStore warehouse;
+    private SynchronizedStoreStorage warehouse;
     private int idX;
     private int idY;
     private int uniqueId;
@@ -52,7 +52,7 @@ public abstract class Shop extends MainLoopAgent implements Location {
         this.name = name;
         this.address = address;
         this.maxClients = maxClients;
-        this.warehouse = new SecondSynchronizedStore(maxProducts);
+        this.warehouse = new SynchronizedStoreStorage(maxProducts);
         this.idX = idX;
         this.idY = idY;
         this.uniqueId = getNextId();
@@ -80,12 +80,12 @@ public abstract class Shop extends MainLoopAgent implements Location {
     }
 
     public boolean start() {
-        this.lastCheckDate = App.simulation.getCurrentDate();
+        this.lastCheckDate = getSimulation().getCurrentDate();
         return true;
     }
 
     public boolean update() {
-        Date currentDate = App.simulation.getCurrentDate();
+        Date currentDate = getSimulation().getCurrentDate();
         long deltaCheckTime = currentDate.getTime() - lastCheckDate.getTime();
         long deltaCheckDays = TimeUnit.DAYS.convert(deltaCheckTime, TimeUnit.MILLISECONDS);
         if (true || deltaCheckDays > this.checkInterval) {
@@ -107,12 +107,12 @@ public abstract class Shop extends MainLoopAgent implements Location {
         });
     }
 
-    public SecondSynchronizedStore getWarehouse() {
+    public SynchronizedStoreStorage getWarehouse() {
         return warehouse;
     }
 
     private void productCheck() {
-        Date curDate = App.simulation.getCurrentDate();
+        Date curDate = getSimulation().getCurrentDate();
         warehouse.lockForInspection();
         List<Product> products = warehouse.getCopyOfProducts();
         for (Product product : products) {
@@ -149,7 +149,7 @@ public abstract class Shop extends MainLoopAgent implements Location {
     }
 
     protected int getClientCapacity() {
-        return App.simulation.getWorldData().isLockdown() ? (int) (0.25 * maxClients) : maxClients;
+        return getSimulation().getWorldData().isLockdown() ? (int) (0.25 * maxClients) : maxClients;
     }
 
     @Override
@@ -165,5 +165,10 @@ public abstract class Shop extends MainLoopAgent implements Location {
     @Override
     public List<Location> getGroup() {
         return Collections.singletonList(this);
+    }
+    
+    @Override
+    public boolean shouldGoThrough() {
+       return false;
     }
 }

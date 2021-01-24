@@ -5,8 +5,7 @@
  */
 package com.mycompany.pandemysimulation.core;
 
-import com.mycompany.pandemysimulation.ui.VisibleComponent;
-import java.util.Random;
+import com.mycompany.pandemysimulation.core.ui.VisibleComponent;
 
 /**
  *
