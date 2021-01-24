@@ -48,13 +48,13 @@ public class Supplier extends Person{
         this.companyName = companyName;
         this.trunk = new ProductStorage(trunkCapacity);
         this.uniqueId = getNextId();
+        this.route = new LinkedList<>();
     }
     
     @Override
     public boolean start(){
         if(!super.start())
             return false;
-        this.route = new LinkedList<>();
         for(int i =0;i<3;i++){
             route.add(this.getRandomWholesaleShop(null));
         }

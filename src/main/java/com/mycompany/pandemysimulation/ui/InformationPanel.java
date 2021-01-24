@@ -45,6 +45,7 @@ public class InformationPanel {
             currentSo = so;
             showInformation(currentSo.getVisibleComponent().getInformationPanelName());
         }catch(Exception e ){
+            e.printStackTrace();
             Platform.exit();
         }
     }
