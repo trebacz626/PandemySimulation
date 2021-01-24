@@ -31,13 +31,9 @@ public abstract class PersonViewController<T extends Person> extends SimulationO
             isSick.setText(String.valueOf(getSimulationObject().isSick()));
             isVaccinated.setText(String.valueOf(getSimulationObject().isVaccinated()));
             removeButton.setOnMouseClicked(event -> {
-                try {
                     getInfromationPanel().onRemove();
                     getSimulation().removeThreadAgent(getSimulationObject());
                     removeSimulationObject();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
             });
         }
     }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.pandemysimulation.map;
+package com.mycompany.pandemysimulation.map.tile;
 
 import com.mycompany.pandemysimulation.core.ThreadAgent;
 import com.mycompany.pandemysimulation.core.map.Location;

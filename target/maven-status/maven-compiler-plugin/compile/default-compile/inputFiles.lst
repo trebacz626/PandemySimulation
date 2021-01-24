@@ -1,7 +1,7 @@
+/home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/map/tile/Intersection.java
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/ui/InformationPanel.java
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/shop/SynchronizedStoreStorage.java
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/core/MainLoopAgent.java
-/home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/map/IntersectionTile.java
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/core/map/PathFinder.java
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/core/Simulation.java
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/core/DateKeeper.java
@@ -10,7 +10,6 @@
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/core/ui/VisibleComponent.java
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/core/utils/Coordinates.java
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/ui/ShopViewController.java
-/home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/map/TileType.java
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/product/Brand.java
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/core/Manager.java
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/person/supplier/SupplierFactory.java
@@ -18,6 +17,7 @@
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/person/supplier/Supplier.java
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/core/map/DeadlockFinder.java
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/product/ProductFactory.java
+/home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/map/tile/TileType.java
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/ui/ControlPanelController.java
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/core/data/AbstractDataManager.java
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/core/map/Direction.java
@@ -46,10 +46,9 @@
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/ui/SupplierViewController.java
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/shop/wholesaleshop/WholesaleShop.java
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/product/Product.java
-/home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/map/Tile.java
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/core/ui/AbstractVisibleComponent.java
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/ui/SimulationObjectViewController.java
-/home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/map/Intersection.java
+/home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/map/tile/Tile.java
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/person/client/ClientFactory.java
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/core/map/Location.java
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/ui/UIManager.java
@@ -59,3 +58,4 @@
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/ui/ImageLoader.java
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/App.java
 /home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/map/MapManager.java
+/home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/com/mycompany/pandemysimulation/map/tile/IntersectionTile.java

@@ -27,7 +27,7 @@ public class RetailShop extends Shop implements Location {
     private DynamicGate clientGate;
     private DynamicGate supplierGate;
     
-    public RetailShop(int supplierCapacity, int expiredSalePeriod, Date lastExpiredDate, String name, String address, int maxClients, int maxProducts, int idX, int idY, VisibleComponent visibleComponent) {
+    protected RetailShop(int supplierCapacity, int expiredSalePeriod, Date lastExpiredDate, String name, String address, int maxClients, int maxProducts, int idX, int idY, VisibleComponent visibleComponent) {
         super(name, address, maxClients, maxProducts, idX, idY, visibleComponent);
         this.supplierCapacity = supplierCapacity;
         this.expiredSalePeriod = expiredSalePeriod;

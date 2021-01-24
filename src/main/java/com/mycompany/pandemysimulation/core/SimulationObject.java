@@ -17,8 +17,9 @@ public abstract class SimulationObject {
     private double yPos;
     private VisibleComponent visibleComponent;
     private Simulation simulation;
+    private boolean isAlive;
 
-    public SimulationObject(double xPos, double yPos, VisibleComponent visibleComponent) {
+    protected SimulationObject(double xPos, double yPos, VisibleComponent visibleComponent) {
         this.xPos = xPos;
         this.yPos = yPos;
         this.visibleComponent = visibleComponent;

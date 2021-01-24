@@ -26,10 +26,6 @@ public final class SupplierFactory {
     private final static String[] surnames = {"Tusk", "Duda"};
     private final static String[] imageNames = {"car-icon-27.png", "brum.png", "pagani.png"};
     
-    private static long pesel = 11111111111L;
-    private synchronized static String getRandomPesel(){
-        return String.valueOf(pesel++);
-    }
     
     public static Supplier createRandomSupplier(Simulation simulation){
         Location currentLocation = simulation.getMapManager().getMap().getSpawnPointRoad();

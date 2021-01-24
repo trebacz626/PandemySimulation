@@ -103,6 +103,8 @@ public class UIManager extends AbstractUIManager{
     @Override
     public void removeVisibleComponent(VisibleComponent visibleComponent) {
         mapPanelController.removeVisibleComponent(visibleComponent);
+        if( visibleComponent == informationPanel.getCurrentObject().getVisibleComponent())
+            informationPanel.onRemove();
     }
     
     public void setSimulation(Simulation simulation){

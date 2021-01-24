@@ -29,7 +29,7 @@ public class WholesaleShop extends Shop {
     private Date lastProductionDate;
     private int dailyProduction;
 
-    public WholesaleShop(String name, String address, int maxClients, int maxProducts, int idX, int idY, VisibleComponent visibleComponent) {
+    protected WholesaleShop(String name, String address, int maxClients, int maxProducts, int idX, int idY, VisibleComponent visibleComponent) {
         super(name, address, maxClients, maxProducts, idX, idY, visibleComponent);
         suppliersGate = new DynamicGate(maxClients);
         this.dailyProduction = 50;
@@ -56,10 +56,6 @@ public class WholesaleShop extends Shop {
             lastProductionDate = currentDate;
         }
         return true;
-    }
-
-    public void addSupplierToQue(Supplier supplier) {
-
     }
 
     public void createProduct() {

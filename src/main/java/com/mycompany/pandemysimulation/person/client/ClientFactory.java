@@ -26,9 +26,6 @@ public final class ClientFactory {
     private final static String[] surnames = {"Tusk", "Duda"};
     private final static String[] imageNames = {"bill_clinton.png", "trump-circle.png", "images.jpeg"};
     
-    private final static String getRandomPesel(){
-        return "00000000000";
-    }
     
     public static Client createRandomClient(Simulation simulation){
         Location currentLocation = simulation.getMapManager().getMap().getSpawnPointPedestrian();
@@ -43,6 +40,6 @@ public final class ClientFactory {
         boolean isWearingMask = 0.5 > generator.nextDouble();
         
         
-        return new Client(Coordinates.mapToWorld(currentLocation.getIdX()),Coordinates.mapToWorld(currentLocation.getIdY()), vc, getRandomPesel(), name, surname, isSick,isVaccinated, isWearingMask, null, currentLocation, 5, pathFinder);
+        return new Client(Coordinates.mapToWorld(currentLocation.getIdX()),Coordinates.mapToWorld(currentLocation.getIdY()), vc, name, surname, isSick,isVaccinated, isWearingMask, null, currentLocation, 5, pathFinder);
     }
 }

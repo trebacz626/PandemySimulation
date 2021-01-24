@@ -89,7 +89,7 @@ public class Simulation{
         return new ArrayList(threadsAgents);
     }
     
-    public synchronized List<MainLoopAgent> getMainLooAgents(){
+    public synchronized List<MainLoopAgent> getMainLoopAgents(){
         return new ArrayList(mainLoopAgents);
     }
 

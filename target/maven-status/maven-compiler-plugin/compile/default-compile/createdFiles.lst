@@ -6,7 +6,6 @@ com/mycompany/pandemysimulation/core/Manager.class
 com/mycompany/pandemysimulation/core/ThreadAgent.class
 com/mycompany/pandemysimulation/core/SimulationObject.class
 com/mycompany/pandemysimulation/ui/ShopViewController.class
-com/mycompany/pandemysimulation/map/Intersection.class
 com/mycompany/pandemysimulation/core/map/Node.class
 com/mycompany/pandemysimulation/ui/InformationPanel.class
 com/mycompany/pandemysimulation/map/ComplexMap.class
@@ -24,6 +23,7 @@ com/mycompany/pandemysimulation/person/supplier/Supplier.class
 com/mycompany/pandemysimulation/App.class
 com/mycompany/pandemysimulation/shop/wholesaleshop/WholesaleShop.class
 com/mycompany/pandemysimulation/ui/ControlPanelController.class
+com/mycompany/pandemysimulation/map/tile/Tile.class
 com/mycompany/pandemysimulation/map/MapBuilder.class
 com/mycompany/pandemysimulation/core/data/AbstractDataManager.class
 com/mycompany/pandemysimulation/person/supplier/Company.class
@@ -32,12 +32,12 @@ com/mycompany/pandemysimulation/core/utils/Utils.class
 com/mycompany/pandemysimulation/core/map/DeadlockFinder.class
 com/mycompany/pandemysimulation/App$1$1.class
 com/mycompany/pandemysimulation/core/utils/Coordinates.class
-com/mycompany/pandemysimulation/map/TileType.class
 com/mycompany/pandemysimulation/App$1.class
+com/mycompany/pandemysimulation/map/tile/TileType.class
 com/mycompany/pandemysimulation/shop/retailshop/RetailShopFactory.class
 com/mycompany/pandemysimulation/sync/DynamicGate.class
 module-info.class
-com/mycompany/pandemysimulation/map/Tile.class
+com/mycompany/pandemysimulation/map/tile/Intersection.class
 com/mycompany/pandemysimulation/core/MainLoopAgent.class
 com/mycompany/pandemysimulation/ui/MapPanelController.class
 com/mycompany/pandemysimulation/map/MapCreator.class
@@ -45,7 +45,6 @@ com/mycompany/pandemysimulation/core/ui/VisibleComponent.class
 com/mycompany/pandemysimulation/ui/ImageLoader.class
 com/mycompany/pandemysimulation/person/client/ClientFactory.class
 com/mycompany/pandemysimulation/shop/SynchronizedStoreStorage.class
-com/mycompany/pandemysimulation/map/IntersectionTile.class
 com/mycompany/pandemysimulation/core/DateKeeper.class
 com/mycompany/pandemysimulation/core/map/Map.class
 com/mycompany/pandemysimulation/core/ui/AbstractVisibleComponent.class
@@ -53,6 +52,7 @@ com/mycompany/pandemysimulation/core/Simulation.class
 com/mycompany/pandemysimulation/core/SimulationAgent.class
 com/mycompany/pandemysimulation/App$1$2.class
 com/mycompany/pandemysimulation/core/map/PathFinder.class
+com/mycompany/pandemysimulation/map/tile/IntersectionTile.class
 com/mycompany/pandemysimulation/product/ProductFactory.class
 com/mycompany/pandemysimulation/core/map/Direction.class
 com/mycompany/pandemysimulation/core/WorldData.class

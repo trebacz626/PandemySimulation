@@ -19,12 +19,11 @@ public class PathFinder {
     int sizeX;
     int sizeY;
 
-    public PathFinder(boolean[][][] directions, Location[][] locations) {
+    protected PathFinder(boolean[][][] directions, Location[][] locations) {
         this.directions = directions;
         this.locations = locations;
         this.sizeY = directions.length;
-        this.sizeX = directions[0].length;
-        
+        this.sizeX = directions[0].length;   
     }
     
     
@@ -85,26 +84,26 @@ class QueElement implements Comparable<QueElement>{
     private List<Location> path;
     private Location lastLocation;
 
-    public QueElement(int heurysticDistance, int current_distance, List<Location> path, Location lastLocation) {
+    protected QueElement(int heurysticDistance, int current_distance, List<Location> path, Location lastLocation) {
         this.heurysticDistance = heurysticDistance;
         this.current_distance = current_distance;
         this.path = path;
         this.lastLocation = lastLocation;
     }
 
-    public int getHeurysticDistance() {
+    protected int getHeurysticDistance() {
         return heurysticDistance;
     }
 
-    public int getCurrent_distance() {
+    protected int getCurrent_distance() {
         return current_distance;
     }
 
-    public List<Location> getPath() {
+    protected List<Location> getPath() {
         return path;
     }
 
-    public Location getLastLocation() {
+    protected Location getLastLocation() {
         return lastLocation;
     }
 

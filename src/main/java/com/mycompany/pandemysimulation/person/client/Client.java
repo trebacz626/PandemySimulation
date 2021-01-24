@@ -19,21 +19,24 @@ import java.util.Random;
  * @author kacper
  */
 public class Client extends Person{
+    private static long lastPesel = 11111111111L;
+    private synchronized static String getNextPesel(){
+        return String.valueOf(lastPesel++);
+    }
+    
     private String pesel;
     private String firstName;
     private String lastName;
-    private ProductStorage cart;
 
-    protected Client( double xPos, double yPos, VisibleComponent visibleComponent,String pesel, String firstName, String lastName, boolean sick, boolean vaccinated, boolean wearingMask, Location nextStop, Location currentLocation, int maxCartCapacity, PathFinder pathFinder) {
-        super(sick, vaccinated,wearingMask, nextStop, currentLocation, xPos, yPos, visibleComponent, pathFinder);
-        this.pesel = pesel;
+    protected Client( double xPos, double yPos, VisibleComponent visibleComponent, String firstName, String lastName, boolean sick, boolean vaccinated, boolean wearingMask, Location nextStop, Location currentLocation, int maxCartCapacity, PathFinder pathFinder) {
+        super(maxCartCapacity, sick, vaccinated,wearingMask, nextStop, currentLocation, xPos, yPos, visibleComponent, pathFinder);
+        this.pesel = getNextPesel();
         this.firstName = firstName;
         this.lastName = lastName;
-        this.cart = new ProductStorage(maxCartCapacity);
     }
 
     private void consume(int n){
-        cart.removeNProducts(n);
+        getProductStorage().removeNProducts(n);
     }
     
     @Override
@@ -43,14 +46,14 @@ public class Client extends Person{
     }
     
     protected void processShop(Shop shop) throws InterruptedException{
-        int productsTobuy = new Random().nextInt(cart.getCapacity())+1;
-        if(cart.getFreePlace() < productsTobuy){
-            cart.removeNProducts(productsTobuy-cart.getFreePlace());
+        int productsTobuy = new Random().nextInt(getProductStorage().getCapacity())+1;
+        if(getProductStorage().getFreePlace() < productsTobuy){
+            getProductStorage().removeNProducts(productsTobuy-getProductStorage().getFreePlace());
         }
         int boughtProducts = 0;
         while(boughtProducts < productsTobuy){
             Product product = shop.getWarehouse().takeRandomProduct();
-            cart.addProduct(product);
+            getProductStorage().addProduct(product);
             boughtProducts++;
         }
     }
@@ -67,11 +70,6 @@ public class Client extends Person{
 
     public String getLastName() {
         return lastName;
-    }
-
-    @Override
-    public String toString() {
-        return "Client{" + "pesel=" + pesel + ", firstName=" + firstName + ", lastName=" + lastName + ", cart=" + cart + ", lastTime=" + lastTime + '}';
     }
    
 }

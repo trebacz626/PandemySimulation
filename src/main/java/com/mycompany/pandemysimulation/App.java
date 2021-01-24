@@ -22,7 +22,7 @@ import javafx.stage.Stage;
  */
 public class App extends Application {
 
-    public static Simulation simulation;
+    private Simulation simulation;
     @Override
     public void start(Stage stage) throws IOException {
           MapBuilder builder= new ComplexMap().getMapBuilder();
@@ -75,11 +75,11 @@ public class App extends Application {
                 simulation.addSimulationObject(so);
             }
         }
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 1000; i++) {
             simulation.addThreadAgent(ClientFactory.createRandomClient(simulation));
         }
 
-        for (int i = 0; i <100; i++) {
+        for (int i = 0; i <1000; i++) {
             simulation.addThreadAgent(SupplierFactory.createRandomSupplier(simulation));
         }
     }

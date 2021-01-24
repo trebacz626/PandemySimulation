@@ -52,10 +52,6 @@ public class SynchronizedStoreStorage {
         notify();
         return product;
     }
-
-    public int getNumberOfProducts() {
-        return occupiedPlace;//products.size();
-    }
     
     public int getSize(){
         return products.size();

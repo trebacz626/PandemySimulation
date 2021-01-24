@@ -28,7 +28,6 @@ public class Supplier extends Person{
     private Company companyName;
     private List<Shop> route;
     private int shopIndex;
-    private ProductStorage trunk;
     private PathFinder pathFinder;
     private int uniqueId;
     
@@ -39,11 +38,10 @@ public class Supplier extends Person{
     }
 
     protected Supplier(CarBrand carBrand, int trunkCapacity, double gasCapacity, Company companyName, boolean sick, boolean vaccinated, boolean wearingMask, Location nextStop, Location currentLocation, double xPos, double yPos, VisibleComponent visibleComponent, PathFinder pathFinder) {
-        super(sick, vaccinated,wearingMask, nextStop, currentLocation, xPos, yPos, visibleComponent, pathFinder);
+        super(trunkCapacity,sick, vaccinated,wearingMask, nextStop, currentLocation, xPos, yPos, visibleComponent, pathFinder);
         this.carBrand = carBrand;
         this.gasCapacity = gasCapacity;
         this.companyName = companyName;
-        this.trunk = new ProductStorage(trunkCapacity);
         this.uniqueId = getNextId();
         this.route = new LinkedList<>();
     }
@@ -73,20 +71,16 @@ public class Supplier extends Person{
     protected void processShop(Shop shop) throws InterruptedException {
         refuel();
         if(shop instanceof RetailShop){
-            if(trunk.isEmpty()) return;
-            while(!shop.getWarehouse().isFull() && !trunk.isEmpty()){
-                shop.getWarehouse().addProduct(trunk.getAndRemoveProduct());
+            if(getProductStorage().isEmpty()) return;
+            while(!shop.getWarehouse().isFull() && !getProductStorage().isEmpty()){
+                shop.getWarehouse().addProduct(getProductStorage().getAndRemoveProduct());
             }
         }else{
-            while(!trunk.isFull()){
+            while(!getProductStorage().isFull()){
                 Product product = shop.getWarehouse().takeRandomProduct();
-                trunk.addProduct(product);
+                getProductStorage().addProduct(product);
             }
         }
-    }
-    
-    public LinkedList<Product> getProducts(){
-        return null;
     }
     
     private void refuel(){
@@ -95,12 +89,6 @@ public class Supplier extends Person{
     
     protected void onMove(){
         this.gas-=1;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Supplier{" + "carBrand=" + carBrand + ", gas=" + gas + ", gasCapacity=" + gasCapacity + ", companyName=" + companyName + ", listOfStops=" + route + ", trunk=" + trunk + '}';
     }
 
     public CarBrand getCarBrand() {

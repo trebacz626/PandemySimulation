@@ -44,7 +44,7 @@ public abstract class Shop extends MainLoopAgent implements Location {
         return curId++;
     }
 
-    public Shop(String name, String address, int maxClients, int maxProducts, int idX, int idY, VisibleComponent visibleComponent) {
+    protected Shop(String name, String address, int maxClients, int maxProducts, int idX, int idY, VisibleComponent visibleComponent) {
         super(Coordinates.mapToWorld(idX), Coordinates.mapToWorld(idY), visibleComponent);
         this.name = name;
         this.address = address;
@@ -70,10 +70,6 @@ public abstract class Shop extends MainLoopAgent implements Location {
     @Override
     public synchronized void leave(ThreadAgent threadAgent1) {
         this.peopleInside.remove((Person) threadAgent1);
-    }
-
-    public synchronized List<Person> getCopyOfPeopleInside() {
-        return new LinkedList<>(peopleInside);
     }
 
     public boolean start() {
@@ -104,10 +100,6 @@ public abstract class Shop extends MainLoopAgent implements Location {
         });
     }
 
-    public SynchronizedStoreStorage getWarehouse() {
-        return warehouse;
-    }
-
     private void productCheck() {
         Date curDate = getSimulation().getCurrentDate();
         warehouse.lockForInspection();
@@ -122,7 +114,15 @@ public abstract class Shop extends MainLoopAgent implements Location {
         }
         warehouse.unlockAfterInspection();
     }
-
+    
+    public synchronized List<Person> getCopyOfPeopleInside() {
+        return new LinkedList<>(peopleInside);
+    }
+    
+    public SynchronizedStoreStorage getWarehouse() {
+        return warehouse;
+    }
+    
     @Override
     public int getIdX() {
         return idX;
@@ -147,16 +147,6 @@ public abstract class Shop extends MainLoopAgent implements Location {
 
     protected int getClientCapacity() {
         return getSimulation().getWorldData().isLockdown() ? (int) (0.25 * maxClients) : maxClients;
-    }
-
-    @Override
-    public String toString() {
-        String text = getName() + " " + getxPos() + " " + getyPos() + " ID: " + getUniqueId() + " \n Number of products: " + warehouse.getNumberOfProducts();
-        text += "Visitors:\n";
-        for (Person visitor : getCopyOfPeopleInside()) {
-            text += visitor.isSick() + " ";
-        }
-        return text;
     }
 
     @Override

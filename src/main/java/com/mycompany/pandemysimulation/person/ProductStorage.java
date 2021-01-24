@@ -17,7 +17,7 @@ public class ProductStorage {
     private LinkedList<Product> listOfProducts;
     private int maxCapacity;
 
-    public ProductStorage(int maxCapacity) {
+    protected ProductStorage(int maxCapacity) {
         this.maxCapacity = maxCapacity;
         this.listOfProducts = new LinkedList<Product>();
     }

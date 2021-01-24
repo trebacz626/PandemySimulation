@@ -32,10 +32,10 @@ public abstract class Person extends ThreadAgent {
     private Location currentLocation;
     private PathFinder pathFinder;
     private Shop currentShop;
+    private long lastTime;
+    private ProductStorage productStorage;
 
-    protected long lastTime;
-
-    public Person(boolean sick, boolean vaccinated, boolean wearingMask, Location nextLocation, Location currentLocation, double xPos, double yPos, VisibleComponent visibleComponent, PathFinder pathFinder) {
+    protected Person(int productStoreCapacity, boolean sick, boolean vaccinated, boolean wearingMask, Location nextLocation, Location currentLocation, double xPos, double yPos, VisibleComponent visibleComponent, PathFinder pathFinder) {
         super(xPos, yPos, visibleComponent);
         this.sick = sick;
         this.shopsVisitedWhileSick = 0;
@@ -44,6 +44,7 @@ public abstract class Person extends ThreadAgent {
         this.nextLocation = nextLocation;
         this.currentLocation = currentLocation;
         this.pathFinder = pathFinder;
+        this.productStorage = new ProductStorage(productStoreCapacity);
     }
 
     protected abstract Shop generateNextGoal();
@@ -197,7 +198,7 @@ public abstract class Person extends ThreadAgent {
     }
 
     protected Shop getRandomShop(Shop current) {
-        List<MainLoopAgent> agents = getSimulation().getMainLooAgents();
+        List<MainLoopAgent> agents = getSimulation().getMainLoopAgents();
         MainLoopAgent agent;
         do {
             agent = Utils.getRandomFromList(agents);
@@ -205,13 +206,13 @@ public abstract class Person extends ThreadAgent {
         } while (!(agent instanceof Shop) || (current != null && agent == current));
         return (Shop) agent;
     }
+    
+    protected ProductStorage getProductStorage(){
+        return productStorage;
+    }
 
     public boolean isSick() {
         return sick;
-    }
-
-    public int getShopsVisitedWhileSick() {
-        return shopsVisitedWhileSick;
     }
 
     public boolean isVaccinated() {

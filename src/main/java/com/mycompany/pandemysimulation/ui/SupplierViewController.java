@@ -83,7 +83,7 @@ public class SupplierViewController<T extends Supplier> extends PersonViewContro
 
     private Shop getShopById(int id) {
 
-        for (MainLoopAgent agent : getSimulation().getMainLooAgents()) {
+        for (MainLoopAgent agent : getSimulation().getMainLoopAgents()) {
             if (agent instanceof Shop) {
                 if (((Shop) agent).getUniqueId() == id) {
                     return (Shop) agent;

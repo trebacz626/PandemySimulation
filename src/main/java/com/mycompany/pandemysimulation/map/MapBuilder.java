@@ -5,6 +5,10 @@
  */
 package com.mycompany.pandemysimulation.map;
 
+import com.mycompany.pandemysimulation.map.tile.Tile;
+import com.mycompany.pandemysimulation.map.tile.IntersectionTile;
+import com.mycompany.pandemysimulation.map.tile.TileType;
+import com.mycompany.pandemysimulation.map.tile.Intersection;
 import com.mycompany.pandemysimulation.App;
 import com.mycompany.pandemysimulation.core.SimulationObject;
 import com.mycompany.pandemysimulation.core.map.Direction;
@@ -230,7 +234,7 @@ public class MapBuilder {
     }
     
     public MapBuilder addWholesaleShop(int x, int y, String name, String address){
-        WholesaleShop shop = WholesaleShopFactory.createWholesaleShop("Walmart", "The Best dress", x, y, "wholesale1.png");
+        WholesaleShop shop = WholesaleShopFactory.createWholesaleShop(name, address, x, y, "wholesale1.png");
         locationMap[y][x] = (Location) shop;
         shops.add(shop);
         return this;

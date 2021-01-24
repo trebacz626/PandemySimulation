@@ -29,9 +29,7 @@ public class WholesaleShopViewController<T extends WholesaleShop> extends ShopVi
     public void start(){
         super.start();
         addProduct.setOnMouseClicked(event->{
-            System.out.println("Adding product");
             getSimulationObject().createProduct();
-            System.out.println("Product added");
         });   
     }
 }

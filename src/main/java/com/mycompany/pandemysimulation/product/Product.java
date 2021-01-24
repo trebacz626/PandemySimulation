@@ -23,7 +23,7 @@ public class Product {
         return curId++;
     }
 
-    public Product(String name, Date beforeDate, Brand brand) {
+    protected Product(String name, Date beforeDate, Brand brand) {
         this.id = getNextId();
         this.name = name;
         this.beforeDate = beforeDate;

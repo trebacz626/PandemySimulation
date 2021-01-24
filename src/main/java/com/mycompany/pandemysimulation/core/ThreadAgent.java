@@ -13,7 +13,7 @@ import com.mycompany.pandemysimulation.core.ui.VisibleComponent;
  */
 public abstract class ThreadAgent extends SimulationAgent implements Runnable{
     private Thread thread;
-    public ThreadAgent(double xPos, double yPos, VisibleComponent visibleComponent) {
+    protected ThreadAgent(double xPos, double yPos, VisibleComponent visibleComponent) {
         super(xPos, yPos, visibleComponent);
     }
 
