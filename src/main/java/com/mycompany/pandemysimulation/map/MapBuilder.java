@@ -98,7 +98,7 @@ public class MapBuilder {
     public MapBuilder addOnePavement(int x, int y, List<Direction> directions){
         locationMap[y][x] = new Tile(x,y,TileType.P);
         for(Direction direction : directions){
-            pedestrianDirection[y][x][direction.getVal()] = true;
+            pedestrianDirection[y][x][direction.getIndex()] = true;
         }
         return this;
     }
@@ -117,22 +117,22 @@ public class MapBuilder {
             }
         }
         //upper left
-        pedestrianDirection[y1][x1][Direction.Up.getVal()]= false;
-        pedestrianDirection[y1][x1][Direction.Left.getVal()]= x1>0;
+        pedestrianDirection[y1][x1][Direction.Up.getIndex()]= false;
+        pedestrianDirection[y1][x1][Direction.Left.getIndex()]= x1>0;
         //down left
-        pedestrianDirection[y2][x1][Direction.Left.getVal()]= false;
-        pedestrianDirection[y2][x1][Direction.Down.getVal()]= y2<(sizeY-1);
+        pedestrianDirection[y2][x1][Direction.Left.getIndex()]= false;
+        pedestrianDirection[y2][x1][Direction.Down.getIndex()]= y2<(sizeY-1);
         //upper right
-        pedestrianDirection[y1][x2][Direction.Righ.getVal()]= false;
-        pedestrianDirection[y1][x2][Direction.Up.getVal()]= y1>0;
+        pedestrianDirection[y1][x2][Direction.Righ.getIndex()]= false;
+        pedestrianDirection[y1][x2][Direction.Up.getIndex()]= y1>0;
         //lower right
-        pedestrianDirection[y2][x2][Direction.Down.getVal()]= false;
-        pedestrianDirection[y2][x2][Direction.Righ.getVal()]= x2<(sizeX-1);
+        pedestrianDirection[y2][x2][Direction.Down.getIndex()]= false;
+        pedestrianDirection[y2][x2][Direction.Righ.getIndex()]= x2<(sizeX-1);
         return this;
     }
     
     public MapBuilder addPavementDirection(int x, int y, Direction direction){
-        pedestrianDirection[y][x][direction.getVal()] = true;
+        pedestrianDirection[y][x][direction.getIndex()] = true;
         return this;
     }
     
@@ -184,13 +184,13 @@ public class MapBuilder {
     public MapBuilder addOneRoad(int x, int y, List<Direction> directions){
         locationMap[y][x] = new Tile(x,y,TileType.R);
         for(Direction direction : directions){
-            suppliersDirections[y][x][direction.getVal()] = true;
+            suppliersDirections[y][x][direction.getIndex()] = true;
         }
         return this;
     }
     
     public MapBuilder addRoadDirection(int x, int y, Direction direction){
-        suppliersDirections[y][x][direction.getVal()] = true;
+        suppliersDirections[y][x][direction.getIndex()] = true;
         return this;
     }
     
@@ -208,17 +208,17 @@ public class MapBuilder {
             }
         }
         //upper left
-        suppliersDirections[y1][x1][Direction.Up.getVal()]= false;
-        suppliersDirections[y1][x1][Direction.Left.getVal()]= x1>0;
+        suppliersDirections[y1][x1][Direction.Up.getIndex()]= false;
+        suppliersDirections[y1][x1][Direction.Left.getIndex()]= x1>0;
         //down left
-        suppliersDirections[y2][x1][Direction.Left.getVal()]= false;
-        suppliersDirections[y2][x1][Direction.Down.getVal()]= y2<(sizeY-1);
+        suppliersDirections[y2][x1][Direction.Left.getIndex()]= false;
+        suppliersDirections[y2][x1][Direction.Down.getIndex()]= y2<(sizeY-1);
         //upper right
-        suppliersDirections[y1][x2][Direction.Righ.getVal()]= false;
-        suppliersDirections[y1][x2][Direction.Up.getVal()]= y1>0;
+        suppliersDirections[y1][x2][Direction.Righ.getIndex()]= false;
+        suppliersDirections[y1][x2][Direction.Up.getIndex()]= y1>0;
         //lower right
-        suppliersDirections[y2][x2][Direction.Down.getVal()]= false;
-        suppliersDirections[y2][x2][Direction.Righ.getVal()]= x2<(sizeX-1);
+        suppliersDirections[y2][x2][Direction.Down.getIndex()]= false;
+        suppliersDirections[y2][x2][Direction.Righ.getIndex()]= x2<(sizeX-1);
         return this;
     }
     
@@ -258,19 +258,19 @@ public class MapBuilder {
         simulationObjects.addAll(intersections);
         
         for(int i=0;i<sizeX;i++){
-            pedestrianDirection[0][i][Direction.Up.getVal()] = false;
-            pedestrianDirection[sizeY-1][i][Direction.Down.getVal()] = false;
+            pedestrianDirection[0][i][Direction.Up.getIndex()] = false;
+            pedestrianDirection[sizeY-1][i][Direction.Down.getIndex()] = false;
             
-            suppliersDirections[0][i][Direction.Up.getVal()] = false;
-            suppliersDirections[sizeY-1][i][Direction.Down.getVal()] = false; 
+            suppliersDirections[0][i][Direction.Up.getIndex()] = false;
+            suppliersDirections[sizeY-1][i][Direction.Down.getIndex()] = false; 
         }
         
         for(int i=0;i<sizeY;i++){
-            pedestrianDirection[i][0][Direction.Left.getVal()] = false;
-            pedestrianDirection[i][sizeX-1][Direction.Righ.getVal()] = false;
+            pedestrianDirection[i][0][Direction.Left.getIndex()] = false;
+            pedestrianDirection[i][sizeX-1][Direction.Righ.getIndex()] = false;
             
-            suppliersDirections[i][0][Direction.Left.getVal()] = false;
-            suppliersDirections[i][sizeX-1][Direction.Righ.getVal()] = false;
+            suppliersDirections[i][0][Direction.Left.getIndex()] = false;
+            suppliersDirections[i][sizeX-1][Direction.Righ.getIndex()] = false;
         }
         //TODO check borders
         return new Map(sizeX, sizeY, locationMap, pedestrianDirection, suppliersDirections, spawnPointPedestrian, spawnPointRoad);

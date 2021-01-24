@@ -12,7 +12,7 @@ package com.mycompany.pandemysimulation.core.map;
 public enum Direction{
     Up(0,0,-1), Down(1,0,1), Left(2,-1,0), Righ(3,1,0);
 
-    public static Direction valToDirection(int val){
+    public static Direction indexToDirection(int val){
         switch(val){
             case 0:
                 return Up;
@@ -36,19 +36,19 @@ public enum Direction{
     }
     
     
-    private int val;
+    private int index;
     private int dx;
     private int dy;
     
     
-    private Direction(int val, int dx, int dy){
-        this.val = val;
+    private Direction(int index, int dx, int dy){
+        this.index = index;
         this.dx = dx;
         this.dy = dy;
     }
     
-    public int getVal(){
-        return val;
+    public int getIndex(){
+        return index;
     }
     
     public int dX(){

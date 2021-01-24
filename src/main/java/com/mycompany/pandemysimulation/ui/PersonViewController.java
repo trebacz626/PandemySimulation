@@ -6,6 +6,7 @@
 package com.mycompany.pandemysimulation.ui;
 
 import com.mycompany.pandemysimulation.person.Person;
+import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
@@ -30,8 +31,13 @@ public abstract class PersonViewController<T extends Person> extends SimulationO
             isSick.setText(String.valueOf(getSimulationObject().isSick()));
             isVaccinated.setText(String.valueOf(getSimulationObject().isVaccinated()));
             removeButton.setOnMouseClicked(event -> {
-                getSimulation().removeThreadAgent(getSimulationObject());
-                removeSimulationObject();
+                try {
+                    getInfromationPanel().onRemove();
+                    getSimulation().removeThreadAgent(getSimulationObject());
+                    removeSimulationObject();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
             });
         }
     }

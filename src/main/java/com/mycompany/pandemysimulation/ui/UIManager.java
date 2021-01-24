@@ -79,7 +79,7 @@ public class UIManager extends AbstractUIManager{
         controlPanelStage.setX(1600);
         controlPanelStage.setY(0);
         controlPanelStage.show();   
-        informationPanel = new InformationPanel();
+        informationPanel = new InformationPanel(simulation);
     }
     
     public void update(){

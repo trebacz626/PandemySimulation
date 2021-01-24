@@ -53,8 +53,13 @@ public abstract class Person extends ThreadAgent {
             currentLocation.enter(this);
             return true;
         } catch (InterruptedException e) {
-            currentLocation.leave(this);
-            return false;
+            try {
+                currentLocation.leave(this);
+            } catch (IllegalMonitorStateException e2) {
+
+            } finally {
+                return false;
+            }
         }
     }
 
@@ -115,9 +120,9 @@ public abstract class Person extends ThreadAgent {
             double deltaTimeInSec = ((double) curTime - lastTime) / 1000;
             double delta = speed * deltaTimeInSec;
             if (this.getxPos() < targetX) {
-                setxPos(getxPos()+delta);
+                setxPos(getxPos() + delta);
             } else if (this.getxPos() > targetX) {
-                setxPos(getxPos()-delta);
+                setxPos(getxPos() - delta);
             }
             if (getyPos() < targetY) {
                 setyPos(getyPos() + delta);
@@ -236,8 +241,8 @@ public abstract class Person extends ThreadAgent {
     public Shop getCurrentShop() {
         return currentShop;
     }
-    
-    public PathFinder getPathFinder(){
+
+    public PathFinder getPathFinder() {
         return pathFinder;
     }
 }

@@ -67,7 +67,7 @@ public class PathFinder {
         boolean[] moves = directions[lastLocation.getIdY()][lastLocation.getIdX()];
         List<Direction> actions = new LinkedList<>();
         for(int i =0; i< 4;i++){
-            if(moves[i])actions.add(Direction.valToDirection(i));
+            if(moves[i])actions.add(Direction.indexToDirection(i));
         }
         return actions;
     }

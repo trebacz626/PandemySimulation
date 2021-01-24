@@ -5,6 +5,7 @@
  */
 package com.mycompany.pandemysimulation.ui;
 
+import com.mycompany.pandemysimulation.core.Simulation;
 import com.mycompany.pandemysimulation.core.SimulationObject;
 import java.io.IOException;
 import javafx.application.Platform;
@@ -18,12 +19,14 @@ import javafx.stage.Stage;
  */
 public class InformationPanel {
     
+    private Simulation simulation;
     private SimulationObject currentSo;
     private SimulationObjectViewController simulationObjectViewController;
     
     private Stage stage;
     
-    public InformationPanel() throws IOException{
+    public InformationPanel(Simulation simulation) throws IOException{
+        this.simulation = simulation;
         FXMLLoader loader = UIManager.getFXMLLoader("simulationObjectView");
         Scene scene = new Scene(loader.load());
         simulationObjectViewController = loader.<SimulationObjectViewController<SimulationObject>>getController();
@@ -56,10 +59,21 @@ public class InformationPanel {
         FXMLLoader loader = UIManager.getFXMLLoader(viewName);
         Scene scene = new Scene(loader.load());
         simulationObjectViewController = loader.<SimulationObjectViewController<SimulationObject>>getController();
+        simulationObjectViewController.setInformationPanel(this);
+        simulationObjectViewController.setSimulation(simulation);
         simulationObjectViewController.setSimulationObject(currentSo);
         simulationObjectViewController.start();
         stage.setScene(scene);
         stage.setOnCloseRequest(event ->Platform.exit());
         stage.show();
+    }
+    
+    protected void setSimulation(Simulation simulation){
+        this.simulation = simulation;
+    }
+    
+    protected void onRemove() throws IOException{
+        currentSo = null;
+        showInformation("simulationObjectView");
     }
 }

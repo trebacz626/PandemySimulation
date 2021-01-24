@@ -23,7 +23,7 @@ public class DeadlockFinder {
     int sizeY;
     boolean[][] visited;
     
-    public DeadlockFinder(boolean[][][] directions, Location[][] locations){
+    protected DeadlockFinder(boolean[][][] directions, Location[][] locations){
         this.directions = directions;
         this.locations = locations;
         this.sizeY = locations.length;
@@ -45,7 +45,7 @@ public class DeadlockFinder {
         if(next == null || current == null || next == current)
             return;
         Direction direction = Direction.dXdYTodirection(next.getIdX()-current.getIdX(), next.getIdY() - current.getIdY());
-        occupied[current.getIdY()][current.getIdX()][direction.getVal()] = true && directions[current.getIdY()][current.getIdX()][direction.getVal()];
+        occupied[current.getIdY()][current.getIdX()][direction.getIndex()] = true && directions[current.getIdY()][current.getIdX()][direction.getIndex()];
     }
     
     public List<Location> findDeadlock(){
@@ -140,7 +140,7 @@ public class DeadlockFinder {
         boolean[] moves = occupied[lastLocation.getIdY()][lastLocation.getIdX()];
         List<Direction> actions = new LinkedList<>();
         for(int i =0; i< 4;i++){
-            if(moves[i])actions.add(Direction.valToDirection(i));
+            if(moves[i])actions.add(Direction.indexToDirection(i));
         }
         return actions;
     }

@@ -17,36 +17,36 @@ class Node {
     private List<Location> locations;
     private List<Location> children;
     
-    public Node(List<Location> locations){
+    protected Node(List<Location> locations){
         this.locations = locations;
         this.children = new LinkedList<>();
     }
     
-    public void addChild(Location child){
+    protected void addChild(Location child){
         this.children.add(child);
     }
 
-    public List<Location> getLocations() {
+    protected List<Location> getLocations() {
         return locations;
     }
 
-    public List<Location> getChildren() {
+    protected List<Location> getChildren() {
         return children;
     }
     
-    public int getIdx(){
+    protected int getIdx(){
         return locations.stream().map(location-> location.getIdX()).min(Integer::compare).orElseThrow();
     }
     
-    public int getIdy(){
+    protected int getIdy(){
         return locations.stream().map(location-> location.getIdY()).min(Integer::compare).orElseThrow();
     }
 
-    public void setChildren(List<Location> children) {
+    protected void setChildren(List<Location> children) {
         this.children = children;
     }
     
-    public void setChild(Location child){
+    protected void setChild(Location child){
         children.add(child);
     }
 }

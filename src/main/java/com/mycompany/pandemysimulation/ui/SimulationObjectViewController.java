@@ -19,7 +19,7 @@ import javafx.scene.text.Text;
  *
  * @author kacper
  */
-public class SimulationObjectViewController<T extends SimulationObject>  implements Initializable {
+public class SimulationObjectViewController<T extends SimulationObject> implements Initializable {
 
     @FXML
     private Text title;
@@ -29,51 +29,59 @@ public class SimulationObjectViewController<T extends SimulationObject>  impleme
     private Text posX;
     @FXML
     private Text posY;
-    
+
     private Simulation simulation;
     private T curSimulationObject;
-    
-    
-    protected void start(){
-    
+    private InformationPanel informationPanel;
+
+    protected void start() {
+
     }
-    
-    protected void update(){
-        if(curSimulationObject != null){
-            posX.setText(String.valueOf((int)curSimulationObject.getxPos()));
-            posY.setText(String.valueOf((int)curSimulationObject.getyPos()));
+
+    protected void update() {
+        if (curSimulationObject != null) {
+            posX.setText(String.valueOf((int) curSimulationObject.getxPos()));
+            posY.setText(String.valueOf((int) curSimulationObject.getyPos()));
             profilrImage.setImage(curSimulationObject.getVisibleComponent().getImage());
         }
     }
-    
-    protected void setSimulationObject(T so){
+
+    protected void setSimulationObject(T so) {
         curSimulationObject = so;
         update();
     }
-    
-    protected void setSimulation(Simulation simulation){
+
+    protected void setSimulation(Simulation simulation) {
         this.simulation = simulation;
     }
-    
-    protected T getSimulationObject(){
+
+    protected void setInformationPanel(InformationPanel panel) {
+        this.informationPanel = panel;
+    }
+
+    protected T getSimulationObject() {
         return curSimulationObject;
     }
-    
-    protected Simulation getSimulation(){
+
+    protected Simulation getSimulation() {
         return simulation;
     }
     
-    protected void removeSimulationObject(){
+    protected InformationPanel getInfromationPanel(){
+        return informationPanel;
+    }
+
+    protected void removeSimulationObject() {
         curSimulationObject = null;
     }
-    
-    protected Text getTitleTextField(){
+
+    protected Text getTitleTextField() {
         return title;
     }
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        
+
     }
-    
+
 }

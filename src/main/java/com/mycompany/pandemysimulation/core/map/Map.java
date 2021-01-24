@@ -40,10 +40,6 @@ public class Map {
     public Location getAt(int x, int y){
         return locations[y][x];
     }
-
-    public Location[][] getLocations() {
-        return locations;
-    }
     
     public Location getSpawnPointPedestrian(){
         return spawnPointPedestrian;
@@ -51,6 +47,10 @@ public class Map {
     
     public Location getSpawnPointRoad(){
         return spawnPointRoad;
+    }
+    
+    protected Location[][] getLocations() {
+        return locations;
     }
     
     protected boolean[][][] getPedestrianDirections(){
