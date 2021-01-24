@@ -5,10 +5,10 @@
  */
 package com.mycompany.pandemysimulation.map;
 
-import com.mycompany.pandemysimulation.person.Client;
+import com.mycompany.pandemysimulation.person.client.Client;
 import com.mycompany.pandemysimulation.person.Person;
 import com.mycompany.pandemysimulation.shop.Shop;
-import com.mycompany.pandemysimulation.person.Supplier;
+import com.mycompany.pandemysimulation.person.supplier.Supplier;
 import com.mycompany.pandemysimulation.core.ThreadAgent;
 import com.mycompany.pandemysimulation.map.Map;
 import java.util.LinkedList;

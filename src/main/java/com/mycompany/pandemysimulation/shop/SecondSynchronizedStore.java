@@ -5,7 +5,7 @@
  */
 package com.mycompany.pandemysimulation.shop;
 
-import com.mycompany.pandemysimulation.Product;
+import com.mycompany.pandemysimulation.product.Product;
 import com.mycompany.pandemysimulation.utils.Utils;
 import java.util.LinkedList;
 import java.util.List;

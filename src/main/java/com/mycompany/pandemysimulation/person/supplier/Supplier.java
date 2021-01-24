@@ -3,16 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.pandemysimulation.person;
+package com.mycompany.pandemysimulation.person.supplier;
 
 import com.mycompany.pandemysimulation.App;
-import com.mycompany.pandemysimulation.Product;
+import com.mycompany.pandemysimulation.product.Product;
 import com.mycompany.pandemysimulation.utils.Utils;
 import com.mycompany.pandemysimulation.map.PathFinder;
 import com.mycompany.pandemysimulation.ui.VisibleComponent;
 import com.mycompany.pandemysimulation.shop.Shop;
 import com.mycompany.pandemysimulation.shop.RetailShop;
 import com.mycompany.pandemysimulation.map.Location;
+import com.mycompany.pandemysimulation.person.Person;
+import com.mycompany.pandemysimulation.person.ProductStorage;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;

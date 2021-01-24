@@ -5,8 +5,8 @@
  */
 package com.mycompany.pandemysimulation.shop;
 
-import com.mycompany.pandemysimulation.person.Client;
-import com.mycompany.pandemysimulation.person.Supplier;
+import com.mycompany.pandemysimulation.person.client.Client;
+import com.mycompany.pandemysimulation.person.supplier.Supplier;
 import com.mycompany.pandemysimulation.ui.VisibleComponent;
 import com.mycompany.pandemysimulation.map.Location;
 import com.mycompany.pandemysimulation.core.ThreadAgent;

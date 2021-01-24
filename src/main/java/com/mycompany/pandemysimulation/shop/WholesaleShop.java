@@ -6,9 +6,9 @@
 package com.mycompany.pandemysimulation.shop;
 
 import com.mycompany.pandemysimulation.App;
-import com.mycompany.pandemysimulation.person.Brand;
-import com.mycompany.pandemysimulation.Product;
-import com.mycompany.pandemysimulation.person.Supplier;
+import com.mycompany.pandemysimulation.product.Brand;
+import com.mycompany.pandemysimulation.product.Product;
+import com.mycompany.pandemysimulation.person.supplier.Supplier;
 import com.mycompany.pandemysimulation.ui.VisibleComponent;
 import com.mycompany.pandemysimulation.core.ThreadAgent;
 import java.util.Date;

@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.pandemysimulation;
+package com.mycompany.pandemysimulation.product;
 
-import com.mycompany.pandemysimulation.person.Brand;
 import java.util.Date;
 
 /**

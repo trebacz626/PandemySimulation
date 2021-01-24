@@ -7,12 +7,12 @@ package com.mycompany.pandemysimulation.shop;
 
 import com.mycompany.pandemysimulation.App;
 import com.mycompany.pandemysimulation.utils.Coordinates;
-import com.mycompany.pandemysimulation.Product;
+import com.mycompany.pandemysimulation.product.Product;
 import com.mycompany.pandemysimulation.ui.VisibleComponent;
 import com.mycompany.pandemysimulation.core.MainLoopAgent;
 import com.mycompany.pandemysimulation.map.Location;
 import com.mycompany.pandemysimulation.core.ThreadAgent;
-import com.mycompany.pandemysimulation.person.Brand;
+import com.mycompany.pandemysimulation.product.Brand;
 import com.mycompany.pandemysimulation.person.Person;
 import java.util.Collections;
 import java.util.Date;

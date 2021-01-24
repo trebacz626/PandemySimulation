@@ -1,8 +1,8 @@
 package com.mycompany.pandemysimulation;
 
 import com.mycompany.pandemysimulation.core.Simulation;
-import com.mycompany.pandemysimulation.person.ClientFactory;
-import com.mycompany.pandemysimulation.person.SupplierFactory;
+import com.mycompany.pandemysimulation.person.client.ClientFactory;
+import com.mycompany.pandemysimulation.person.supplier.SupplierFactory;
 import com.mycompany.pandemysimulation.ui.UIManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

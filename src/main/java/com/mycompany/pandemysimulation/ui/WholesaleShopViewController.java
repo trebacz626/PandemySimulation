@@ -5,8 +5,8 @@
  */
 package com.mycompany.pandemysimulation.ui;
 
-import com.mycompany.pandemysimulation.Product;
-import com.mycompany.pandemysimulation.person.Brand;
+import com.mycompany.pandemysimulation.product.Product;
+import com.mycompany.pandemysimulation.product.Brand;
 import com.mycompany.pandemysimulation.shop.WholesaleShop;
 import java.net.URL;
 import java.util.Date;

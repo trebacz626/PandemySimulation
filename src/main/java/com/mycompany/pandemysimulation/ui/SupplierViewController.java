@@ -9,7 +9,7 @@ import com.mycompany.pandemysimulation.App;
 import com.mycompany.pandemysimulation.core.MainLoopAgent;
 import com.mycompany.pandemysimulation.person.Person;
 import com.mycompany.pandemysimulation.shop.Shop;
-import com.mycompany.pandemysimulation.person.Supplier;
+import com.mycompany.pandemysimulation.person.supplier.Supplier;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.LinkedList;

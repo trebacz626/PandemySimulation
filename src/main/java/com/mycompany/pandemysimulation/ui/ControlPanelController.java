@@ -7,10 +7,10 @@ package com.mycompany.pandemysimulation.ui;
 
 import com.mycompany.pandemysimulation.core.Simulation;
 import com.mycompany.pandemysimulation.core.WorldData;
-import com.mycompany.pandemysimulation.person.Client;
-import com.mycompany.pandemysimulation.person.ClientFactory;
-import com.mycompany.pandemysimulation.person.Supplier;
-import com.mycompany.pandemysimulation.person.SupplierFactory;
+import com.mycompany.pandemysimulation.person.client.Client;
+import com.mycompany.pandemysimulation.person.client.ClientFactory;
+import com.mycompany.pandemysimulation.person.supplier.Supplier;
+import com.mycompany.pandemysimulation.person.supplier.SupplierFactory;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

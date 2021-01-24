@@ -5,16 +5,8 @@
  */
 package com.mycompany.pandemysimulation.core;
 
-import com.mycompany.pandemysimulation.map.Location;
-import com.mycompany.pandemysimulation.map.Direction;
 import com.mycompany.pandemysimulation.map.MapBuilder;
-import com.mycompany.pandemysimulation.map.PathFinder;
 import com.mycompany.pandemysimulation.person.Person;
-import com.mycompany.pandemysimulation.shop.RetailShop;
-import com.mycompany.pandemysimulation.shop.Shop;
-import com.mycompany.pandemysimulation.utils.Utils;
-import com.mycompany.pandemysimulation.shop.WholesaleShop;
-import com.mycompany.pandemysimulation.map.DeadlockFinder;
 import com.mycompany.pandemysimulation.map.Map;
 import com.mycompany.pandemysimulation.map.MapCreator;
 import com.mycompany.pandemysimulation.map.MapManager;
@@ -39,8 +31,8 @@ public class Simulation {
     private LinkedList<ThreadAgent> threadsAgents;
     private LinkedList<MainLoopAgent> mainLoopAgents;
     private LinkedList<SimulationObject> simulationObjects;
-    public final WorldData worldData;
-    public final UIManager uiManager;
+    private final WorldData worldData;
+    private final UIManager uiManager;
     private MapManager mapManager;
     private DateKeeper dateKeeper;
 

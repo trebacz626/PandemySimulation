@@ -3,15 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.pandemysimulation.person;
+package com.mycompany.pandemysimulation.person.supplier;
 
 /**
  *
  * @author kacper
  */
-public enum Company {
-    Phizer,
-    Biontech,
-    Vaccinator3000,
-    CoronaBusters
+public enum CarBrand {
+    VOLVO,
+    VW,
+    PORSCHE,
+    DAEWO,
+    FIAT,
+    SKODA
 }
