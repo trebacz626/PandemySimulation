@@ -7,7 +7,7 @@ package com.mycompany.pandemysimulation.ui;
 
 import com.mycompany.pandemysimulation.product.Product;
 import com.mycompany.pandemysimulation.product.Brand;
-import com.mycompany.pandemysimulation.shop.WholesaleShop;
+import com.mycompany.pandemysimulation.shop.wholesaleshop.WholesaleShop;
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;

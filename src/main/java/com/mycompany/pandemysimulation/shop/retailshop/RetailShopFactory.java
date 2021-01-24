@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.pandemysimulation.shop;
+package com.mycompany.pandemysimulation.shop.retailshop;
 
 import com.mycompany.pandemysimulation.Tile;
 import com.mycompany.pandemysimulation.ui.VisibleComponent;

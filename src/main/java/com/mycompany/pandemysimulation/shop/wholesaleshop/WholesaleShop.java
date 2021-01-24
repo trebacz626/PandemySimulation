@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.pandemysimulation.shop;
+package com.mycompany.pandemysimulation.shop.wholesaleshop;
 
 import com.mycompany.pandemysimulation.App;
 import com.mycompany.pandemysimulation.product.Brand;
@@ -11,6 +11,8 @@ import com.mycompany.pandemysimulation.product.Product;
 import com.mycompany.pandemysimulation.person.supplier.Supplier;
 import com.mycompany.pandemysimulation.ui.VisibleComponent;
 import com.mycompany.pandemysimulation.core.ThreadAgent;
+import com.mycompany.pandemysimulation.sync.DynamicGate;
+import com.mycompany.pandemysimulation.shop.Shop;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.concurrent.Semaphore;

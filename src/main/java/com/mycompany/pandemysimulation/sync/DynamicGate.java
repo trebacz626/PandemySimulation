@@ -3,7 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.pandemysimulation.shop;
+package com.mycompany.pandemysimulation.sync;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -12,26 +15,28 @@ package com.mycompany.pandemysimulation.shop;
 public class DynamicGate {
 
     private int capacity;
-    private int counter;
+    private List<Thread> threads;
 
     public DynamicGate(int capacity) {
         this.capacity = capacity;
-        this.counter = 0;
+        this.threads = new LinkedList<>();
     }
 
     public synchronized void enter() throws InterruptedException {
-        while (counter >= capacity) {
+        while (threads.size() >= capacity) {
             this.wait();
         }
-        counter++;
+        threads.add(Thread.currentThread());
     }
 
     public synchronized void leave() {
-        counter--;
+        if(!threads.contains(Thread.currentThread()))throw new IllegalMonitorStateException();
+        threads.remove(Thread.currentThread());
         this.notify();
     }
 
     public synchronized void setNewCapacity(int maxNumber) {
         this.capacity = maxNumber;
+        this.notifyAll();
     }
 }

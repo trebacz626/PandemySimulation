@@ -3,13 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.pandemysimulation.shop;
+package com.mycompany.pandemysimulation.shop.retailshop;
 
 import com.mycompany.pandemysimulation.person.client.Client;
 import com.mycompany.pandemysimulation.person.supplier.Supplier;
 import com.mycompany.pandemysimulation.ui.VisibleComponent;
 import com.mycompany.pandemysimulation.map.Location;
 import com.mycompany.pandemysimulation.core.ThreadAgent;
+import com.mycompany.pandemysimulation.sync.DynamicGate;
+import com.mycompany.pandemysimulation.shop.Shop;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.concurrent.Semaphore;
@@ -40,7 +42,7 @@ public class RetailShop extends Shop implements Location {
     public void enter(ThreadAgent threadAgent) throws InterruptedException {
         if (threadAgent instanceof Client) {
             clientGate.enter();
-        } else {
+        } else if(threadAgent instanceof Supplier){
             supplierGate.enter();
         }
         super.enter(threadAgent);
@@ -51,7 +53,7 @@ public class RetailShop extends Shop implements Location {
         super.leave(threadAgent);
         if (threadAgent instanceof Client) {
             clientGate.leave();
-        } else {
+        } else if(threadAgent instanceof Supplier){
             supplierGate.leave();
         }
     }

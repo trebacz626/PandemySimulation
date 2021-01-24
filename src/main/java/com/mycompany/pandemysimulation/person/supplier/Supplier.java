@@ -11,7 +11,7 @@ import com.mycompany.pandemysimulation.utils.Utils;
 import com.mycompany.pandemysimulation.map.PathFinder;
 import com.mycompany.pandemysimulation.ui.VisibleComponent;
 import com.mycompany.pandemysimulation.shop.Shop;
-import com.mycompany.pandemysimulation.shop.RetailShop;
+import com.mycompany.pandemysimulation.shop.retailshop.RetailShop;
 import com.mycompany.pandemysimulation.map.Location;
 import com.mycompany.pandemysimulation.person.Person;
 import com.mycompany.pandemysimulation.person.ProductStorage;
