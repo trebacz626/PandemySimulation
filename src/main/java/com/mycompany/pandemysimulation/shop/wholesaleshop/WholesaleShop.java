@@ -5,17 +5,15 @@
  */
 package com.mycompany.pandemysimulation.shop.wholesaleshop;
 
-import com.mycompany.pandemysimulation.App;
-import com.mycompany.pandemysimulation.product.Brand;
-import com.mycompany.pandemysimulation.product.Product;
-import com.mycompany.pandemysimulation.person.supplier.Supplier;
-import com.mycompany.pandemysimulation.core.ui.VisibleComponent;
 import com.mycompany.pandemysimulation.core.ThreadAgent;
-import com.mycompany.pandemysimulation.sync.DynamicGate;
+import com.mycompany.pandemysimulation.core.ui.VisibleComponent;
+import com.mycompany.pandemysimulation.person.supplier.Supplier;
+import com.mycompany.pandemysimulation.product.Product;
+import com.mycompany.pandemysimulation.product.ProductFactory;
 import com.mycompany.pandemysimulation.shop.Shop;
+import com.mycompany.pandemysimulation.sync.DynamicGate;
 import java.util.Date;
 import java.util.LinkedList;
-import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -53,7 +51,6 @@ public class WholesaleShop extends Shop {
         long deltaProductionDays = TimeUnit.DAYS.convert(deltaProductionTime, TimeUnit.MILLISECONDS);
         if (deltaProductionDays >= 1) {
             for (int i = 0; i < this.dailyProduction; i++) {
-//              for (int i = 0; i < 5; i++) {
                createProduct();
             }
             lastProductionDate = currentDate;
@@ -65,11 +62,11 @@ public class WholesaleShop extends Shop {
 
     }
 
-    private void createProduct() {
+    public void createProduct() {
         if(this.getWarehouse().isFull()) return;
         Date date = getSimulation().getCurrentDate();
         date.setTime(date.getTime() + TimeUnit.MILLISECONDS.convert(60, TimeUnit.DAYS));
-        Product product = new Product("name", date, Brand.AVON);
+        Product product = ProductFactory.randomProduct(getSimulation());
         this.addProductSync(product);
     }
 

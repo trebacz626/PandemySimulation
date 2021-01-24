@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.pandemysimulation;
+package com.mycompany.pandemysimulation.map;
 
-import com.mycompany.pandemysimulation.utils.Coordinates;
-import com.mycompany.pandemysimulation.core.ui.VisibleComponent;
-import com.mycompany.pandemysimulation.core.map.Location;
+import com.mycompany.pandemysimulation.App;
 import com.mycompany.pandemysimulation.core.SimulationObject;
 import com.mycompany.pandemysimulation.core.ThreadAgent;
+import com.mycompany.pandemysimulation.core.map.Location;
+import com.mycompany.pandemysimulation.core.ui.VisibleComponent;
+import com.mycompany.pandemysimulation.core.utils.Coordinates;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
@@ -20,10 +21,9 @@ import javafx.scene.image.Image;
  * @author kacper
  */
 public class Tile extends SimulationObject implements Location{  
-    public static final int tileSize = 30;
-    private static Image pavementImage = new Image(App.class.getResource("image/"+"pavement.jpg").toString(), tileSize, tileSize, false, false);
-    private static Image asphaltImage = new Image(App.class.getResource("image/"+"asphalt.png").toString(), tileSize, tileSize, false, false);
-    private static Image yellowGrassImage = new Image(App.class.getResource("image/"+"yellow_grass.jpg").toString(), tileSize, tileSize, false, false);
+    private static Image pavementImage = new Image(App.class.getResource("image/"+"pavement.jpg").toString(), Coordinates.mapTileSize, Coordinates.mapTileSize, false, false);
+    private static Image asphaltImage = new Image(App.class.getResource("image/"+"asphalt.png").toString(), Coordinates.mapTileSize, Coordinates.mapTileSize, false, false);
+    private static Image yellowGrassImage = new Image(App.class.getResource("image/"+"yellow_grass.jpg").toString(), Coordinates.mapTileSize, Coordinates.mapTileSize, false, false);
     private static VisibleComponent getVisibleComponent(TileType tileType){
         Image image;
         if(tileType == TileType.P || tileType == TileType.PI){
@@ -34,7 +34,7 @@ public class Tile extends SimulationObject implements Location{
             image = yellowGrassImage;
         }
         
-        return new VisibleComponent(image, tileSize, tileSize);
+        return new VisibleComponent(image, Coordinates.mapTileSize, Coordinates.mapTileSize);
     }
     
     private int idX;

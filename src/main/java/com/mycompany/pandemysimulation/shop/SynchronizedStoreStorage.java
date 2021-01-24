@@ -5,21 +5,19 @@
  */
 package com.mycompany.pandemysimulation.shop;
 
+import com.mycompany.pandemysimulation.core.utils.Utils;
 import com.mycompany.pandemysimulation.product.Product;
-import com.mycompany.pandemysimulation.utils.Utils;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.Semaphore;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-import java.util.concurrent.locks.StampedLock;
+import java.util.Random;
 
 /**
  *
  * @author kacper
  */
 public class SynchronizedStoreStorage {
-    private List<Product> products;
+    private HashMap<Product, Double> products;
     private int maxCapacity;
 //    private int freePlace;
     private int occupiedPlace;
@@ -29,7 +27,7 @@ public class SynchronizedStoreStorage {
 
     public SynchronizedStoreStorage(int maxCapacity) {
         this.maxCapacity = maxCapacity;
-        this.products = new LinkedList<>();
+        this.products = new HashMap<>();
         isInspected = false;
         occupiedPlace = 0;
 //        freePlace = maxCapacity;
@@ -39,7 +37,7 @@ public class SynchronizedStoreStorage {
         while(occupiedPlace >= maxCapacity || isInspected){
             wait();
         }
-        products.add(prooduct);
+        products.put(prooduct, new Random().nextDouble() * 100+1);
         occupiedPlace++;
         notify();
     }
@@ -48,7 +46,7 @@ public class SynchronizedStoreStorage {
         while(occupiedPlace == 0 || isInspected){
             wait();
         }
-        Product product = Utils.getRandomFromList(products);
+        Product product = Utils.getRandomFromHashMap(products);
         products.remove(product);
         occupiedPlace--;
         notify();
@@ -81,7 +79,7 @@ public class SynchronizedStoreStorage {
         occupiedPlace--;
     }
 
-    protected List<Product> getCopyOfProducts() {
-        return new LinkedList<>(products);
+    public  synchronized List<Product> getCopyOfProducts() {
+        return new LinkedList<>(products.keySet());
     }
 }

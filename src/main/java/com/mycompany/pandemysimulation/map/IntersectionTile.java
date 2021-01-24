@@ -3,11 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.pandemysimulation;
+package com.mycompany.pandemysimulation.map;
 
-import com.mycompany.pandemysimulation.core.map.Location;
 import com.mycompany.pandemysimulation.core.ThreadAgent;
-import java.util.Collections;
+import com.mycompany.pandemysimulation.core.map.Location;
 import java.util.List;
 
 /**

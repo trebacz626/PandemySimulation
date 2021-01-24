@@ -3,11 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.pandemysimulation;
+package com.mycompany.pandemysimulation.map;
 
 import com.mycompany.pandemysimulation.core.map.Direction;
-import com.mycompany.pandemysimulation.map.MapBuilder;
-import com.mycompany.pandemysimulation.map.MapCreator;
 import java.util.Collections;
 
 /**

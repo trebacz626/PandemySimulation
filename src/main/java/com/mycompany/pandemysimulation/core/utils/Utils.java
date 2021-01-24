@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.pandemysimulation.utils;
+package com.mycompany.pandemysimulation.core.utils;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -24,6 +26,12 @@ public final class Utils {
     public static <T> T getRandomFromList(List<T> list){
         if(list.isEmpty())return null;
         return list.get(random.nextInt(list.size()));
+    }
+    
+    public static <T,H> T getRandomFromHashMap(HashMap<T, H> map){
+        if(map.isEmpty())return null;
+        List<T> keys = new ArrayList<>(map.keySet());
+        return keys.get(random.nextInt(keys.size()));
     }
     
     public static boolean isAnyTrue(boolean[] array){

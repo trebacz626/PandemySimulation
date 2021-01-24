@@ -5,18 +5,13 @@
  */
 package com.mycompany.pandemysimulation.person.client;
 
-import com.mycompany.pandemysimulation.App;
-import com.mycompany.pandemysimulation.product.Product;
-import com.mycompany.pandemysimulation.utils.Utils;
+import com.mycompany.pandemysimulation.core.map.Location;
 import com.mycompany.pandemysimulation.core.map.PathFinder;
 import com.mycompany.pandemysimulation.core.ui.VisibleComponent;
-import com.mycompany.pandemysimulation.shop.Shop;
-import com.mycompany.pandemysimulation.core.map.Location;
 import com.mycompany.pandemysimulation.person.Person;
 import com.mycompany.pandemysimulation.person.ProductStorage;
-import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
+import com.mycompany.pandemysimulation.product.Product;
+import com.mycompany.pandemysimulation.shop.Shop;
 import java.util.Random;
 
 /**
@@ -29,8 +24,8 @@ public class Client extends Person{
     private String lastName;
     private ProductStorage cart;
 
-    public Client( double xPos, double yPos, VisibleComponent visibleComponent,String pesel, String firstName, String lastName, boolean sick, int shopsVisitedWhileSick, boolean vaccinated, boolean wearingMask, Location nextStop, Location currentLocation, boolean waiting, int maxCartCapacity, PathFinder pathFinder) {
-        super(sick, shopsVisitedWhileSick, vaccinated,wearingMask, nextStop, currentLocation, waiting, xPos, yPos, visibleComponent, pathFinder);
+    protected Client( double xPos, double yPos, VisibleComponent visibleComponent,String pesel, String firstName, String lastName, boolean sick, boolean vaccinated, boolean wearingMask, Location nextStop, Location currentLocation, int maxCartCapacity, PathFinder pathFinder) {
+        super(sick, vaccinated,wearingMask, nextStop, currentLocation, xPos, yPos, visibleComponent, pathFinder);
         this.pesel = pesel;
         this.firstName = firstName;
         this.lastName = lastName;

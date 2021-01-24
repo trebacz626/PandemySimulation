@@ -5,9 +5,7 @@
  */
 package com.mycompany.pandemysimulation.core.ui;
 
-import com.mycompany.pandemysimulation.core.Simulation;
 import com.mycompany.pandemysimulation.core.SimulationObject;
-import com.mycompany.pandemysimulation.ui.UIManager;
 
 /**
  *

@@ -5,12 +5,7 @@
  */
 package com.mycompany.pandemysimulation.ui;
 
-import com.mycompany.pandemysimulation.core.SimulationAgent;
-import com.mycompany.pandemysimulation.person.client.Client;
-import com.mycompany.pandemysimulation.person.supplier.Supplier;
 import com.mycompany.pandemysimulation.core.SimulationObject;
-import com.mycompany.pandemysimulation.shop.Shop;
-import com.mycompany.pandemysimulation.shop.wholesaleshop.WholesaleShop;
 import java.io.IOException;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;

@@ -4,21 +4,18 @@ import com.mycompany.pandemysimulation.core.MainLoopAgent;
 import com.mycompany.pandemysimulation.core.Simulation;
 import com.mycompany.pandemysimulation.core.SimulationObject;
 import com.mycompany.pandemysimulation.core.map.Map;
+import com.mycompany.pandemysimulation.data.DataManager;
+import com.mycompany.pandemysimulation.map.ComplexMap;
 import com.mycompany.pandemysimulation.map.MapBuilder;
-import com.mycompany.pandemysimulation.map.MapCreator;
 import com.mycompany.pandemysimulation.map.MapManager;
 import com.mycompany.pandemysimulation.person.client.ClientFactory;
 import com.mycompany.pandemysimulation.person.supplier.SupplierFactory;
 import com.mycompany.pandemysimulation.ui.UIManager;
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.util.List;
+import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.stage.Stage;
 
 /**
  * JavaFX App
@@ -28,11 +25,10 @@ public class App extends Application {
     public static Simulation simulation;
     @Override
     public void start(Stage stage) throws IOException {
-          UIManager uIManager = new UIManager(stage);
           MapBuilder builder= new ComplexMap().getMapBuilder();
           Map map = builder.build();
           MapManager mapManager = new MapManager(map);
-          simulation = new Simulation(uIManager, mapManager);
+          simulation = new Simulation(new UIManager(stage), mapManager, new DataManager());
           Thread mainThread = new Thread(){
             @Override
             public void run(){
@@ -80,11 +76,11 @@ public class App extends Application {
             }
         }
         for (int i = 0; i < 100; i++) {
-            simulation.addThreadAgent(ClientFactory.createRandomClient(simulation.getMapManager().getMap().getSpawnPointPedestrian(), simulation.getMapManager().getPedestrianPathFinder()));
+            simulation.addThreadAgent(ClientFactory.createRandomClient(simulation));
         }
 
         for (int i = 0; i <100; i++) {
-            simulation.addThreadAgent(SupplierFactory.createRandomSupplier(simulation.getMapManager().getMap().getSpawnPointRoad(), simulation.getMapManager().getRoadPathFinder()));
+            simulation.addThreadAgent(SupplierFactory.createRandomSupplier(simulation));
         }
     }
 

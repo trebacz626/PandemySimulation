@@ -5,19 +5,16 @@
  */
 package com.mycompany.pandemysimulation.person;
 
-import com.mycompany.pandemysimulation.App;
 import com.mycompany.pandemysimulation.core.MainLoopAgent;
-import com.mycompany.pandemysimulation.utils.Coordinates;
+import com.mycompany.pandemysimulation.core.ThreadAgent;
+import com.mycompany.pandemysimulation.core.map.Location;
 import com.mycompany.pandemysimulation.core.map.PathFinder;
 import com.mycompany.pandemysimulation.core.ui.VisibleComponent;
+import com.mycompany.pandemysimulation.core.utils.Coordinates;
+import com.mycompany.pandemysimulation.core.utils.Utils;
 import com.mycompany.pandemysimulation.shop.Shop;
-import com.mycompany.pandemysimulation.core.map.Location;
-import com.mycompany.pandemysimulation.core.ThreadAgent;
 import com.mycompany.pandemysimulation.shop.retailshop.RetailShop;
 import com.mycompany.pandemysimulation.shop.wholesaleshop.WholesaleShop;
-import com.mycompany.pandemysimulation.utils.Utils;
-import java.io.IOException;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -33,13 +30,12 @@ public abstract class Person extends ThreadAgent {
     private boolean wearingMask;
     private Location nextLocation;
     private Location currentLocation;
-    private boolean waiting;
     private PathFinder pathFinder;
     private Shop currentShop;
 
     protected long lastTime;
 
-    public Person(boolean sick, int shopsVisitedWhileSick, boolean vaccinated, boolean wearingMask, Location nextLocation, Location currentLocation, boolean waiting, double xPos, double yPos, VisibleComponent visibleComponent, PathFinder pathFinder) {
+    public Person(boolean sick, boolean vaccinated, boolean wearingMask, Location nextLocation, Location currentLocation, double xPos, double yPos, VisibleComponent visibleComponent, PathFinder pathFinder) {
         super(xPos, yPos, visibleComponent);
         this.sick = sick;
         this.shopsVisitedWhileSick = 0;
@@ -47,7 +43,6 @@ public abstract class Person extends ThreadAgent {
         this.wearingMask = wearingMask;
         this.nextLocation = nextLocation;
         this.currentLocation = currentLocation;
-        this.waiting = waiting;
         this.pathFinder = pathFinder;
     }
 
@@ -230,20 +225,12 @@ public abstract class Person extends ThreadAgent {
         return currentLocation;
     }
 
-    public boolean isWaiting() {
-        return waiting;
-    }
-
     public void setSick(boolean sick) {
         this.sick = sick;
     }
 
     public void setVaccinated(boolean vaccinated) {
         this.vaccinated = vaccinated;
-    }
-
-    public void setWaiting(boolean waiting) {
-        this.waiting = waiting;
     }
 
     public Shop getCurrentShop() {

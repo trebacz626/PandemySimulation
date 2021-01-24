@@ -5,12 +5,15 @@
  */
 package com.mycompany.pandemysimulation.person.client;
 
-import com.mycompany.pandemysimulation.utils.Coordinates;
-import com.mycompany.pandemysimulation.utils.Utils;
+import com.mycompany.pandemysimulation.App;
+import com.mycompany.pandemysimulation.core.Simulation;
+import com.mycompany.pandemysimulation.core.map.Location;
 import com.mycompany.pandemysimulation.core.map.PathFinder;
 import com.mycompany.pandemysimulation.core.ui.VisibleComponent;
-import com.mycompany.pandemysimulation.core.map.Location;
+import com.mycompany.pandemysimulation.core.utils.Coordinates;
+import com.mycompany.pandemysimulation.core.utils.Utils;
 import java.util.Random;
+import javafx.scene.image.Image;
 
 /**
  *
@@ -27,11 +30,19 @@ public final class ClientFactory {
         return "00000000000";
     }
     
-    public static Client createRandomClient(Location currentLocation, PathFinder pathFinder){
-        VisibleComponent vc = new VisibleComponent(Utils.getRandomFromArray(imageNames), 20, 20, "clientView");
+    public static Client createRandomClient(Simulation simulation){
+        Location currentLocation = simulation.getMapManager().getMap().getSpawnPointPedestrian();
+        PathFinder pathFinder = simulation.getMapManager().getPedestrianPathFinder();
+        String imageName = Utils.getRandomFromArray(imageNames);
+        VisibleComponent vc = new VisibleComponent(new Image(App.class.getResource("image/"+imageName).toString(),Coordinates.mapTileSize,Coordinates.mapTileSize,false,false), 20, 20, "clientView");
         String name = Utils.getRandomFromArray(names);
         String surname = Utils.getRandomFromArray(names);
+        Random generator = new Random();
+        boolean isSick = 0.5 > generator.nextDouble();
+        boolean isVaccinated = simulation.getWorldData().getVaccinateChance() > generator.nextDouble();
+        boolean isWearingMask = 0.5 > generator.nextDouble();
         
-        return new Client(Coordinates.mapToWorld(currentLocation.getIdX()),Coordinates.mapToWorld(currentLocation.getIdY()), vc, getRandomPesel(), name, surname, 0.5 > new Random().nextDouble(), 0,false, 0.5 >new Random().nextDouble(), null, currentLocation, false, 5, pathFinder);
+        
+        return new Client(Coordinates.mapToWorld(currentLocation.getIdX()),Coordinates.mapToWorld(currentLocation.getIdY()), vc, getRandomPesel(), name, surname, isSick,isVaccinated, isWearingMask, null, currentLocation, 5, pathFinder);
     }
 }

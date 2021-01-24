@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.pandemysimulation;
+package com.mycompany.pandemysimulation.map;
 
-import com.mycompany.pandemysimulation.core.ui.VisibleComponent;
-import com.mycompany.pandemysimulation.core.map.Location;
 import com.mycompany.pandemysimulation.core.SimulationObject;
 import com.mycompany.pandemysimulation.core.ThreadAgent;
+import com.mycompany.pandemysimulation.core.map.Location;
+import com.mycompany.pandemysimulation.core.ui.VisibleComponent;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;

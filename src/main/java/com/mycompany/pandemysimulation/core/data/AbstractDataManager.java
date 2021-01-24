@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.pandemysimulation.map;
+package com.mycompany.pandemysimulation.core.data;
+
+import com.mycompany.pandemysimulation.core.Manager;
 
 /**
  *
  * @author kacper
  */
-public abstract class MapCreator {
-    public abstract MapBuilder getMapBuilder();
+public abstract class AbstractDataManager extends Manager{
+    
 }

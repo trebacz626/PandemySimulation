@@ -13,7 +13,6 @@ import com.mycompany.pandemysimulation.core.ui.VisibleComponent;
  */
 public abstract class SimulationObject {
 
-    private int id;
     private double xPos;
     private double yPos;
     private VisibleComponent visibleComponent;
@@ -24,10 +23,6 @@ public abstract class SimulationObject {
         this.yPos = yPos;
         this.visibleComponent = visibleComponent;
         this.visibleComponent.setSimulationObject(this);
-    }
-
-    public int getId() {
-        return id;
     }
 
     public double getxPos() {
@@ -57,7 +52,4 @@ public abstract class SimulationObject {
     public void setyPos(double yPos) {
         this.yPos = yPos;
     }
-    
-    
-
 }

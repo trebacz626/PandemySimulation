@@ -5,10 +5,8 @@
  */
 package com.mycompany.pandemysimulation.core.ui;
 
-import com.mycompany.pandemysimulation.App;
-import com.mycompany.pandemysimulation.utils.Coordinates;
 import com.mycompany.pandemysimulation.core.SimulationObject;
-import com.mycompany.pandemysimulation.core.SimulationObject;
+import com.mycompany.pandemysimulation.core.utils.Coordinates;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -26,8 +24,8 @@ public class VisibleComponent extends AbstractVisibleComponent implements EventH
     private int sizeX;
     private int sizeY;
     
-    public VisibleComponent(String imageName, int sizeX, int sizeY, String informationPanelName){
-        image = new Image(App.class.getResource("image/"+imageName).toString(), sizeX, sizeY, false, false);
+    public VisibleComponent(Image image, int sizeX, int sizeY, String informationPanelName){
+        this.image = image;
         imageView = new ImageView(image);
         imageView.setFitHeight(sizeX);
         imageView.setFitWidth(sizeY);
@@ -36,17 +34,28 @@ public class VisibleComponent extends AbstractVisibleComponent implements EventH
         this.sizeY = sizeY;
     }
     
-    public VisibleComponent(String imageName, int sizeX, int sizeY){
-        image = new Image(App.class.getResource("image/"+imageName).toString(), sizeX, sizeY, false, false);
-        imageView = new ImageView(image);
-        imageView.setFitHeight(sizeX);
-        imageView.setFitWidth(sizeY);
-        this.informationPanelName = "simulationObjectView";
-        this.sizeX = sizeX;
-        this.sizeY = sizeY;
-    }
+//        public VisibleComponent(String imageName, int sizeX, int sizeY, String informationPanelName){
+//        image = new Image(App.class.getResource("image/"+imageName).toString(), sizeX, sizeY, false, false);
+//        imageView = new ImageView(image);
+//        imageView.setFitHeight(sizeX);
+//        imageView.setFitWidth(sizeY);
+//        this.informationPanelName = informationPanelName;
+//        this.sizeX = sizeX;
+//        this.sizeY = sizeY;
+//    }
+    
+//    public VisibleComponent(String imageName, int sizeX, int sizeY){
+//        image = new Image(App.class.getResource("image/"+imageName).toString(), sizeX, sizeY, false, false);
+//        imageView = new ImageView(image);
+//        imageView.setFitHeight(sizeX);
+//        imageView.setFitWidth(sizeY);
+//        this.informationPanelName = "simulationObjectView";
+//        this.sizeX = sizeX;
+//        this.sizeY = sizeY;
+//    }
     
     public VisibleComponent(Image image, int sizeX, int sizeY){
+        this.image = image;
         imageView = new ImageView(image);
         imageView.setFitHeight(sizeX);
         imageView.setFitWidth(sizeY);

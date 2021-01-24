@@ -5,22 +5,16 @@
  */
 package com.mycompany.pandemysimulation.ui;
 
-import com.mycompany.pandemysimulation.core.ui.VisibleComponent;
 import com.mycompany.pandemysimulation.App;
 import com.mycompany.pandemysimulation.core.Simulation;
-import com.mycompany.pandemysimulation.core.ui.AbstractUIManager;
 import com.mycompany.pandemysimulation.core.SimulationObject;
-import com.mycompany.pandemysimulation.core.WorldData;
-import com.mycompany.pandemysimulation.ui.MapPanelController;
+import com.mycompany.pandemysimulation.core.ui.AbstractUIManager;
+import com.mycompany.pandemysimulation.core.ui.VisibleComponent;
 import java.io.IOException;
-import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 /**

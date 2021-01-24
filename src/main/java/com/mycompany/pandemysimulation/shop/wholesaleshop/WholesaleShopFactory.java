@@ -5,9 +5,11 @@
  */
 package com.mycompany.pandemysimulation.shop.wholesaleshop;
 
-import com.mycompany.pandemysimulation.Tile;
+import com.mycompany.pandemysimulation.App;
 import com.mycompany.pandemysimulation.core.ui.VisibleComponent;
+import com.mycompany.pandemysimulation.core.utils.Coordinates;
 import java.util.Random;
+import javafx.scene.image.Image;
 
 /**
  *
@@ -24,7 +26,7 @@ public final class WholesaleShopFactory {
     
     
     public static WholesaleShop createWholesaleShop(String name, String address, int xPos, int yPos, String imageName){
-        VisibleComponent vc = new VisibleComponent(imageName, Tile.tileSize, Tile.tileSize, "wholesaleShopView");
+        VisibleComponent vc = new VisibleComponent(new Image(App.class.getResource("image/"+imageName).toString(),Coordinates.mapTileSize,Coordinates.mapTileSize,false,false), Coordinates.mapTileSize, Coordinates.mapTileSize, "wholesaleShopView");
         return new WholesaleShop(name, address, getMaxClients(), getMaxProducts(), xPos, yPos, vc);
     }
 }

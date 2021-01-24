@@ -5,20 +5,17 @@
  */
 package com.mycompany.pandemysimulation.shop;
 
-import com.mycompany.pandemysimulation.App;
-import com.mycompany.pandemysimulation.utils.Coordinates;
-import com.mycompany.pandemysimulation.product.Product;
-import com.mycompany.pandemysimulation.core.ui.VisibleComponent;
 import com.mycompany.pandemysimulation.core.MainLoopAgent;
-import com.mycompany.pandemysimulation.core.map.Location;
 import com.mycompany.pandemysimulation.core.ThreadAgent;
-import com.mycompany.pandemysimulation.product.Brand;
+import com.mycompany.pandemysimulation.core.map.Location;
+import com.mycompany.pandemysimulation.core.ui.VisibleComponent;
+import com.mycompany.pandemysimulation.core.utils.Coordinates;
 import com.mycompany.pandemysimulation.person.Person;
+import com.mycompany.pandemysimulation.product.Product;
 import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -97,7 +94,7 @@ public abstract class Shop extends MainLoopAgent implements Location {
         return true;
     }
 
-    public void addProductSync(Product product) {
+    protected void addProductSync(Product product) {
         worker.execute(() -> {
             try {
                 this.warehouse.addProduct(product);

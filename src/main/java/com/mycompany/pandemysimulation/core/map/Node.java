@@ -7,7 +7,6 @@ package com.mycompany.pandemysimulation.core.map;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
 
 /**
  *

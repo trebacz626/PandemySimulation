@@ -5,18 +5,12 @@
  */
 package com.mycompany.pandemysimulation.map;
 
-import com.mycompany.pandemysimulation.core.map.PathFinder;
-import com.mycompany.pandemysimulation.core.map.Location;
-import com.mycompany.pandemysimulation.core.map.DeadlockFinder;
-import com.mycompany.pandemysimulation.core.Simulation;
-import com.mycompany.pandemysimulation.person.client.Client;
-import com.mycompany.pandemysimulation.person.Person;
-import com.mycompany.pandemysimulation.shop.Shop;
-import com.mycompany.pandemysimulation.person.supplier.Supplier;
-import com.mycompany.pandemysimulation.core.ThreadAgent;
 import com.mycompany.pandemysimulation.core.map.AbstractMapManager;
 import com.mycompany.pandemysimulation.core.map.DeadlockFinder;
+import com.mycompany.pandemysimulation.core.map.Location;
 import com.mycompany.pandemysimulation.core.map.Map;
+import com.mycompany.pandemysimulation.person.Person;
+import com.mycompany.pandemysimulation.shop.Shop;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;

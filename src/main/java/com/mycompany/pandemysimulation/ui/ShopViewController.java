@@ -28,13 +28,16 @@ public class ShopViewController<T extends Shop> extends SimulationObjectViewCont
     @FXML
     private Text products;
     
+    @FXML
+    private Text shopId;
     
     public void update(){
         super.update();
+        shopId.setText(String.valueOf(getSimulationObject().getUniqueId()));
         address.setText(getSimulationObject().getAddress());
         name.setText(getSimulationObject().getName());
-//        List<String> productNames = getSimulationObject().getProducts().stream().map(prod->prod.getName()).collect(Collectors.toList());
-        products.setText(String.valueOf(getSimulationObject().getWarehouse().getNumberOfProducts())+" "+String.valueOf(getSimulationObject().getWarehouse().getSize()));
+        List<String> productNames = getSimulationObject().getWarehouse().getCopyOfProducts().stream().map(prod->prod.getName()).collect(Collectors.toList());
+        products.setText(String.join("\n", productNames));
     }
 
     @Override

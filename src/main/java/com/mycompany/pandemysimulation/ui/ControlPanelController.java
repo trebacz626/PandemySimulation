@@ -6,7 +6,6 @@
 package com.mycompany.pandemysimulation.ui;
 
 import com.mycompany.pandemysimulation.core.Simulation;
-import com.mycompany.pandemysimulation.core.WorldData;
 import com.mycompany.pandemysimulation.person.client.Client;
 import com.mycompany.pandemysimulation.person.client.ClientFactory;
 import com.mycompany.pandemysimulation.person.supplier.Supplier;
@@ -16,10 +15,10 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
-import javafx.fxml.Initializable;
 
 /**
  * FXML Controller class
@@ -67,6 +66,9 @@ public class ControlPanelController implements Initializable {
     private DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
     private Simulation simulation;
+    
+    @FXML
+    private TextField vaccinateChance;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -83,18 +85,19 @@ public class ControlPanelController implements Initializable {
         lockdownTreshold.setText(formatDouble(simulation.getWorldData().getLockDownThreshold()));
         vaccinatedRate.setText(formatDouble(simulation.getWorldData().getVaccineRate()));
         shopsWhileSick.setText(String.valueOf(simulation.getWorldData().getShopVisitedWhileSick()));
+        vaccinateChance.setText(formatDouble(simulation.getWorldData().getVaccinateChance()));
         
         updateRates.setOnMouseClicked(event->{
             updateWorldData();
         });
         
         createClient.setOnMouseClicked(event->{
-            Client client = ClientFactory.createRandomClient(simulation.getMapManager().getMap().getSpawnPointPedestrian(), simulation.getMapManager().getPedestrianPathFinder());
+            Client client = ClientFactory.createRandomClient(simulation);
             simulation.addThreadAgent(client);
         });
         
         createSupplier.setOnMouseClicked(event->{
-            Supplier supplier = SupplierFactory.createRandomSupplier(simulation.getMapManager().getMap().getSpawnPointRoad(), simulation.getMapManager().getRoadPathFinder());
+            Supplier supplier = SupplierFactory.createRandomSupplier(simulation);
             simulation.addThreadAgent(supplier);
         });
         
@@ -118,6 +121,7 @@ public class ControlPanelController implements Initializable {
             simulation.getWorldData().setLockDownThreshold(Double.parseDouble(lockdownTreshold.getText()));
             simulation.getWorldData().setVaccineRate(Double.parseDouble(vaccinatedRate.getText()));
             simulation.getWorldData().setShopVisitedWhileSick(Integer.parseInt(shopsWhileSick.getText()));
+            simulation.getWorldData().setVaccinateChance(Double.parseDouble(vaccinateChance.getText()));
         } catch (Exception e) {
             System.out.println(e);
         }

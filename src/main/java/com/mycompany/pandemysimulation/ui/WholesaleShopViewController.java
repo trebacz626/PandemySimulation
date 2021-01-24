@@ -5,11 +5,8 @@
  */
 package com.mycompany.pandemysimulation.ui;
 
-import com.mycompany.pandemysimulation.product.Product;
-import com.mycompany.pandemysimulation.product.Brand;
 import com.mycompany.pandemysimulation.shop.wholesaleshop.WholesaleShop;
 import java.net.URL;
-import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -32,9 +29,8 @@ public class WholesaleShopViewController<T extends WholesaleShop> extends ShopVi
     public void start(){
         super.start();
         addProduct.setOnMouseClicked(event->{
-            Product product = new Product("milk", new Date(), Brand.AVON);
             System.out.println("Adding product");
-            getSimulationObject().addProductSync(product);
+            getSimulationObject().createProduct();
             System.out.println("Product added");
         });   
     }

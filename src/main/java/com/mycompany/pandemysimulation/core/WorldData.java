@@ -5,8 +5,6 @@
  */
 package com.mycompany.pandemysimulation.core;
 
-import java.util.Date;
-
 /**
  *
  * @author kacper
@@ -19,15 +17,17 @@ public class WorldData {
     private double maskEffect;
     private double lockDownThreshold;
     private int shopVisitedWhileSick;
+    private double vaccinateChance;
     
     private boolean lockdown;   
 
-    public WorldData(double transmissionRate, double vaccineRate, double maskEffect, double lockDownThreshold, int shopVisitedWhileSick) {
+    public WorldData(double transmissionRate, double vaccineRate, double maskEffect, double lockDownThreshold, int shopVisitedWhileSick, double vaccinateChance) {
         this.transmissionRate = transmissionRate;
         this.vaccineRate = vaccineRate;
         this.maskEffect = maskEffect;
         this.lockDownThreshold = lockDownThreshold;
         this.shopVisitedWhileSick = shopVisitedWhileSick;
+        this.vaccinateChance = vaccinateChance;
     }
 
     public int getNumberOfPeople() {
@@ -58,16 +58,20 @@ public class WorldData {
         return shopVisitedWhileSick;
     }
 
+    public double getVaccinateChance() {
+        return vaccinateChance;
+    }
+
     public boolean isLockdown() {
         return lockdown;
     }
 
-    protected void setNumberOfPeople(int numberOfPeople) {
+    public void setNumberOfPeople(int numberOfPeople) {
         this.numberOfPeople = numberOfPeople;
         updateLockdown();
     }
 
-    protected void setNumberOfSickPeople(int numberOfSickPeople) {
+    public void setNumberOfSickPeople(int numberOfSickPeople) {
         this.numberOfSickPeople = numberOfSickPeople;
         updateLockdown();
     }
@@ -91,6 +95,10 @@ public class WorldData {
 
     public void setShopVisitedWhileSick(int shopVisitedWhileSick) {
         this.shopVisitedWhileSick = shopVisitedWhileSick;
+    }
+
+    public void setVaccinateChance(double vaccinateChance) {
+        this.vaccinateChance = vaccinateChance;
     }
     
     public double getSickPercentage(){

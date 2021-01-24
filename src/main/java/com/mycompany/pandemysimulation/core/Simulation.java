@@ -5,15 +5,14 @@
  */
 package com.mycompany.pandemysimulation.core;
 
+import com.mycompany.pandemysimulation.core.data.AbstractDataManager;
 import com.mycompany.pandemysimulation.core.map.AbstractMapManager;
 import com.mycompany.pandemysimulation.core.ui.AbstractUIManager;
-import com.mycompany.pandemysimulation.person.Person;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  *
@@ -27,10 +26,11 @@ public class Simulation{
     private final WorldData worldData;
     private final AbstractUIManager uiManager;
     private AbstractMapManager mapManager;
+    private AbstractDataManager dataManager;
     private DateKeeper dateKeeper;
 
-    public Simulation(AbstractUIManager uiManager, AbstractMapManager mapManager) throws IOException {
-        this.worldData = new WorldData(0.5,0.5,0.5,0.5,5);
+    public Simulation(AbstractUIManager uiManager, AbstractMapManager mapManager, AbstractDataManager dataManager) throws IOException {
+        this.worldData = new WorldData(0.5,0.5,0.5,0.5,5, 0.5);
         this.uiManager = uiManager;
         uiManager.setSimulation(this);
         this.threadsAgents = new LinkedList<ThreadAgent>();
@@ -39,11 +39,14 @@ public class Simulation{
         this.dateKeeper = new DateKeeper();
         this.mapManager = mapManager;
         mapManager.setSimulation(this);
+        this.dataManager = dataManager;
+        this.dataManager.setSimulation(this);
     }
 
     public synchronized void start() throws Exception {
         uiManager.start();
         mapManager.start();
+        dataManager.start();
     }
 
     public synchronized void update() {
@@ -51,16 +54,8 @@ public class Simulation{
             agent.update();
         }
         mapManager.update();
-        updateWorldData();
+        dataManager.update();
         uiManager.update();
-    }
-    
-    //TODO dele
-    private void updateWorldData(){
-        List<Person> people = threadsAgents.stream().filter(ta->ta instanceof Person).map(ps->(Person)ps).collect(Collectors.toList());
-        List<Person> sickPeople = people.stream().filter(ps->ps.isSick()).collect(Collectors.toList());
-        this.worldData.setNumberOfSickPeople(sickPeople.size());
-        this.worldData.setNumberOfPeople(people.size());
     }
 
     public synchronized void addThreadAgent(ThreadAgent threadAgent) {

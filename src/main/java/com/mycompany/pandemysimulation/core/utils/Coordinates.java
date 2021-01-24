@@ -3,9 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.pandemysimulation.utils;
-
-import com.mycompany.pandemysimulation.Tile;
+package com.mycompany.pandemysimulation.core.utils;
 
 /**
  *
@@ -33,6 +31,6 @@ public final class Coordinates {
     }
     
     public static double mapToWorld(double idX){
-        return Tile.tileSize/2 + Tile.tileSize*idX;
+        return mapTileSize/2 + mapTileSize*idX;
     }
 }
