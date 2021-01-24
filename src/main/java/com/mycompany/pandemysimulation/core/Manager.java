@@ -5,8 +5,6 @@
  */
 package com.mycompany.pandemysimulation.core;
 
-import com.mycompany.pandemysimulation.core.Simulation;
-
 /**
  *
  * @author kacper
