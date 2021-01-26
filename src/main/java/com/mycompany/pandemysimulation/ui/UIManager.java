@@ -43,7 +43,7 @@ public class UIManager extends AbstractUIManager {
 //        }; 
 //        
 //        return new FXMLLoader(UIManager.class.getClassLoader().getResource("target/classes/com/mycompany/pandemysimulation/fxml/"+fxml + ".fxml"));
-        return new FXMLLoader(COVIDSimulation.class.getResource("fxml/" + fxml + ".fxml"));
+        return new FXMLLoader(UIManager.class.getResource("fxml/" + fxml + ".fxml"));
     }
 
     private MapPanelController mapPanelController;
@@ -137,7 +137,7 @@ public class UIManager extends AbstractUIManager {
     @Override
     public void removeVisibleComponent(VisibleComponent visibleComponent) {
         mapPanelController.removeVisibleComponent(visibleComponent);
-        if (visibleComponent == informationPanel.getCurrentObject().getVisibleComponent()) {
+        if (informationPanel.getCurrentObject()!= null && visibleComponent == informationPanel.getCurrentObject().getVisibleComponent()) {
             informationPanel.onRemove();
         }
     }

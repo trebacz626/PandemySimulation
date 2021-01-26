@@ -9,15 +9,19 @@ import javafx.scene.image.Image;
 
 /**
  *
+ * Image Loading class
+ * 
  * @author kacper
  */
 public class ImageLoader {
 
     /**
      *
+     * Loads an Image
+     * 
      * @return
      */
-    public static Image loadImage() {
-        return null;
+    public static Image loadImage(String imageName, int sizeX, int sizeY) {
+        return new Image(ImageLoader.class.getResource("image/" + "stoplight.jpg").toString(), sizeX, sizeY, false, false);
     }
 }
