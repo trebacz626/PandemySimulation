@@ -16,6 +16,8 @@ import java.util.Date;
 
 /**
  *
+ * A Retail shop for normal people.
+ * 
  * @author kacper
  */
 public class RetailShop extends Shop implements Location {
@@ -27,8 +29,21 @@ public class RetailShop extends Shop implements Location {
     private DynamicGate clientGate;
     private DynamicGate supplierGate;
     
-    protected RetailShop(int supplierCapacity, int expiredSalePeriod, Date lastExpiredDate, String name, String address, int maxClients, int maxProducts, int idX, int idY, VisibleComponent visibleComponent) {
-        super(name, address, maxClients, maxProducts, idX, idY, visibleComponent);
+    /**
+     *
+     * @param supplierCapacity
+     * @param expiredSalePeriod
+     * @param lastExpiredDate
+     * @param name
+     * @param address
+     * @param maxClients
+     * @param maxProducts
+     * @param coordX
+     * @param coordY
+     * @param visibleComponent
+     */
+    protected RetailShop(int supplierCapacity, int expiredSalePeriod, Date lastExpiredDate, String name, String address, int maxClients, int maxProducts, int coordX, int coordY, VisibleComponent visibleComponent) {
+        super(name, address, maxClients, maxProducts, coordX, coordY, visibleComponent);
         this.supplierCapacity = supplierCapacity;
         this.expiredSalePeriod = expiredSalePeriod;
         this.lastExpiredDate = lastExpiredDate;
@@ -36,6 +51,13 @@ public class RetailShop extends Shop implements Location {
         supplierGate = new DynamicGate(supplierCapacity);
     }
     
+    /**
+     *
+     * Method to call to enter a shop
+     * 
+     * @param threadAgent
+     * @throws InterruptedException
+     */
     @Override
     public void enter(ThreadAgent threadAgent) throws InterruptedException {
         if (threadAgent instanceof Client) {
@@ -46,6 +68,12 @@ public class RetailShop extends Shop implements Location {
         super.enter(threadAgent);
     }
     
+    /**
+     *
+     * Method to call when leaving a shop.
+     * 
+     * @param threadAgent
+     */
     @Override
     public void leave(ThreadAgent threadAgent) {
         super.leave(threadAgent);
@@ -56,6 +84,13 @@ public class RetailShop extends Shop implements Location {
         }
     }
     
+    /**
+     *
+     * Every turn Retail Shops actualizes its gates capacity.
+     * It also calls an update of parent class.
+     * 
+     * @return
+     */
     @Override
     public boolean update(){
         super.update();

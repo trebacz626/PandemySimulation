@@ -15,22 +15,41 @@ public abstract class AbstractVisibleComponent {
     private AbstractUIManager uiManager;
     private SimulationObject simulationObject;
     
+    /**
+     *
+     */
     public void update(){
     }
     
+    /**
+     *
+     * @param so
+     */
     public void setSimulationObject(SimulationObject so){
         this.simulationObject = so;
         update();
     }
     
+    /**
+     *
+     * @param uiManager
+     */
     protected void setUIManager(AbstractUIManager uiManager){
         this.uiManager = uiManager;
     }
     
+    /**
+     *
+     * @return
+     */
     protected SimulationObject getSimulationObject(){
         return simulationObject;
     }
     
+    /**
+     *
+     * @return
+     */
     protected AbstractUIManager getUIManager(){
         return uiManager;
     }

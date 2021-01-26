@@ -16,6 +16,9 @@ import java.util.Random;
 
 /**
  *
+ * A client is an Person agent that travels between random Shops. In each shop
+ * it buys a random number of products.
+ *
  * @author kacper
  */
 public class Client extends Person {
@@ -30,8 +33,24 @@ public class Client extends Person {
     private String firstName;
     private String lastName;
 
-    protected Client(double xPos, double yPos, VisibleComponent visibleComponent, String firstName, String lastName, boolean sick, boolean vaccinated, boolean wearingMask, Location nextStop, Location currentLocation, int maxCartCapacity, PathFinder pathFinder) {
-        super(maxCartCapacity, sick, vaccinated, wearingMask, nextStop, currentLocation, xPos, yPos, visibleComponent, pathFinder);
+    /**
+     *
+     * Constructor
+     *
+     * @param xPos
+     * @param yPos
+     * @param visibleComponent
+     * @param firstName
+     * @param lastName
+     * @param sick tells if client is sick
+     * @param vaccinated tells if client is vaccinated
+     * @param wearingMask tells if wearing a mask
+     * @param currentLocation
+     * @param maxCartCapacity
+     * @param pathFinder
+     */
+    protected Client(double xPos, double yPos, VisibleComponent visibleComponent, String firstName, String lastName, boolean sick, boolean vaccinated, boolean wearingMask, Location currentLocation, int maxCartCapacity, PathFinder pathFinder) {
+        super(maxCartCapacity, sick, vaccinated, wearingMask, currentLocation, xPos, yPos, visibleComponent, pathFinder);
         this.pesel = getNextPesel();
         this.firstName = firstName;
         this.lastName = lastName;
@@ -41,12 +60,27 @@ public class Client extends Person {
         getProductStorage().removeNProducts(n);
     }
 
+    /**
+     *
+     * Generates a next Shop that Client is going to go to
+     *
+     * @return
+     */
     @Override
     protected Shop generateNextGoal() {
         return this.getRandomRetailShop(this.getCurrentShop());
 
     }
 
+    /**
+     *
+     * Actions that clients takes in shop. Here client buys a random number of
+     * products.
+     *
+     * @param shop
+     * @throws InterruptedException
+     */
+    @Override
     protected void processShop(Shop shop) throws InterruptedException {
         int productsTobuy = new Random().nextInt(getProductStorage().getCapacity()) + 1;
         if (getProductStorage().getFreePlace() < productsTobuy) {
@@ -60,14 +94,26 @@ public class Client extends Person {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPesel() {
         return pesel;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getFirstName() {
         return firstName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getLastName() {
         return lastName;
     }

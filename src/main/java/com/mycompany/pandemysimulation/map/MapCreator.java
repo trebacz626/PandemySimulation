@@ -7,9 +7,17 @@ package com.mycompany.pandemysimulation.map;
 
 /**
  *
+ * An abstract class used to store the build process of map.
+ * 
  * @author kacper
  */
 public abstract class MapCreator {
 
+    /**
+     *  
+     * Map definition represented as operations on map builder.
+     * 
+     * @return
+     */
     public abstract MapBuilder getMapBuilder();
 }

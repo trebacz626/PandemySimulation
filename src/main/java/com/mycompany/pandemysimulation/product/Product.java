@@ -9,6 +9,8 @@ import java.util.Date;
 
 /**
  *
+ * Product that is sold in Shops
+ * 
  * @author kacper
  */
 public class Product {
@@ -24,6 +26,12 @@ public class Product {
         return curId++;
     }
 
+    /**
+     *
+     * @param name name of product
+     * @param beforeDate best before date
+     * @param brand brand of product
+     */
     protected Product(String name, Date beforeDate, Brand brand) {
         this.id = getNextId();
         this.name = name;
@@ -31,18 +39,34 @@ public class Product {
         this.brand = brand;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getBeforeDate() {
         return beforeDate;
     }
 
+    /**
+     *
+     * @return
+     */
     public Brand getBrand() {
         return brand;
     }

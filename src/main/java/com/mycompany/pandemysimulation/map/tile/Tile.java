@@ -5,7 +5,7 @@
  */
 package com.mycompany.pandemysimulation.map.tile;
 
-import com.mycompany.pandemysimulation.App;
+import com.mycompany.pandemysimulation.COVIDSimulation;
 import com.mycompany.pandemysimulation.core.SimulationObject;
 import com.mycompany.pandemysimulation.core.ThreadAgent;
 import com.mycompany.pandemysimulation.core.map.Location;
@@ -18,13 +18,15 @@ import javafx.scene.image.Image;
 
 /**
  *
+ * A synchronized location that ensures only one agent enters an intersection.
+ * 
  * @author kacper
  */
 public class Tile extends SimulationObject implements Location {
 
-    private static Image pavementImage = new Image(App.class.getResource("image/" + "pavement.jpg").toString(), Coordinates.mapTileSize, Coordinates.mapTileSize, false, false);
-    private static Image asphaltImage = new Image(App.class.getResource("image/" + "asphalt.png").toString(), Coordinates.mapTileSize, Coordinates.mapTileSize, false, false);
-    private static Image yellowGrassImage = new Image(App.class.getResource("image/" + "yellow_grass.jpg").toString(), Coordinates.mapTileSize, Coordinates.mapTileSize, false, false);
+    private static Image pavementImage = new Image(COVIDSimulation.class.getResource("image/" + "pavement.jpg").toString(), Coordinates.mapUnitSize, Coordinates.mapUnitSize, false, false);
+    private static Image asphaltImage = new Image(COVIDSimulation.class.getResource("image/" + "asphalt.png").toString(), Coordinates.mapUnitSize, Coordinates.mapUnitSize, false, false);
+    private static Image yellowGrassImage = new Image(COVIDSimulation.class.getResource("image/" + "yellow_grass.jpg").toString(), Coordinates.mapUnitSize, Coordinates.mapUnitSize, false, false);
 
     private static VisibleComponent getVisibleComponent(TileType tileType) {
         Image image;
@@ -36,52 +38,90 @@ public class Tile extends SimulationObject implements Location {
             image = yellowGrassImage;
         }
 
-        return new VisibleComponent(image, Coordinates.mapTileSize, Coordinates.mapTileSize);
+        return new VisibleComponent(image, Coordinates.mapUnitSize, Coordinates.mapUnitSize);
     }
 
-    private int idX;
-    private int idY;
+    private int coordX;
+    private int coordY;
 
     private ReentrantLock lock;
 
     private TileType tileType;
 
-    public Tile(int idX, int idY, TileType tileType) {
-        super(Coordinates.mapToWorld(idX), Coordinates.mapToWorld(idY), getVisibleComponent(tileType));
-        this.idX = idX;
-        this.idY = idY;
+    /**
+     *
+     * @param coordX    coordinate x
+     * @param coordY    coordinate y
+     * @param tileType  type of a tile
+     */
+    public Tile(int coordX, int coordY, TileType tileType) {
+        super(Coordinates.mapToWorld(coordX), Coordinates.mapToWorld(coordY), getVisibleComponent(tileType));
+        this.coordX = coordX;
+        this.coordY = coordY;
         this.tileType = tileType;
         lock = new ReentrantLock();
     }
 
+    /**
+     *
+     * Locks a tile.
+     * 
+     * @param threadAgent
+     * @throws InterruptedException
+     */
     @Override
     public void enter(ThreadAgent threadAgent) throws InterruptedException {
         lock.lockInterruptibly();
     }
 
+    /**
+     *
+     * Unlocks a tile.
+     * 
+     * @param threadAgent
+     */
     @Override
     public void leave(ThreadAgent threadAgent) {
         lock.unlock();
     }
 
-    public int getIdX() {
-        return idX;
+    /**
+     *
+     * Returns x coordinate.
+     * 
+     * @return
+     */
+    public int getCoordX() {
+        return coordX;
     }
 
-    public int getIdY() {
-        return idY;
+    /**
+     *
+     * Returns y coordinate
+     * 
+     * @return
+     */
+    public int getCoordY() {
+        return coordY;
     }
 
-    @Override
-    public String toString() {
-        return "Tile{" + "idX=" + idX + ", idY=" + idY + ", lock=" + lock + ", tileType=" + tileType + '}';
-    }
-
+    /**
+     *
+     * Returns tile group in this situation just itself.
+     * 
+     * @return
+     */
     @Override
     public List<Location> getGroup() {
         return Collections.singletonList(this);
     }
 
+    /**
+     *
+     * Tells if agent should go through this location
+     * 
+     * @return true
+     */
     @Override
     public boolean shouldGoThrough() {
         return true;

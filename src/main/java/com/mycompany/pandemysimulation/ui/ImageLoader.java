@@ -13,6 +13,10 @@ import javafx.scene.image.Image;
  */
 public class ImageLoader {
 
+    /**
+     *
+     * @return
+     */
     public static Image loadImage() {
         return null;
     }

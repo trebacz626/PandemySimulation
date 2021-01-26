@@ -15,6 +15,8 @@ import javafx.stage.Stage;
 
 /**
  *
+ * A Panel that displays information for different SimulationObjects.
+ * 
  * @author kacper
  */
 public class InformationPanel {
@@ -25,6 +27,11 @@ public class InformationPanel {
 
     private Stage stage;
 
+    /**
+     *
+     * @param simulation
+     * @throws IOException
+     */
     protected InformationPanel(Simulation simulation) throws IOException {
         this.simulation = simulation;
         FXMLLoader loader = UIManager.getFXMLLoader("simulationObjectView");
@@ -37,12 +44,21 @@ public class InformationPanel {
         stage.show();
     }
 
+    /**
+     *
+     * Shows information about a SimulationObject.
+     * 
+     * @param so
+     */
     protected void showInformation(SimulationObject so) {
         currentSo = so;
-        showInformation(currentSo.getVisibleComponent().getViewName());
+        showInformation(currentSo.getVisibleComponent().getName());
 
     }
 
+    /**
+     * Updates view state
+     */
     protected void update() {
         if (currentSo == null) {
             return;
@@ -68,15 +84,30 @@ public class InformationPanel {
         }
     }
 
+    /**
+     *
+     * @param simulation
+     */
     protected void setSimulation(Simulation simulation) {
         this.simulation = simulation;
     }
 
+    /**
+     *
+     * Call when SimulationObject is removed.
+     * 
+     */
     protected void onRemove() {
         currentSo = null;
         showInformation("simulationObjectView");
     }
 
+    /**
+     *
+     * Returns currently displayed SimulationObject
+     * 
+     * @return
+     */
     protected SimulationObject getCurrentObject() {
         return currentSo;
     }

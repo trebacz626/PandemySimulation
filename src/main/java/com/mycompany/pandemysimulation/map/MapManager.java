@@ -17,14 +17,26 @@ import java.util.stream.Collectors;
 
 /**
  *
+ * Manages map related issues that are supposed to be performed every frame.
+ * This one takes care of deadlock detection.
+ * 
  * @author kacper
  */
 public class MapManager extends AbstractMapManager {
 
+    /**
+     *Constructor 
+     * @param map
+     */
     public MapManager(Map map) {
         super(map);
     }
 
+    /**
+     *
+     * prepares and performs a deadlock detection.
+     * 
+     */
     @Override
     public void update() {
         List<Person> people = (List<Person>) getSimulation().getThreadAgents().stream().filter(a -> a instanceof Person).map(a -> (Person) a).collect(Collectors.toList());

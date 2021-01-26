@@ -21,7 +21,10 @@ import javafx.scene.text.Text;
 
 /**
  *
+ * A controller for Supplier View
+ * 
  * @author kacper
+ * @param <T>
  */
 public class SupplierViewController<T extends Supplier> extends PersonViewController<T> {
 
@@ -40,16 +43,29 @@ public class SupplierViewController<T extends Supplier> extends PersonViewContro
     @FXML
     private TextField route;
 
+    /**
+     *
+     * @param arg0
+     * @param arg1
+     */
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         getTitleTextField().setText("Supplier");
     }
 
+    /**
+     *
+     * Sets view state on start.
+     * 
+     */
     public void start() {
         List<String> shopIds = getSimulationObject().getRoute().stream().map(shop -> String.valueOf(shop.getUniqueId())).collect(Collectors.toList());
         route.setText(String.join(",", shopIds));
     }
 
+    /**
+     * Updates view state
+     */
     public void update() {
         super.update();
         if (getSimulationObject() != null) {

@@ -18,32 +18,53 @@ import java.util.concurrent.TimeUnit;
 
 /**
  *
+ * Wholesale shop is a Shop that produces products and serves only Suppliers.
+ * 
  * @author kacper
  */
 public class WholesaleShop extends Shop {
 
     private LinkedList<Supplier> supplierQue;
-    private int idX;
-    private int idY;
     private DynamicGate suppliersGate;
     private Date lastProductionDate;
     private int dailyProduction;
 
-    protected WholesaleShop(String name, String address, int maxClients, int maxProducts, int idX, int idY, VisibleComponent visibleComponent) {
-        super(name, address, maxClients, maxProducts, idX, idY, visibleComponent);
+    /**
+     *
+     * @param name
+     * @param address
+     * @param maxClients
+     * @param maxProducts
+     * @param coordX
+     * @param coordY
+     * @param visibleComponent
+     */
+    protected WholesaleShop(String name, String address, int maxClients, int maxProducts, int coordX, int coordY, VisibleComponent visibleComponent) {
+        super(name, address, maxClients, maxProducts, coordX, coordY, visibleComponent);
         suppliersGate = new DynamicGate(maxClients);
         this.dailyProduction = 50;
     }
 
+    /**
+     *
+     * On start Wholesale Shop sets its las Production da
+     * 
+     * @return
+     */
     @Override
-    public boolean start() {
+    protected boolean start() {
         super.start();
         lastProductionDate = getSimulation().getCurrentDate();
         return true;
     }
 
+    /**
+     *
+     * Every turn WholesaleShop creates a product and calls a Shop update method.
+     * @return
+     */
     @Override
-    public boolean update() {
+    protected boolean update() {
         super.update();
         suppliersGate.setNewCapacity(getClientCapacity());
         Date currentDate = getSimulation().getCurrentDate();
@@ -58,6 +79,11 @@ public class WholesaleShop extends Shop {
         return true;
     }
 
+    /**
+     *
+     * Creates a product and stores it in a warehouse storage.
+     * 
+     */
     public void createProduct() {
         if(this.getWarehouse().isFull()) return;
         Date date = getSimulation().getCurrentDate();
@@ -66,6 +92,13 @@ public class WholesaleShop extends Shop {
         this.addProductSync(product);
     }
 
+    /**
+     *
+     * Method to call to enter a shop
+     * 
+     * @param threadAgent
+     * @throws InterruptedException
+     */
     @Override
     public void enter(ThreadAgent threadAgent) throws InterruptedException {
         if (threadAgent instanceof Supplier) {
@@ -73,6 +106,12 @@ public class WholesaleShop extends Shop {
         }
     }
 
+    /**
+     *
+     * Method to call to leave a shop
+     * 
+     * @param threadAgent
+     */
     @Override
     public void leave(ThreadAgent threadAgent) {
         if (threadAgent instanceof Supplier) {

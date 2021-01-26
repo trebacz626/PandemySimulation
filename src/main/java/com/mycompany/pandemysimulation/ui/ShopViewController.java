@@ -15,7 +15,10 @@ import javafx.scene.text.Text;
 
 /**
  *
+ * A controller for Shop View
+ * 
  * @author kacper
+ * @param <T>
  */
 public class ShopViewController<T extends Shop> extends SimulationObjectViewController<T> {
 
@@ -31,6 +34,9 @@ public class ShopViewController<T extends Shop> extends SimulationObjectViewCont
     @FXML
     private Text shopId;
 
+    /**
+     * Updates view state
+     */
     public void update() {
         super.update();
         shopId.setText(String.valueOf(getSimulationObject().getUniqueId()));
@@ -40,6 +46,11 @@ public class ShopViewController<T extends Shop> extends SimulationObjectViewCont
         products.setText(String.join("\n", productNames));
     }
 
+    /**
+     *
+     * @param arg0
+     * @param arg1
+     */
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         getTitleTextField().setText("Shop");

@@ -70,20 +70,32 @@ public class ControlPanelController implements Initializable {
     @FXML
     private TextField vaccinateChance;
 
+    /**
+     *
+     * @param url
+     * @param rb
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     }
 
+    /**
+     *
+     * @param simulation
+     */
     public void setSimulation(Simulation simulation) {
         this.simulation = simulation;
     }
 
+    /**
+     *
+     */
     public void start() {
         transmissionRate.setText(formatDouble(simulation.getWorldData().getTransmissionRate()));
         maskEffect.setText(formatDouble(simulation.getWorldData().getMaskEffect()));
         lockdownTreshold.setText(formatDouble(simulation.getWorldData().getLockDownThreshold()));
         vaccinatedRate.setText(formatDouble(simulation.getWorldData().getVaccineRate()));
-        shopsWhileSick.setText(String.valueOf(simulation.getWorldData().getShopVisitedWhileSick()));
+        shopsWhileSick.setText(String.valueOf(simulation.getWorldData().getLocationsVisitedWhileSick()));
         vaccinateChance.setText(formatDouble(simulation.getWorldData().getVaccinateChance()));
 
         updateRates.setOnMouseClicked(event -> {
@@ -102,6 +114,9 @@ public class ControlPanelController implements Initializable {
 
     }
 
+    /**
+     *
+     */
     public void update() {
         numberOfPeople.setText(String.valueOf(simulation.getWorldData().getNumberOfPeople()));
         infectedPeople.setText(formatDouble(simulation.getWorldData().getSickPercentage() * 100));

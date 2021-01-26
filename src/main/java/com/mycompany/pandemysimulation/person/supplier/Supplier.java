@@ -19,6 +19,8 @@ import java.util.List;
 
 /**
  *
+ * Supplier is a Person that travels between Shops on predefined route. 
+ * 
  * @author kacper
  */
 public class Supplier extends Person {
@@ -38,8 +40,26 @@ public class Supplier extends Person {
         return curId++;
     }
 
-    protected Supplier(CarBrand carBrand, int trunkCapacity, double gasCapacity, Company companyName, boolean sick, boolean vaccinated, boolean wearingMask, Location nextStop, Location currentLocation, double xPos, double yPos, VisibleComponent visibleComponent, PathFinder pathFinder) {
-        super(trunkCapacity, sick, vaccinated, wearingMask, nextStop, currentLocation, xPos, yPos, visibleComponent, pathFinder);
+    /**
+     *
+     * Creator
+     * 
+     * @param carBrand
+     * @param trunkCapacity
+     * @param gasCapacity
+     * @param companyName
+     * @param sick
+     * @param vaccinated
+     * @param wearingMask
+     * @param nextStop
+     * @param currentLocation
+     * @param xPos
+     * @param yPos
+     * @param visibleComponent
+     * @param pathFinder
+     */
+    protected Supplier(CarBrand carBrand, int trunkCapacity, double gasCapacity, Company companyName, boolean sick, boolean vaccinated, boolean wearingMask, Location currentLocation, double xPos, double yPos, VisibleComponent visibleComponent, PathFinder pathFinder) {
+        super(trunkCapacity, sick, vaccinated, wearingMask, currentLocation, xPos, yPos, visibleComponent, pathFinder);
         this.carBrand = carBrand;
         this.gasCapacity = gasCapacity;
         this.companyName = companyName;
@@ -47,6 +67,12 @@ public class Supplier extends Person {
         this.route = new LinkedList<>();
     }
 
+    /**
+     *
+     * On start a supplier creates a random route.
+     * 
+     * @return
+     */
     @Override
     public boolean start() {
         if (!super.start()) {
@@ -63,12 +89,26 @@ public class Supplier extends Person {
         return true;
     }
 
+    /**
+     *
+     * Returns a next Shop from route.
+     * 
+     * @return
+     */
     @Override
     protected synchronized Shop generateNextGoal() {
         return route.get((shopIndex++) % route.size());
 
     }
 
+    /**
+     *
+     * In each Wholesale Shop Supplier takes products till it fills up its truck.
+     * When it is in retail shops adds Products to shop till shop is full or supplier is empty.
+     * 
+     * @param shop
+     * @throws InterruptedException
+     */
     @Override
     protected void processShop(Shop shop) throws InterruptedException {
         refuel();
@@ -91,26 +131,55 @@ public class Supplier extends Person {
         this.gas = this.gasCapacity;
     }
 
+    /**
+     *
+     * On move supplier burns gas.
+     * 
+     */
     protected void onMove() {
         this.gas -= 1;
     }
 
+    /**
+     *
+     * @return
+     */
     public CarBrand getCarBrand() {
         return carBrand;
     }
 
+    /**
+     *
+     * @return
+     */
     public Company getCompanyName() {
         return companyName;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getUniqueId() {
         return uniqueId;
     }
 
+    /**
+     *
+     * Returns suppliers route.
+     * 
+     * @return
+     */
     public List<Shop> getRoute() {
         return route;
     }
 
+    /**
+     *
+     * Sets suppliers route.
+     * 
+     * @param route
+     */
     public synchronized void setRoute(List<Shop> route) {
         this.route = route;
     }

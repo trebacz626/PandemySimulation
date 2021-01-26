@@ -11,6 +11,8 @@ import java.util.PriorityQueue;
 
 /**
  *
+ * Finds paths from point A to point B on Map with given directions
+ * 
  * @author kacper
  */
 public class PathFinder {
@@ -20,6 +22,11 @@ public class PathFinder {
     int sizeX;
     int sizeY;
 
+    /**
+     *
+     * @param directions directions to move 
+     * @param locations locations on map
+     */
     protected PathFinder(boolean[][][] directions, Location[][] locations) {
         this.directions = directions;
         this.locations = locations;
@@ -27,6 +34,14 @@ public class PathFinder {
         this.sizeX = directions[0].length;
     }
 
+    /**
+     *
+     * @param fromX x position of start Location
+     * @param fromY y position of start Location
+     * @param toX   y position of end Location
+     * @param toY   y position of end Location
+     * @return
+     */
     public List<Location> findPath(int fromX, int fromY, int toX, int toY) {
         boolean[][] visited = new boolean[sizeY][sizeX];
         PriorityQueue<QueElement> q = new PriorityQueue<>();
@@ -35,21 +50,21 @@ public class PathFinder {
         while (!q.isEmpty()) {
             QueElement element = q.poll();
             Location lastLocation = element.getLastLocation();
-            if (visited[lastLocation.getIdY()][lastLocation.getIdX()]) {
+            if (visited[lastLocation.getCoordY()][lastLocation.getCoordX()]) {
                 continue;
             }
-            visited[lastLocation.getIdY()][lastLocation.getIdX()] = true;
-            if (lastLocation.getIdX() == toX && lastLocation.getIdY() == toY) {
+            visited[lastLocation.getCoordY()][lastLocation.getCoordX()] = true;
+            if (lastLocation.getCoordX() == toX && lastLocation.getCoordY() == toY) {
                 return element.getPath();
             }
-            if (!(lastLocation.getIdX() == fromX && lastLocation.getIdY() == fromY) && !locations[lastLocation.getIdY()][lastLocation.getIdX()].shouldGoThrough()) {
+            if (!(lastLocation.getCoordX() == fromX && lastLocation.getCoordY() == fromY) && !locations[lastLocation.getCoordY()][lastLocation.getCoordX()].shouldGoThrough()) {
                 continue;
             }
             List<Direction> actions = getActions(lastLocation);
             for (Direction action : actions) {
-                Location nextLocation = locations[lastLocation.getIdY() + action.dY()][lastLocation.getIdX() + action.dX()];
-                if (!visited[nextLocation.getIdY()][nextLocation.getIdX()]) {
-                    int heurysticCost = heurystic(nextLocation.getIdX(), nextLocation.getIdY(), toX, toY);
+                Location nextLocation = locations[lastLocation.getCoordY() + action.dY()][lastLocation.getCoordX() + action.dX()];
+                if (!visited[nextLocation.getCoordY()][nextLocation.getCoordX()]) {
+                    int heurysticCost = heurystic(nextLocation.getCoordX(), nextLocation.getCoordY(), toX, toY);
                     List<Location> nextPath = new LinkedList<>(element.getPath());
                     nextPath.add(nextLocation);
                     int nextCost = element.getCurrent_distance() + 1;
@@ -63,7 +78,7 @@ public class PathFinder {
     }
 
     private List<Direction> getActions(Location lastLocation) {
-        boolean[] moves = directions[lastLocation.getIdY()][lastLocation.getIdX()];
+        boolean[] moves = directions[lastLocation.getCoordY()][lastLocation.getCoordX()];
         List<Direction> actions = new LinkedList<>();
         for (int i = 0; i < 4; i++) {
             if (moves[i]) {
@@ -85,26 +100,26 @@ class QueElement implements Comparable<QueElement> {
     private List<Location> path;
     private Location lastLocation;
 
-    protected QueElement(int heurysticDistance, int current_distance, List<Location> path, Location lastLocation) {
+    QueElement(int heurysticDistance, int current_distance, List<Location> path, Location lastLocation) {
         this.heurysticDistance = heurysticDistance;
         this.current_distance = current_distance;
         this.path = path;
         this.lastLocation = lastLocation;
     }
 
-    protected int getHeurysticDistance() {
+    int getHeurysticDistance() {
         return heurysticDistance;
     }
 
-    protected int getCurrent_distance() {
+    int getCurrent_distance() {
         return current_distance;
     }
 
-    protected List<Location> getPath() {
+    List<Location> getPath() {
         return path;
     }
 
-    protected Location getLastLocation() {
+    Location getLastLocation() {
         return lastLocation;
     }
 

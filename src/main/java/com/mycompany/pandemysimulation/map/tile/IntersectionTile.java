@@ -11,28 +11,58 @@ import java.util.List;
 
 /**
  *
+ * A tile that is connected with an intersection.
+ * 
  * @author kacper
  */
 public class IntersectionTile extends Tile {
 
     private Intersection intersection;
 
-    public IntersectionTile(int idX, int idY, TileType tileType, Intersection intersection) {
-        super(idX, idY, tileType);
+    /**
+     *
+     * Constructor
+     * 
+     * @param coordX x coordinate
+     * @param coordY y coordinate
+     * @param tileType the type of file
+     * @param intersection
+     */
+    public IntersectionTile(int coordX, int coordY, TileType tileType, Intersection intersection) {
+        super(coordX, coordY, tileType);
         this.intersection = intersection;
         intersection.addTile(this);
     }
 
+    /**
+     *
+     * Lock a tile.
+     * 
+     * @param threadAgent
+     * @throws InterruptedException
+     */
     public void enter(ThreadAgent threadAgent) throws InterruptedException {
         intersection.enter(threadAgent);
         super.enter(threadAgent);
     }
 
+    /**
+     *
+     * Unlock a tile.
+     * 
+     * @param threadAgent
+     */
     public void leave(ThreadAgent threadAgent) {
         intersection.leave(threadAgent);
         super.leave(threadAgent);
     }
 
+    /**
+     *
+     * Returns all tiles in a group.
+     * 
+     * @return
+     */
     @Override
     public List<Location> getGroup() {
         return intersection.getTiles();

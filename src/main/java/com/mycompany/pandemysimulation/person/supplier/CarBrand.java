@@ -10,10 +10,34 @@ package com.mycompany.pandemysimulation.person.supplier;
  * @author kacper
  */
 public enum CarBrand {
+
+    /**
+     *
+     */
     VOLVO,
+
+    /**
+     *
+     */
     VW,
+
+    /**
+     *
+     */
     PORSCHE,
+
+    /**
+     *
+     */
     DAEWO,
+
+    /**
+     *
+     */
     FIAT,
+
+    /**
+     *
+     */
     SKODA
 }

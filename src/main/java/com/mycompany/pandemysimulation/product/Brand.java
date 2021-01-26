@@ -10,11 +10,39 @@ package com.mycompany.pandemysimulation.product;
  * @author kacper
  */
 public enum Brand {
+
+    /**
+     *
+     */
     AVON,
+
+    /**
+     *
+     */
     MLEKPOL,
+
+    /**
+     *
+     */
     MLEKOVITA,
+
+    /**
+     *
+     */
     FROSTEX,
+
+    /**
+     *
+     */
     MARIMPEX,
+
+    /**
+     *
+     */
     LAYS,
+
+    /**
+     *
+     */
     SOMBRERRO
 }

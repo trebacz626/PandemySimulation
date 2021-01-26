@@ -13,8 +13,10 @@ import javafx.scene.text.Text;
 
 /**
  * FXML Controller class
+ * A controller for Person View.
  *
  * @author kacper
+ * @param <T>
  */
 public abstract class PersonViewController<T extends Person> extends SimulationObjectViewController<T> {
 
@@ -25,6 +27,9 @@ public abstract class PersonViewController<T extends Person> extends SimulationO
     @FXML
     private Button removeButton;
 
+    /**
+     * Updates view state
+     */
     public void update() {
         super.update();
         if (getSimulationObject() != null) {

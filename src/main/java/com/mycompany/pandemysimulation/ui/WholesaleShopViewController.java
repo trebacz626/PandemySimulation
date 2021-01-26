@@ -13,18 +13,29 @@ import javafx.scene.control.Button;
 
 /**
  *
+ * A controller for Wholesale View
+ * 
  * @author kacper
+ * @param <T>
  */
 public class WholesaleShopViewController<T extends WholesaleShop> extends ShopViewController<T> {
 
     @FXML
     private Button addProduct;
 
+    /**
+     *
+     * @param arg0
+     * @param arg1
+     */
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         getTitleTextField().setText("Wholesale Shop");
     }
 
+    /**
+     *
+     */
     @Override
     public void start() {
         super.start();

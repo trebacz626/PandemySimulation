@@ -10,8 +10,24 @@ package com.mycompany.pandemysimulation.person.supplier;
  * @author kacper
  */
 public enum Company {
+
+    /**
+     *
+     */
     Phizer,
+
+    /**
+     *
+     */
     Biontech,
+
+    /**
+     *
+     */
     Vaccinator3000,
+
+    /**
+     *
+     */
     CoronaBusters
 }

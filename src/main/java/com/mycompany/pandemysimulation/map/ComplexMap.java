@@ -10,10 +10,18 @@ import java.util.Collections;
 
 /**
  *
+ * An implementation of complex map.
+ * 
  * @author kacper
  */
 public class ComplexMap extends MapCreator {
 
+    /**
+     *
+     * Returns a complex map.
+     * 
+     * @return
+     */
     public MapBuilder getMapBuilder() {
         return new MapBuilder(53, 27)
                 .addTwoWayRoadX(2, 45, 0)
@@ -22,7 +30,7 @@ public class ComplexMap extends MapCreator {
                 .addTwoWayRoadY(2, 24, 46)
                 //Left Circle
                 .addTwoWayPavementY(6, 20, 7)
-                .addOnePavement(7, 21, Collections.singletonList(Direction.Righ))
+                .addOnePavement(7, 21, Collections.singletonList(Direction.Right))
                 .addOnePavement(8, 21, Collections.singletonList(Direction.Up))
                 .addOnePavement(7, 5, Collections.singletonList(Direction.Down))
                 .addOnePavement(8, 5, Collections.singletonList(Direction.Left))
@@ -36,10 +44,10 @@ public class ComplexMap extends MapCreator {
                 .addRetailShop(4, 13, "Biedronka", "Spanish 16")
                 .addPavementDirection(4, 13, Direction.Down)
                 //--roads
-                .addRoadDirection(1, 15, Direction.Righ)
-                .addOneRoad(2, 15, Collections.singletonList(Direction.Righ))
+                .addRoadDirection(1, 15, Direction.Right)
+                .addOneRoad(2, 15, Collections.singletonList(Direction.Right))
                 .addRoadY(15, 14, 3)
-                .addOneRoad(3, 13, Collections.singletonList(Direction.Righ))
+                .addOneRoad(3, 13, Collections.singletonList(Direction.Right))
                 .addRoadDirection(4, 13, Direction.Up)
                 .addRoadY(12, 10, 4)
                 .addRoadX(4, 2, 9)
@@ -64,11 +72,11 @@ public class ComplexMap extends MapCreator {
                 .addPavementDirection(4, 20, Direction.Down)
                 .addRoadX(1, 2, 23)
                 .addRoadY(23, 21, 3)
-                .addOneRoad(3, 20, Collections.singletonList(Direction.Righ))
+                .addOneRoad(3, 20, Collections.singletonList(Direction.Right))
                 .addRoadDirection(4, 20, Direction.Up)
                 .addRoadY(19, 18, 4)
                 .addRoadX(4, 2, 17)
-                .addPavementDirection(8, 13, Direction.Righ)
+                .addPavementDirection(8, 13, Direction.Right)
                 .addTwoWayPavementX(9, 35, 12)
                 .addPavementY(9, 15, 11)
                 .addPavementX(11, 30, 16)
@@ -81,7 +89,7 @@ public class ComplexMap extends MapCreator {
                 .addPavementX(12, 14, 18)
                 .addOnePavement(15, 18, Collections.singletonList(Direction.Down))
                 .addRetailShop(15, 19, "Saturn", "MediaMarkt Street 5")
-                .addPavementDirection(15, 19, Direction.Righ)
+                .addPavementDirection(15, 19, Direction.Right)
                 .addPavementY(19, 17, 16)
                 .addRoadY(21, 20, 11)
                 .addRoadX(11, 14, 19)
@@ -93,7 +101,7 @@ public class ComplexMap extends MapCreator {
                 .addPavementX(18, 20, 18)
                 .addOnePavement(21, 18, Collections.singletonList(Direction.Down))
                 .addRetailShop(21, 19, "IStore", "You are too poor 17")
-                .addPavementDirection(21, 19, Direction.Righ)
+                .addPavementDirection(21, 19, Direction.Right)
                 .addPavementY(19, 17, 22)
                 .addRoadY(21, 20, 17)
                 .addRoadX(17, 20, 19)
@@ -105,7 +113,7 @@ public class ComplexMap extends MapCreator {
                 .addPavementX(24, 26, 18)
                 .addOnePavement(27, 18, Collections.singletonList(Direction.Down))
                 .addRetailShop(27, 19, "Gun Shop", "Gun Powder 54")
-                .addPavementDirection(27, 19, Direction.Righ)
+                .addPavementDirection(27, 19, Direction.Right)
                 .addPavementY(19, 17, 28)
                 .addRoadY(21, 20, 23)
                 .addRoadX(23, 26, 19)
@@ -151,7 +159,7 @@ public class ComplexMap extends MapCreator {
                 .addPavementDirection(35, 13, Direction.Up)
                 .addRoadX(33, 34, 14)
                 .addOneRoad(35, 14, Collections.singletonList(Direction.Up))
-                .addRoadDirection(35, 13, Direction.Righ)
+                .addRoadDirection(35, 13, Direction.Right)
                 .addRoadY(13, 12, 36)
                 .addRoadX(36, 34, 11)
                 //

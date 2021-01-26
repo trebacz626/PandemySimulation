@@ -12,10 +12,18 @@ import java.util.stream.Collectors;
 
 /**
  *
+ * Takes care of all data related tasks that a single object cannot handle
+ * 
  * @author kacper
  */
 public class DataManager extends AbstractDataManager {
 
+    /**
+     *
+     * Count number of people and sick people in a conversation
+     * 
+     */
+    @Override
     public void update() {
         List<Person> people = getSimulation().getThreadAgents().stream().filter(ta -> ta instanceof Person).map(ps -> (Person) ps).collect(Collectors.toList());
         List<Person> sickPeople = people.stream().filter(ps -> ps.isSick()).collect(Collectors.toList());

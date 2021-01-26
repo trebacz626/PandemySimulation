@@ -18,12 +18,19 @@ import javafx.application.Platform;
 import javafx.stage.Stage;
 
 /**
- * JavaFX App
+ * JavaFX COVIDSimulation
  */
-public class App extends Application {
+public class COVIDSimulation extends Application {
 
     private Simulation simulation;
 
+    /**
+     *
+     * 
+     * Starts a Pandemy Simulation
+     * @param stage
+     * @throws IOException
+     */
     @Override
     public void start(Stage stage) throws IOException {
         MapBuilder builder = new ComplexMap().getMapBuilder();
@@ -64,6 +71,10 @@ public class App extends Application {
         mainThread.start();
     }
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         launch();
     }
@@ -76,11 +87,11 @@ public class App extends Application {
                 simulation.addSimulationObject(so);
             }
         }
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 100; i++) {
             simulation.addThreadAgent(ClientFactory.createRandomClient(simulation));
         }
 
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 100; i++) {
             simulation.addThreadAgent(SupplierFactory.createRandomSupplier(simulation));
         }
     }

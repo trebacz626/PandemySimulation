@@ -16,8 +16,10 @@ import javafx.scene.text.Text;
 
 /**
  * FXML Controller class
+ * A controller for Simulation Object View Controller
  *
  * @author kacper
+ * @param <T>
  */
 public class SimulationObjectViewController<T extends SimulationObject> implements Initializable {
 
@@ -34,10 +36,20 @@ public class SimulationObjectViewController<T extends SimulationObject> implemen
     private T curSimulationObject;
     private InformationPanel informationPanel;
 
+    /**
+     *
+     * Initial set op of view controller.
+     * 
+     */
     protected void start() {
 
     }
 
+    /**
+     *
+     * Updates view state according to SimulationObject data
+     * 
+     */
     protected void update() {
         if (curSimulationObject != null) {
             posX.setText(String.valueOf((int) curSimulationObject.getxPos()));
@@ -46,39 +58,75 @@ public class SimulationObjectViewController<T extends SimulationObject> implemen
         }
     }
 
+    /**
+     *
+     * @param so
+     */
     protected void setSimulationObject(T so) {
         curSimulationObject = so;
         update();
     }
 
+    /**
+     *
+     * @param simulation
+     */
     protected void setSimulation(Simulation simulation) {
         this.simulation = simulation;
     }
 
+    /**
+     *
+     * @param panel
+     */
     protected void setInformationPanel(InformationPanel panel) {
         this.informationPanel = panel;
     }
 
+    /**
+     *
+     * @return
+     */
     protected T getSimulationObject() {
         return curSimulationObject;
     }
 
+    /**
+     *
+     * @return
+     */
     protected Simulation getSimulation() {
         return simulation;
     }
 
+    /**
+     *
+     * @return
+     */
     protected InformationPanel getInfromationPanel() {
         return informationPanel;
     }
 
+    /**
+     *
+     */
     protected void removeSimulationObject() {
         curSimulationObject = null;
     }
 
+    /**
+     *
+     * @return
+     */
     protected Text getTitleTextField() {
         return title;
     }
 
+    /**
+     *
+     * @param arg0
+     * @param arg1
+     */
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
 

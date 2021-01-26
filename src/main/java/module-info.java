@@ -6,4 +6,5 @@ module com.mycompany.pandemysimulation {
     opens com.mycompany.pandemysimulation to javafx.fxml;
     opens com.mycompany.pandemysimulation.ui to javafx.fxml;
     exports com.mycompany.pandemysimulation;
+    exports com.mycompany.pandemysimulation.core;
 }

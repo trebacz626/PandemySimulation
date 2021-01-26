@@ -8,9 +8,9 @@ package com.mycompany.pandemysimulation.core.data;
 import com.mycompany.pandemysimulation.core.Manager;
 
 /**
- *
+ * An abstract class that user has to extend in order to introduce a data Manager to a Simulation
+ * 
  * @author kacper
  */
 public abstract class AbstractDataManager extends Manager {
-
 }

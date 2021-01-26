@@ -8,7 +8,8 @@ package com.mycompany.pandemysimulation.core.map;
 import com.mycompany.pandemysimulation.core.Manager;
 
 /**
- *
+ * Map Manager class stores map and takes care of organizing map related actions like pathfinding and deadlock detection
+ * 
  * @author kacper
  */
 public abstract class AbstractMapManager extends Manager{
@@ -19,6 +20,12 @@ public abstract class AbstractMapManager extends Manager{
     private DeadlockFinder pedestrianDeadlockFinder;
     private DeadlockFinder roadDeadlockFinder;
     
+    /**
+     *
+     * Class constructor
+     * 
+     * @param map
+     */
     public AbstractMapManager(Map map) {
         this.map = map;
         this.pedestrianPathFinder = new PathFinder(map.getPedestrianDirections(), map.getLocations());
@@ -27,22 +34,42 @@ public abstract class AbstractMapManager extends Manager{
         this.roadDeadlockFinder = new DeadlockFinder(map.getRoadDirections(), map.getLocations());
     }
     
+    /**
+     *
+     * @return returns map
+     */
     public Map getMap() {
         return map;
     }
 
+    /**
+     *
+     * @return returns an instance of PathFinder for agents that are pedestrians 
+     */
     public PathFinder getPedestrianPathFinder() {
         return pedestrianPathFinder;
     }
 
+    /**
+     *
+     * @return returns an instance of PathFinder for agents that move on roads
+     */
     public PathFinder getRoadPathFinder() {
         return roadPathFinder;
     }
 
+    /**
+     *
+     * @return returns an instance of DeadlockFinder for agents that are pedestrians
+     */
     protected DeadlockFinder getPedestrianDeadlockFinder() {
         return pedestrianDeadlockFinder;
     }
 
+    /**
+     *
+     * @return returns an instance of DeadlockFinder for agents that move using roads
+     */
     protected DeadlockFinder getRoadDeadlockFinder() {
         return roadDeadlockFinder;
     }

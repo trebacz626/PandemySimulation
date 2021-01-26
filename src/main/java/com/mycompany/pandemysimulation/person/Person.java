@@ -20,6 +20,8 @@ import java.util.Random;
 
 /**
  *
+ * Person lives in pandemy world travels between shops and infects other people.
+ *
  * @author kacper
  */
 public abstract class Person extends ThreadAgent {
@@ -35,13 +37,25 @@ public abstract class Person extends ThreadAgent {
     private long lastTime;
     private ProductStorage productStorage;
 
-    protected Person(int productStoreCapacity, boolean sick, boolean vaccinated, boolean wearingMask, Location nextLocation, Location currentLocation, double xPos, double yPos, VisibleComponent visibleComponent, PathFinder pathFinder) {
+    /**
+     *
+     * @param productStoreCapacity
+     * @param sick
+     * @param vaccinated
+     * @param wearingMask
+     * @param nextLocation
+     * @param currentLocation
+     * @param xPos
+     * @param yPos
+     * @param visibleComponent
+     * @param pathFinder
+     */
+    protected Person(int productStoreCapacity, boolean sick, boolean vaccinated, boolean wearingMask, Location currentLocation, double xPos, double yPos, VisibleComponent visibleComponent, PathFinder pathFinder) {
         super(xPos, yPos, visibleComponent);
         this.sick = sick;
         this.shopsVisitedWhileSick = 0;
         this.vaccinated = vaccinated;
         this.wearingMask = wearingMask;
-        this.nextLocation = nextLocation;
         this.currentLocation = currentLocation;
         this.pathFinder = pathFinder;
         this.productStorage = new ProductStorage(productStoreCapacity);
@@ -49,6 +63,13 @@ public abstract class Person extends ThreadAgent {
 
     protected abstract Shop generateNextGoal();
 
+    /**
+     *
+     * On start client enters his current location.
+     *
+     * @return
+     */
+    @Override
     protected boolean start() {
         try {
             currentLocation.enter(this);
@@ -65,6 +86,8 @@ public abstract class Person extends ThreadAgent {
     }
 
     /**
+     * Each time a person selects next shop he is going to go to, travels to it
+     * on predefined path and processes it in his own way.
      *
      * @return
      */
@@ -79,13 +102,13 @@ public abstract class Person extends ThreadAgent {
             if (currentLocation != null) {
                 try {
                     currentLocation.leave(this);
-                } catch (Exception e2) {
+                } catch (IllegalMonitorStateException e2) {
                 }
             }
             if (nextLocation != null) {
                 try {
                     nextLocation.leave(this);
-                } catch (Exception e2) {
+                } catch (IllegalMonitorStateException e2) {
                 }
             }
             return false;
@@ -93,8 +116,22 @@ public abstract class Person extends ThreadAgent {
         return true;
     }
 
+    /**
+     *
+     * Actions that persons permorms after entering the shop.
+     * 
+     * @param shop
+     * @throws InterruptedException
+     */
     protected abstract void processShop(Shop shop) throws InterruptedException;
 
+    /**
+     *
+     * Gets a path to a given shop, and travels to it on a predefined path.
+     * 
+     * @param goal
+     * @throws InterruptedException
+     */
     protected void goToShop(Shop goal) throws InterruptedException {
         List<Location> path = searchForPath(goal);
         for (Location next : path) {
@@ -107,19 +144,22 @@ public abstract class Person extends ThreadAgent {
         }
         if (sick) {
             shopsVisitedWhileSick++;
-            if (shopsVisitedWhileSick > getSimulation().getWorldData().getShopVisitedWhileSick()) {
+            if (shopsVisitedWhileSick > getSimulation().getWorldData().getLocationsVisitedWhileSick()) {
                 sick = false;
             }
         }
     }
 
+    /**
+     *  Actions performed when client moves.
+     */
     protected void onMoved() {
     }
 
-    protected void transfer() throws InterruptedException {
+    private void transfer() throws InterruptedException {
         long lastTime = System.currentTimeMillis();
-        double targetX = Coordinates.mapToWorld(nextLocation.getIdX());
-        double targetY = Coordinates.mapToWorld(nextLocation.getIdY());
+        double targetX = Coordinates.mapToWorld(nextLocation.getCoordX());
+        double targetY = Coordinates.mapToWorld(nextLocation.getCoordY());
         double speed = 100;
         while (Math.abs(getxPos() - targetX) > 2 || Math.abs(getyPos() - targetY) > 2) {
             long curTime = System.currentTimeMillis();
@@ -143,7 +183,7 @@ public abstract class Person extends ThreadAgent {
     }
 
     private List<Location> searchForPath(Location to) {
-        return this.pathFinder.findPath(currentLocation.getIdX(), currentLocation.getIdY(), to.getIdX(), to.getIdY());
+        return this.pathFinder.findPath(currentLocation.getCoordX(), currentLocation.getCoordY(), to.getCoordX(), to.getCoordY());
     }
 
     private void passDisease() {
@@ -164,6 +204,11 @@ public abstract class Person extends ThreadAgent {
         }
     }
 
+    /**
+     *
+     * Infects Person.
+     * 
+     */
     protected void infect() {
         if (new Random().nextDouble() < getIngoingTransmissionModifiers()) {
             this.sick = true;
@@ -171,6 +216,12 @@ public abstract class Person extends ThreadAgent {
         }
     }
 
+    /**
+     *
+     * Returns transfer modifier that influence transmission change coming to person.
+     * 
+     * @return
+     */
     protected double getIngoingTransmissionModifiers() {
         double base = 1.0;
         if (isVaccinated()) {
@@ -182,6 +233,12 @@ public abstract class Person extends ThreadAgent {
         return base;
     }
 
+    /**
+     *
+     * Returns transfer modifier that influence transmission change coming from person.
+     * 
+     * @return
+     */
     protected double getOutgoingTransmissionModifiers() {
         double base = 1.0;
         if (isWearingMask()) {
@@ -190,18 +247,39 @@ public abstract class Person extends ThreadAgent {
         return base;
     }
 
+    /**
+     *
+     * Returns a random retail shop from simulation that is different than current.
+     * 
+     * @param current current shop
+     * @return
+     */
     protected RetailShop getRandomRetailShop(Shop current) {
         Shop shop;
         while (!((shop = getRandomShop(current)) instanceof RetailShop));
         return (RetailShop) shop;
     }
 
+    /**
+     *
+     * Returns a random Wholesale Shop from simulation.
+     * 
+     * @param current
+     * @return
+     */
     protected WholesaleShop getRandomWholesaleShop(Shop current) {
         Shop shop;
         while (!((shop = getRandomShop(current)) instanceof WholesaleShop));
         return (WholesaleShop) shop;
     }
 
+    /**
+     *
+     * Returns a random Shop from simulation.
+     * 
+     * @param current
+     * @return
+     */
     protected Shop getRandomShop(Shop current) {
         List<MainLoopAgent> agents = getSimulation().getMainLoopAgents();
         MainLoopAgent agent;
@@ -212,42 +290,82 @@ public abstract class Person extends ThreadAgent {
         return (Shop) agent;
     }
 
+    /**
+     * 
+     * @return
+     */
     protected ProductStorage getProductStorage() {
         return productStorage;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isSick() {
         return sick;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isVaccinated() {
         return vaccinated;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isWearingMask() {
         return wearingMask;
     }
 
+    /**
+     *
+     * @return
+     */
     public Location getNextLocation() {
         return nextLocation;
     }
 
+    /**
+     *
+     * @return
+     */
     public Location getCurrentLocation() {
         return currentLocation;
     }
 
+    /**
+     *
+     * @param sick
+     */
     public void setSick(boolean sick) {
         this.sick = sick;
     }
 
+    /**
+     *
+     * @param vaccinated
+     */
     public void setVaccinated(boolean vaccinated) {
         this.vaccinated = vaccinated;
     }
 
+    /**
+     *
+     * @return
+     */
     public Shop getCurrentShop() {
         return currentShop;
     }
 
+    /**
+     *
+     * @return
+     */
     public PathFinder getPathFinder() {
         return pathFinder;
     }

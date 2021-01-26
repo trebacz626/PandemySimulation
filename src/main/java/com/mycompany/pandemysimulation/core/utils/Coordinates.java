@@ -7,30 +7,50 @@ package com.mycompany.pandemysimulation.core.utils;
 
 /**
  *
+ * Class that helps calculating coordinates from map to World and from World to  UI
+ * 
  * @author kacper
  */
 public final class Coordinates {
-    public static final int mapTileSize = 30;
+
+    /**
+     * Size of 1 square on map in real world coordinates
+     *
+     */
+    public static final int mapUnitSize = 30;
     private Coordinates(){
     }
     
+    /**
+     *
+     * converts World coordinate X to UI coordinate X
+     * 
+     * @param x world coordinate x
+     * @return
+     */
     public static double toUIX(double x){
         return x;
     }
     
+    /**
+     *
+     * converts World coordinate Y to UI coordinate Y
+     * 
+     * @param y world coordinate y
+     * @return
+     */
     public static double toUIY(double y){
         return y;
     }
     
-    public static double toWorldX(double x){
-        return x;
-    }
-    
-    public static double toWorldY(double y){
-        return y;
-    }
-    
-    public static double mapToWorld(double idX){
-        return mapTileSize/2 + mapTileSize*idX;
+    /**
+     *
+     * Converts Map coordinate to world coordinate
+     * 
+     * @param coordX
+     * @return
+     */
+    public static double mapToWorld(double coordX){
+        return mapUnitSize/2 + mapUnitSize*coordX;
     }
 }

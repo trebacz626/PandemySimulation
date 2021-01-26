@@ -34,12 +34,12 @@ class Node {
         return children;
     }
 
-    protected int getIdx() {
-        return locations.stream().map(location -> location.getIdX()).min(Integer::compare).orElseThrow();
+    protected int getCoordX() {
+        return locations.stream().map(location -> location.getCoordX()).min(Integer::compare).orElseThrow();
     }
 
-    protected int getIdy() {
-        return locations.stream().map(location -> location.getIdY()).min(Integer::compare).orElseThrow();
+    protected int getCoordY() {
+        return locations.stream().map(location -> location.getCoordY()).min(Integer::compare).orElseThrow();
     }
 
     protected void setChildren(List<Location> children) {

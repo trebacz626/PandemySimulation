@@ -13,8 +13,10 @@ import javafx.scene.text.Text;
 
 /**
  * FXML Controller class
+ * A controller for Client View
  *
  * @author kacper
+ * @param <T>
  */
 public class ClientViewController< T extends Client> extends PersonViewController<T> {
 
@@ -27,11 +29,19 @@ public class ClientViewController< T extends Client> extends PersonViewControlle
     @FXML
     private Text pesel;
 
+    /**
+     *
+     * @param url
+     * @param rb
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         getTitleTextField().setText("Client");
     }
 
+    /**
+     * updates view state
+     */
     public void update() {
         super.update();
         if (getSimulationObject() != null) {
