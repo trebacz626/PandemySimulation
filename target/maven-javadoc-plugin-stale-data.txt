@@ -1,0 +1,113 @@
+/usr/lib/jvm/java-11-openjdk-amd64/bin/javadoc
+@options
+@packages
+@argfile
+--class-path
+'/home/kacper/.m2/repository/org/openjfx/javafx-controls/13/javafx-controls-13.jar:/home/kacper/.m2/repository/org/openjfx/javafx-graphics/13/javafx-graphics-13.jar:/home/kacper/.m2/repository/org/openjfx/javafx-base/13/javafx-base-13.jar:/home/kacper/.m2/repository/org/openjfx/javafx-fxml/13/javafx-fxml-13.jar'
+--module-path
+'/home/kacper/.m2/repository/org/openjfx/javafx-controls/13/javafx-controls-13-linux.jar:/home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/target/PandemySimulation-1.0-SNAPSHOT.jar:/home/kacper/.m2/repository/org/openjfx/javafx-base/13/javafx-base-13-linux.jar:/home/kacper/.m2/repository/org/openjfx/javafx-fxml/13/javafx-fxml-13-linux.jar:/home/kacper/.m2/repository/org/openjfx/javafx-graphics/13/javafx-graphics-13-linux.jar'
+--patch-module
+com.mycompany.pandemysimulation='/home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java:/home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/target/generated-sources/annotations'
+-encoding
+'UTF-8'
+-protected
+--module-source-path
+'/home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/target/apidocs/src'
+-author
+-bottom
+'Copyright &#169; 2021. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'/home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/target/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'PandemySimulation 1.0-SNAPSHOT API'
+-linkoffline
+'https://docs.oracle.com/en/java/javase/11/docs/api' '/home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/target/javadoc-bundle-options'
+-use
+-version
+-windowtitle
+'PandemySimulation 1.0-SNAPSHOT API'
+com.mycompany.pandemysimulation.map
+com.mycompany.pandemysimulation.map
+com.mycompany.pandemysimulation.map.tile
+com.mycompany.pandemysimulation.map.tile
+com.mycompany.pandemysimulation.map.tile
+com.mycompany.pandemysimulation.map.tile
+com.mycompany.pandemysimulation.map
+com.mycompany.pandemysimulation.map
+com.mycompany.pandemysimulation.shop.wholesaleshop
+com.mycompany.pandemysimulation.shop.wholesaleshop
+com.mycompany.pandemysimulation.shop.retailshop
+com.mycompany.pandemysimulation.shop.retailshop
+com.mycompany.pandemysimulation.shop
+com.mycompany.pandemysimulation.shop
+com.mycompany.pandemysimulation.data
+com.mycompany.pandemysimulation.ui
+com.mycompany.pandemysimulation.ui
+com.mycompany.pandemysimulation.ui
+com.mycompany.pandemysimulation.ui
+com.mycompany.pandemysimulation.ui
+com.mycompany.pandemysimulation.ui
+com.mycompany.pandemysimulation.ui
+com.mycompany.pandemysimulation.ui
+com.mycompany.pandemysimulation.ui
+com.mycompany.pandemysimulation.ui
+com.mycompany.pandemysimulation
+com.mycompany.pandemysimulation.person
+com.mycompany.pandemysimulation.person
+com.mycompany.pandemysimulation.person.supplier
+com.mycompany.pandemysimulation.person.supplier
+com.mycompany.pandemysimulation.person.supplier
+com.mycompany.pandemysimulation.person.supplier
+com.mycompany.pandemysimulation.person.client
+com.mycompany.pandemysimulation.person.client
+com.mycompany.pandemysimulation.product
+com.mycompany.pandemysimulation.product
+com.mycompany.pandemysimulation.product
+com.mycompany.pandemysimulation.core.map
+com.mycompany.pandemysimulation.core.map
+com.mycompany.pandemysimulation.core.map
+com.mycompany.pandemysimulation.core.map
+com.mycompany.pandemysimulation.core.map
+com.mycompany.pandemysimulation.core.map
+com.mycompany.pandemysimulation.core.map
+com.mycompany.pandemysimulation.core.data
+com.mycompany.pandemysimulation.core.data
+com.mycompany.pandemysimulation.core
+com.mycompany.pandemysimulation.core.ui
+com.mycompany.pandemysimulation.core.ui
+com.mycompany.pandemysimulation.core.ui
+com.mycompany.pandemysimulation.core
+com.mycompany.pandemysimulation.core
+com.mycompany.pandemysimulation.core
+com.mycompany.pandemysimulation.core
+com.mycompany.pandemysimulation.core
+com.mycompany.pandemysimulation.core.utils
+com.mycompany.pandemysimulation.core.utils
+com.mycompany.pandemysimulation.core
+com.mycompany.pandemysimulation.sync
+'/home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/src/main/java/module-info.java'
+/home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/target/apidocs/allclasses.html = 1611660898241
+/home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/target/apidocs/allclasses-index.html = 1611660898229
+/home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/target/apidocs/help-doc.html = 1611660898245
+/home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/target/apidocs/stylesheet.css = 1611660898245
+/home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/target/apidocs/package-search-index.zip = 1611660898217
+/home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/target/apidocs/module-search-index.js = 1611660898213
+/home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/target/apidocs/package-search-index.js = 1611660898213
+/home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/target/apidocs/index.html = 1611660898241
+/home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/target/apidocs/constant-values.html = 1611660897965
+/home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/target/apidocs/index-all.html = 1611660898221
+/home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/target/apidocs/member-search-index.js = 1611660898217
+/home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/target/apidocs/type-search-index.zip = 1611660898217
+/home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/target/apidocs/overview-tree.html = 1611660898173
+/home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/target/apidocs/script.js = 1611660898245
+/home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/target/apidocs/allpackages-index.html = 1611660898233
+/home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/target/apidocs/element-list = 1611660897877
+/home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/target/apidocs/deprecated-list.html = 1611660898237
+/home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/target/apidocs/module-search-index.zip = 1611660898213
+/home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/target/apidocs/search.js = 1611660898245
+/home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/target/apidocs/member-search-index.zip = 1611660898217
+/home/kacper/Documents/study/AI-PP/OP/Java/PandemySimulation/target/apidocs/type-search-index.js = 1611660898217

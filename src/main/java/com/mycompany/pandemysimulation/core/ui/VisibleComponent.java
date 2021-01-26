@@ -44,26 +44,6 @@ public class VisibleComponent extends AbstractVisibleComponent implements EventH
         this.sizeX = sizeX;
         this.sizeY = sizeY;
     }
-    
-//        public VisibleComponent(String imageName, int sizeX, int sizeY, String informationPanelName){
-//        image = new Image(App.class.getResource("image/"+imageName).toString(), sizeX, sizeY, false, false);
-//        imageView = new ImageView(image);
-//        imageView.setFitHeight(sizeX);
-//        imageView.setFitWidth(sizeY);
-//        this.informationPanelName = informationPanelName;
-//        this.sizeX = sizeX;
-//        this.sizeY = sizeY;
-//    }
-    
-//    public VisibleComponent(String imageName, int sizeX, int sizeY){
-//        image = new Image(App.class.getResource("image/"+imageName).toString(), sizeX, sizeY, false, false);
-//        imageView = new ImageView(image);
-//        imageView.setFitHeight(sizeX);
-//        imageView.setFitWidth(sizeY);
-//        this.informationPanelName = "simulationObjectView";
-//        this.sizeX = sizeX;
-//        this.sizeY = sizeY;
-//    }
 
     /**
      *
