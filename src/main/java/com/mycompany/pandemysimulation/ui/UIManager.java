@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.mycompany.pandemysimulation.ui;
 
-import com.mycompany.pandemysimulation.COVIDSimulation;
-import com.mycompany.pandemysimulation.core.Simulation;
 import com.mycompany.pandemysimulation.core.SimulationObject;
 import com.mycompany.pandemysimulation.core.ui.AbstractUIManager;
 import com.mycompany.pandemysimulation.core.ui.VisibleComponent;
@@ -15,6 +9,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
@@ -24,25 +19,25 @@ import javafx.stage.Stage;
  * @author kacper
  */
 public class UIManager extends AbstractUIManager {
-
+    
+    
+    /**
+     * Loads an image from resources folder
+     * @param imageName
+     * @param sizeX
+     * @param sizeY
+     * @return 
+     */
+    public static Image loadImage(String imageName, int sizeX, int sizeY) {
+        return new Image(UIManager.class.getResource("image/" + imageName).toString(), sizeX, sizeY, false, false);
+    }
+    
     /**
      *
      * @param fxml
      * @return
      */
     protected static FXMLLoader getFXMLLoader(String fxml) {
-//        try{
-//            URL localPackage = UIManager.class.getResource("");
-//    URL urlLoader = UIManager.class.getProtectionDomain().getCodeSource().getLocation();
-//    String localDir = localPackage.getPath();
-//    String loaderDir = urlLoader.getPath();
-//    System.out.printf("loaderDir = %s\n localDir = %s\n", loaderDir, localDir);
-//        }catch(Exception e){
-//            e.printStackTrace();
-//            System.err.println("eeeee");
-//        }; 
-//        
-//        return new FXMLLoader(UIManager.class.getClassLoader().getResource("target/classes/com/mycompany/pandemysimulation/fxml/"+fxml + ".fxml"));
         return new FXMLLoader(UIManager.class.getResource("fxml/" + fxml + ".fxml"));
     }
 
@@ -70,6 +65,7 @@ public class UIManager extends AbstractUIManager {
      * 
      * @throws IOException
      */
+    @Override
     public void start() throws IOException {
         FXMLLoader loader = getFXMLLoader("mapPanel");
         Parent root = loader.load();
@@ -103,6 +99,7 @@ public class UIManager extends AbstractUIManager {
      * Updates UI state
      * 
      */
+    @Override
     public void update() {
         this.mapPanelController.draw();
         this.informationPanel.update();

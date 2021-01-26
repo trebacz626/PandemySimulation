@@ -41,6 +41,7 @@ public class IntersectionTile extends Tile {
      * @param threadAgent
      * @throws InterruptedException
      */
+    @Override
     public void enter(ThreadAgent threadAgent) throws InterruptedException {
         intersection.enter(threadAgent);
         super.enter(threadAgent);
@@ -52,6 +53,7 @@ public class IntersectionTile extends Tile {
      * 
      * @param threadAgent
      */
+    @Override
     public void leave(ThreadAgent threadAgent) {
         intersection.leave(threadAgent);
         super.leave(threadAgent);

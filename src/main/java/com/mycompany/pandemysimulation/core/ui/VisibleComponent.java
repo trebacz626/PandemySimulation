@@ -107,6 +107,7 @@ public class VisibleComponent extends AbstractVisibleComponent implements EventH
     /**
      *  Method that updates VisibleComponent using information from its SimulationObject
      */
+    @Override
     public void update(){
         this.imageView.setLayoutX(Coordinates.toUIX(getSimulationObject().getxPos()) - this.sizeX/2);
         this.imageView.setLayoutY(Coordinates.toUIY(getSimulationObject().getyPos()) - this.sizeY/2);

@@ -44,7 +44,6 @@ com/mycompany/pandemysimulation/core/MainLoopAgent.class
 com/mycompany/pandemysimulation/ui/MapPanelController.class
 com/mycompany/pandemysimulation/map/MapCreator.class
 com/mycompany/pandemysimulation/core/ui/VisibleComponent.class
-com/mycompany/pandemysimulation/ui/ImageLoader.class
 com/mycompany/pandemysimulation/person/client/ClientFactory.class
 com/mycompany/pandemysimulation/shop/SynchronizedStoreStorage.class
 com/mycompany/pandemysimulation/core/DateKeeper.class

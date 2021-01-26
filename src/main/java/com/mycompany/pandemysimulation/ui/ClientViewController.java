@@ -42,6 +42,7 @@ public class ClientViewController< T extends Client> extends PersonViewControlle
     /**
      * updates view state
      */
+    @Override
     public void update() {
         super.update();
         if (getSimulationObject() != null) {

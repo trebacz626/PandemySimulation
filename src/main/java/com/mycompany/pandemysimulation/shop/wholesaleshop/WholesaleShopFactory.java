@@ -5,11 +5,10 @@
  */
 package com.mycompany.pandemysimulation.shop.wholesaleshop;
 
-import com.mycompany.pandemysimulation.COVIDSimulation;
 import com.mycompany.pandemysimulation.core.ui.VisibleComponent;
 import com.mycompany.pandemysimulation.core.utils.Coordinates;
+import com.mycompany.pandemysimulation.ui.UIManager;
 import java.util.Random;
-import javafx.scene.image.Image;
 
 /**
  *
@@ -43,7 +42,7 @@ public final class WholesaleShopFactory {
      * @return
      */
     public static WholesaleShop createWholesaleShop(String name, String address, int xPos, int yPos, String imageName){
-        VisibleComponent vc = new VisibleComponent(new Image(COVIDSimulation.class.getResource("image/"+imageName).toString(),Coordinates.mapUnitSize,Coordinates.mapUnitSize,false,false), Coordinates.mapUnitSize, Coordinates.mapUnitSize, "wholesaleShopView");
+        VisibleComponent vc = new VisibleComponent(UIManager.loadImage(imageName, Coordinates.mapUnitSize, Coordinates.mapUnitSize), Coordinates.mapUnitSize, Coordinates.mapUnitSize, "wholesaleShopView");
         return new WholesaleShop(name, address, getMaxClients(), getMaxProducts(), xPos, yPos, vc);
     }
 }

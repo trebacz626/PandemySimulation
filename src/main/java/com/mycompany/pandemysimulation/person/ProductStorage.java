@@ -7,7 +7,6 @@ package com.mycompany.pandemysimulation.person;
 
 import com.mycompany.pandemysimulation.product.Product;
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  *

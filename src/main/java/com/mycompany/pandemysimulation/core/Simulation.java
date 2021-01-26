@@ -5,8 +5,8 @@
  */
 package com.mycompany.pandemysimulation.core;
 
-import com.mycompany.pandemysimulation.core.data.WorldData;
 import com.mycompany.pandemysimulation.core.data.AbstractDataManager;
+import com.mycompany.pandemysimulation.core.data.WorldData;
 import com.mycompany.pandemysimulation.core.map.AbstractMapManager;
 import com.mycompany.pandemysimulation.core.ui.AbstractUIManager;
 import java.io.IOException;

@@ -9,7 +9,6 @@ import com.mycompany.pandemysimulation.core.map.Location;
 import com.mycompany.pandemysimulation.core.map.PathFinder;
 import com.mycompany.pandemysimulation.core.ui.VisibleComponent;
 import com.mycompany.pandemysimulation.person.Person;
-import com.mycompany.pandemysimulation.person.ProductStorage;
 import com.mycompany.pandemysimulation.product.Product;
 import com.mycompany.pandemysimulation.shop.Shop;
 import java.util.Random;

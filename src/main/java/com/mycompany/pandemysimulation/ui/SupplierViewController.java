@@ -58,6 +58,7 @@ public class SupplierViewController<T extends Supplier> extends PersonViewContro
      * Sets view state on start.
      * 
      */
+    @Override
     public void start() {
         List<String> shopIds = getSimulationObject().getRoute().stream().map(shop -> String.valueOf(shop.getUniqueId())).collect(Collectors.toList());
         route.setText(String.join(",", shopIds));
@@ -66,6 +67,7 @@ public class SupplierViewController<T extends Supplier> extends PersonViewContro
     /**
      * Updates view state
      */
+    @Override
     public void update() {
         super.update();
         if (getSimulationObject() != null) {

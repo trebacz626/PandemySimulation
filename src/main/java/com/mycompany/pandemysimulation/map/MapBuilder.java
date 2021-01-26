@@ -9,7 +9,6 @@ import com.mycompany.pandemysimulation.map.tile.Tile;
 import com.mycompany.pandemysimulation.map.tile.IntersectionTile;
 import com.mycompany.pandemysimulation.map.tile.TileType;
 import com.mycompany.pandemysimulation.map.tile.Intersection;
-import com.mycompany.pandemysimulation.COVIDSimulation;
 import com.mycompany.pandemysimulation.core.SimulationObject;
 import com.mycompany.pandemysimulation.core.map.Direction;
 import com.mycompany.pandemysimulation.core.map.Location;
@@ -21,10 +20,10 @@ import com.mycompany.pandemysimulation.shop.retailshop.RetailShop;
 import com.mycompany.pandemysimulation.shop.retailshop.RetailShopFactory;
 import com.mycompany.pandemysimulation.shop.wholesaleshop.WholesaleShop;
 import com.mycompany.pandemysimulation.shop.wholesaleshop.WholesaleShopFactory;
+import com.mycompany.pandemysimulation.ui.UIManager;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import javafx.scene.image.Image;
 
 /**
  *
@@ -172,7 +171,7 @@ public class MapBuilder {
     public MapBuilder add2x2PavementIntersection(int x1, int y1) {
         int x2 = x1 + 1;
         int y2 = y1 + 1;
-        Intersection intersection = new Intersection(Coordinates.mapToWorld((x1 + x2) / 2), Coordinates.mapToWorld((y1 + y2) / 2), new VisibleComponent(new Image(COVIDSimulation.class.getResource("image/" + "stoplight.jpg").toString(), sizeX, sizeY, false, false), 10, 10));
+        Intersection intersection = new Intersection(Coordinates.mapToWorld((x1 + x2) / 2), Coordinates.mapToWorld((y1 + y2) / 2), new VisibleComponent(UIManager.loadImage("stoplight.jpg", 10, 10), 10, 10));
         intersections.add(intersection);
         for (int y = y1; y <= y2; y++) {
             for (int x = x1; x <= x2; x++) {
@@ -335,7 +334,7 @@ public class MapBuilder {
     public MapBuilder add2x2RoadIntersection(int x1, int y1) {
         int x2 = x1 + 1;
         int y2 = y1 + 1;
-        Intersection intersection = new Intersection(Coordinates.mapToWorld((x1 + x2) / 2), Coordinates.mapToWorld((y1 + y2) / 2), new VisibleComponent(new Image(COVIDSimulation.class.getResource("image/" + "stoplight.jpg").toString(), sizeX, sizeY, false, false), 10, 10));
+        Intersection intersection = new Intersection(Coordinates.mapToWorld((x1 + x2) / 2), Coordinates.mapToWorld((y1 + y2) / 2), new VisibleComponent(UIManager.loadImage("stoplight.jpg", 10, 10), 10, 10));
         intersections.add(intersection);
         for (int y = y1; y <= y2; y++) {
             for (int x = x1; x <= x2; x++) {

@@ -1,12 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.mycompany.pandemysimulation.ui;
 
 import com.mycompany.pandemysimulation.person.Person;
-import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
@@ -30,6 +25,7 @@ public abstract class PersonViewController<T extends Person> extends SimulationO
     /**
      * Updates view state
      */
+    @Override
     public void update() {
         super.update();
         if (getSimulationObject() != null) {

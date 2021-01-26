@@ -5,15 +5,14 @@
  */
 package com.mycompany.pandemysimulation.person.supplier;
 
-import com.mycompany.pandemysimulation.COVIDSimulation;
 import com.mycompany.pandemysimulation.core.Simulation;
 import com.mycompany.pandemysimulation.core.map.Location;
 import com.mycompany.pandemysimulation.core.map.PathFinder;
 import com.mycompany.pandemysimulation.core.ui.VisibleComponent;
 import com.mycompany.pandemysimulation.core.utils.Coordinates;
 import com.mycompany.pandemysimulation.core.utils.Utils;
+import com.mycompany.pandemysimulation.ui.UIManager;
 import java.util.Random;
-import javafx.scene.image.Image;
 
 /**
  *
@@ -38,7 +37,7 @@ public final class SupplierFactory {
         Location currentLocation = simulation.getMapManager().getMap().getSpawnPointRoad();
         PathFinder pathFinder = simulation.getMapManager().getRoadPathFinder();
         String imageName = Utils.getRandomFromArray(imageNames);
-        VisibleComponent vc = new VisibleComponent(new Image(COVIDSimulation.class.getResource("image/" + imageName).toString(), Coordinates.mapUnitSize, Coordinates.mapUnitSize, false, false), 20, 20, "supplierView");
+        VisibleComponent vc = new VisibleComponent(UIManager.loadImage(imageName, Coordinates.mapUnitSize, Coordinates.mapUnitSize), 20, 20, "supplierView");
         Company comp = Utils.getRandomFromArray(Company.values());
         CarBrand brand = Utils.getRandomFromArray(CarBrand.values());
         int trunkCapacity = new Random().nextInt(20) + 10;

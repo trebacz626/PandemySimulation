@@ -1,16 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.mycompany.pandemysimulation.map.tile;
 
-import com.mycompany.pandemysimulation.COVIDSimulation;
 import com.mycompany.pandemysimulation.core.SimulationObject;
 import com.mycompany.pandemysimulation.core.ThreadAgent;
 import com.mycompany.pandemysimulation.core.map.Location;
 import com.mycompany.pandemysimulation.core.ui.VisibleComponent;
 import com.mycompany.pandemysimulation.core.utils.Coordinates;
+import com.mycompany.pandemysimulation.ui.UIManager;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
@@ -24,9 +20,9 @@ import javafx.scene.image.Image;
  */
 public class Tile extends SimulationObject implements Location {
 
-    private static Image pavementImage = new Image(COVIDSimulation.class.getResource("image/" + "pavement.jpg").toString(), Coordinates.mapUnitSize, Coordinates.mapUnitSize, false, false);
-    private static Image asphaltImage = new Image(COVIDSimulation.class.getResource("image/" + "asphalt.png").toString(), Coordinates.mapUnitSize, Coordinates.mapUnitSize, false, false);
-    private static Image yellowGrassImage = new Image(COVIDSimulation.class.getResource("image/" + "yellow_grass.jpg").toString(), Coordinates.mapUnitSize, Coordinates.mapUnitSize, false, false);
+    private static Image pavementImage = UIManager.loadImage("pavement.jpg", Coordinates.mapUnitSize, Coordinates.mapUnitSize);
+    private static Image asphaltImage = UIManager.loadImage("asphalt.png", Coordinates.mapUnitSize, Coordinates.mapUnitSize);
+    private static Image yellowGrassImage = UIManager.loadImage("yellow_grass.jpg", Coordinates.mapUnitSize, Coordinates.mapUnitSize);
 
     private static VisibleComponent getVisibleComponent(TileType tileType) {
         Image image;
@@ -91,6 +87,7 @@ public class Tile extends SimulationObject implements Location {
      * 
      * @return
      */
+    @Override
     public int getCoordX() {
         return coordX;
     }
@@ -101,6 +98,7 @@ public class Tile extends SimulationObject implements Location {
      * 
      * @return
      */
+    @Override
     public int getCoordY() {
         return coordY;
     }

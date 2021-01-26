@@ -99,6 +99,7 @@ public abstract class Shop extends MainLoopAgent implements Location {
      * Start setuo method
      * @return
      */
+    @Override
     protected boolean start() {
         this.lastCheckDate = getSimulation().getCurrentDate();
         return true;

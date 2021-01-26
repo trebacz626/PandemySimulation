@@ -5,12 +5,11 @@
  */
 package com.mycompany.pandemysimulation.shop.retailshop;
 
-import com.mycompany.pandemysimulation.COVIDSimulation;
 import com.mycompany.pandemysimulation.core.ui.VisibleComponent;
 import com.mycompany.pandemysimulation.core.utils.Coordinates;
+import com.mycompany.pandemysimulation.ui.UIManager;
 import java.util.Date;
 import java.util.Random;
-import javafx.scene.image.Image;
 
 /**
  *
@@ -38,7 +37,7 @@ public class RetailShopFactory {
      * @return
      */
     public static RetailShop createRetailShop(String name, String address, int xPos, int yPos, String imageName){
-        VisibleComponent vc = new VisibleComponent(new Image(COVIDSimulation.class.getResource("image/"+imageName).toString(),Coordinates.mapUnitSize,Coordinates.mapUnitSize,false,false), Coordinates.mapUnitSize, Coordinates.mapUnitSize,"shopView");
+        VisibleComponent vc = new VisibleComponent(UIManager.loadImage(imageName, Coordinates.mapUnitSize, Coordinates.mapUnitSize), Coordinates.mapUnitSize, Coordinates.mapUnitSize,"shopView");
         int expiredSalePeriod = 7;
         return new RetailShop(expiredSalePeriod,10, new Date(),name, address, getMaxClients(), getMaxProducts(), xPos, yPos, vc);
     }

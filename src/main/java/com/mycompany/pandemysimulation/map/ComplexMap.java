@@ -22,6 +22,7 @@ public class ComplexMap extends MapCreator {
      * 
      * @return
      */
+    @Override
     public MapBuilder getMapBuilder() {
         return new MapBuilder(53, 27)
                 .addTwoWayRoadX(2, 45, 0)

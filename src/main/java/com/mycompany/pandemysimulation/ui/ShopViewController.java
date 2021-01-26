@@ -37,6 +37,7 @@ public class ShopViewController<T extends Shop> extends SimulationObjectViewCont
     /**
      * Updates view state
      */
+    @Override
     public void update() {
         super.update();
         shopId.setText(String.valueOf(getSimulationObject().getUniqueId()));

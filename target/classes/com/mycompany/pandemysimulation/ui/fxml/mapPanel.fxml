@@ -7,13 +7,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="900" prefWidth="1600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.pandemysimulation.ui.MapPanelController">
+<AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="810" prefWidth="1590" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.pandemysimulation.ui.MapPanelController">
    <children>
-      <ImageView fx:id="background" fitHeight="900" fitWidth="1600" pickOnBounds="true">
+      <ImageView fx:id="background" fitHeight="810" fitWidth="1590" pickOnBounds="true">
          <image>
             <Image url="@../image/Elite.jpg" />
          </image>
       </ImageView>
-      <AnchorPane fx:id="layer1" prefHeight="900" prefWidth="1600" />
+      <AnchorPane fx:id="layer1" prefHeight="810" prefWidth="1590" />
    </children>
 </AnchorPane>
